@@ -68,19 +68,19 @@ it to =;=.
       "b" 'switch-to-buffer))
   (eval-after-load "helm"
     (evil-leader/set-key
-      "f" 'helm-for-files
+      "F" 'helm-for-files
       "l" 'helm-locate
       "c" 'helm-colors
       "y" 'helm-show-kill-ring
       "t" 'helm-top
       "m" 'helm-man-woman
-      "j" 'helm-M-x
-      "e" 'helm-find-files
+      "x" 'helm-M-x
+      "f" 'helm-find-files
       "b" 'helm-buffers-list))
   (eval-after-load "expand-region"
     (progn
       (setq expand-region-contract-fast-key "z")
-      (evil-leader/set-key "xx" 'er/expand-region)))
+      (evil-leader/set-key "X" 'er/expand-region)))
   (eval-after-load "magit"
     (evil-leader/set-key "g" 'magit-status))
   (eval-after-load "git-gutter-mode"
@@ -187,4 +187,3 @@ serveral months and it's amazing.
 (when (executable-find "ag")
   (bmaas/install 'ag 'bmaas/noop))
 #+END_SRC
-
