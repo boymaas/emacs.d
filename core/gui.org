@@ -105,7 +105,7 @@ oh-my-emacs.
 #+NAME: color-theme
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/solarized-theme-setup ()
-  (load-theme 'solarized-light t))
+  (load-theme 'solarized-dark t))
 
 (bmaas/install 'solarized-theme 'bmaas/solarized-theme-setup)
 #+END_SRC
@@ -140,7 +140,7 @@ inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There'
 (defun bmaas/yascroll-setup ()
   (global-yascroll-bar-mode 1))
 
-(bmaas-install 'yascroll 'bmaas/yascroll-setup)
+(bmaas/install 'yascroll 'bmaas/yascroll-setup)
 #+END_SRC
 
 * Linum-relative
@@ -157,11 +157,10 @@ I made it a default for oh-my-emacs.
 (defun bmaas/linum-relative-setup ()
   (require 'linum-relative))
 
-(bmaas/install 'linum-relative bmaas/linum-relative-setup)
+(bmaas/install 'linum-relative 'bmaas/linum-relative-setup)
 #+END_SRC
 
 * Todo
 ** Speedbar
 - Combine projectile and speedbar to provide a project navigation
   feature. [[https://github.com/rdallasgray/graphene][graphene]] has a solution, which may be worth a try.
-
