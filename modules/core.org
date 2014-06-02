@@ -1,0 +1,190 @@
+#+TITLE: Core module
+#+OPTIONS: toc:2 num:nil ^:nil
+
+* El-get packages
+  :PROPERTIES:
+  :CUSTOM_ID: core-packages
+  :END:
+
+#+NAME: core-packages
+#+CAPTION: El-get packages matrix for ome-advanced module
+|                  | Status      | Description                                   |
+|------------------+-------------+-----------------------------------------------|
+| [[http://gitorious.org/evil][evil]]             | Required    | Finally, the Emacs OS get a good editor.      |
+| [[https://github.com/cofi/evil-leader][evil-leader]]      | Required    | <leader> key for evil.                        |
+| [[https://github.com/timcharper/evil-surround][evil-surround]]    | Recommended | Surround.vim for evil.                        |
+| [[https://github.com/magnars/expand-region.el][expand-region.el]] | Recommended | Expand and select.                            |
+| [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]]   | Recommended | Yet another emacs front-end to ack.           |
+| [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]]    | Recommended | A quick cursor location minor mode for emacs. |
+
+* Evil
+  :PROPERTIES:
+  :CUSTOM_ID: evil
+  :END:
+
+#+BEGIN_QUOTE
+As a poke at Emacs' creeping featurism, vi advocates have been known to
+describe Emacs as "a great operating system, lacking only a decent editor".
+
+-- [[http://en.wikipedia.org/wiki/Editor_war][Editor war]]
+#+END_QUOTE
+
+If you need to turn off evil temporarily for a single buffer, use
+=M-x evil-local-mode= instead of =M-x evil-mode=, since the latter will turn
+off evil-mode globally, which means, evil-mode will be turned off for the whole
+Emacs session.
+
+#+NAME: evil
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/evil-setup ()
+  (setq evil-auto-indent t)
+  (setq evil-regexp-search t)
+  (setq evil-want-C-i-jump t)
+  (add-hook 'text-mode-hook 'turn-on-evil-mode)
+  (add-hook 'prog-mode-hook 'turn-on-evil-mode)
+  (add-hook 'comint-mode-hook 'turn-on-evil-mode)
+  (add-hook 'Info-mode-hook 'turn-off-evil-mode))
+
+(bmaas/install 'evil 'bmaas/evil-setup)
+#+END_SRC
+
+* Evil-leader
+  :PROPERTIES:
+  :CUSTOM_ID: evil-leader
+  :END:
+
+Evil leader just provides the =<leader>= feature from Vim to evil, which
+provides an easy way to bind keys under a variable prefix key. The default
+binding of =<leader>= is =\=, which is not easy to reach, so I bind
+it to =;=.
+
+#+NAME: evil-leader
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/evil-leader-setup ()
+  (evil-leader/set-leader ";")
+  (unless (featurep 'helm)
+    (evil-leader/set-key
+      "e" 'find-file
+      "b" 'switch-to-buffer))
+  (eval-after-load "helm"
+    (evil-leader/set-key
+      "f" 'helm-for-files
+      "l" 'helm-locate
+      "c" 'helm-colors
+      "y" 'helm-show-kill-ring
+      "t" 'helm-top
+      "m" 'helm-man-woman
+      "j" 'helm-M-x
+      "e" 'helm-find-files
+      "b" 'helm-buffers-list))
+  (eval-after-load "expand-region"
+    (progn
+      (setq expand-region-contract-fast-key "z")
+      (evil-leader/set-key "xx" 'er/expand-region)))
+  (eval-after-load "magit"
+    (evil-leader/set-key "g" 'magit-status))
+  (eval-after-load "git-gutter-mode"
+    (evil-leader/set-key
+      "s" 'git-gutter:stage-hunk
+      "n" 'git-gutter:next-hunk
+      "p" 'git-gutter:previous-hunk))
+  (evil-leader/set-key
+    "k" 'kill-buffer)
+  (global-evil-leader-mode))
+
+(bmaas/install 'evil-leader 'bmaas/evil-leader-setup)
+#+END_SRC
+
+* Evil-surround
+  :PROPERTIES:
+  :CUSTOM_ID: evil-surround
+  :END:
+
+As I said, =smartparens= is the ultimate pair management solution for
+Emacs. So why [[https://github.com/timcharper/evil-surround][evil-surround]]?
+
+[[https://github.com/timcharper/evil-surround][evil-surround]] is a port of [[https://github.com/tpope/vim-surround][vim-surround]] to evil. I think you can treat
+=evil-surround= as a complement of =smartparens= in pair changing, deleting
+and adding, while =smartparens= is good at pair inserting and operating.
+
+IMHO, no editors can compete with Vim in pure text editing speed. So I
+think =evil-surround= is still worth a try. [[http://www.catonmat.net/blog/vim-plugins-surround-vim/][Here]] is an excellent and concise
+tutorial for =vim-surround=. Note that there may be some minor differences
+between =evil-surround= and =vim-surround=. However, for daily use, they're
+almost the same.
+
+#+NAME: evil-surround
+#+BEGIN_SRC emacs-lisp
+(bmaas/install 'evil-surround 'bmaas/noop)
+#+END_SRC
+
+* Ace-jump-mode
+  :PROPERTIES:
+  :CUSTOM_ID: ace-jump-mode
+  :END:
+
+[[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]] is a minor mode for Emacs, enabling fast/direct cursor movement
+in current view. "You can move your cursor to ANY position (across window and
+frame) in emacs by using only 3 times key press."
+
+To tell the truth, I still don't why it it called "ace-jump". Seems [[https://github.com/johnlindquist/AceJump][AceJump]]
+first appears as an [[http://www.jetbrains.com/idea/][Intellij]] [[http://plugins.jetbrains.com/plugin/7086?pr%3DphpStorm][plugin]]. [[http://www.vim.org/scripts/script.php?script_id%3D3526][EasyMotion]] provides a similar feature to Vim.
+
+Oh-my-emacs adopt [[https://github.com/cofi/evil-leader][evil-leader]] and bind serveral keys to ace-jump-mode commands:
+- =<Leader> c=: =ace-jump-char-mode=
+- =<Leader> w=: =ace-jump-word-mode=
+- =<Leader> l=: =ace-jump-line-mode=
+
+#+NAME: ace-jump-mode
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/ace-jump-mode-setup ()
+  (when (and (featurep 'evil) (featurep 'evil-leader))
+    (evil-leader/set-key
+      "c" 'ace-jump-char-mode
+      "w" 'ace-jump-word-mode
+      "l" 'ace-jump-line-mode)))
+
+(bmaas/install 'ace-jump-mode 'bmaas/noop)
+#+END_SRC
+
+* Ack-and-a-half
+  :PROPERTIES:
+  :CUSTOM_ID: ack-and-a-ha
+  :END:
+
+As we all know, Emacs is a good text editor. However, in some cases, we may
+spend most of our time to text reading instead of editing. As an advanced Emacs
+user, you may know [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Grep-Searching.html][grep-find]], and you may also know that you can jump to the
+next matching item by =M-g n=, oh, that's cool, really. But you still need to
+specify what type of file to search. You don't want to touch binary files with
+Emacs, ha? And, certainly you do want to ignore some hidden files such as files
+and directories used by various version control system. So there comes [[http://beyondgrep.com/][ack]],
+which works as expected.
+
+With the help of [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]], just go to the right place, then =M-x ack=,
+you'll get all you need. Enjoy it.
+
+#+NAME: ack-and-a-half
+#+BEGIN_SRC emacs-lisp
+(when (or (executable-find "ack") (executable-find "ack-grep"))
+  (bmaas/install 'ack-and-a-half 'bmaas/noop))
+#+END_SRC
+
+* ag
+  :PROPERTIES:
+  :CUSTOM_ID: ag
+  :END:
+
+ag, [[https://github.com/ggreer/the_silver_searcher][the silver searcher]], a code searching tool similar to [[http://beyondgrep.com/][ack]] but much more
+faster. It searches code abot 3-5x faster than ack, and "The command name is
+33% shorter than ack, and all keys are on the home row!". I've used it for
+serveral months and it's amazing.
+
+[[https://github.com/bbatsov/projectile][Projectile]] has builtin support for ag(=projectile-ag=) via =C-c p A=.
+
+#+NAME: ag
+#+BEGIN_SRC emacs-lisp
+(when (executable-find "ag")
+  (bmaas/install 'ag 'bmaas/noop))
+#+END_SRC
+

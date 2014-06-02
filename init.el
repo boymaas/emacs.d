@@ -51,7 +51,7 @@ FILENAME defaults to `buffer-file-name'."
       (file-name-sans-extension
        (file-name-nondirectory (or filename (buffer-file-name))))))
 
-;; Oh-my-emacs adopt org-mode 8.x from v0.3, so org-mode should be the first
+;; Adopt org-mode 8.x from v0.3, so org-mode should be the first
 ;; package to be installed via el-get
 (defun bmaas/org-mode-setup ()
   ;; markdown export support
@@ -63,5 +63,11 @@ FILENAME defaults to `buffer-file-name'."
                               (bmaas/org-mode-setup))))
 
 (el-get 'sync (mapcar 'el-get-source-name el-get-sources))
+
+(defvar bmaas/home-dir (file-name-directory (or load-file-name (buffer-file-name)))
+  "emacs config home directory.")
+
+;; load up the core-config
+(org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
 ;;; init.el ends here
