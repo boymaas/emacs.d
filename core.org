@@ -100,5 +100,12 @@ configuration. The elements I find important are the following:
 We only load the core module. All other modules are loaded when needed, this keeps startup time as fast as possible.
 
 #+BEGIN_SRC emacs-lisp
-(bmaas/load-module "modules/core.org")
+(bmaas/load-module "core/basic.org")
+(bmaas/load-module "core/completion.org")
+(bmaas/load-module "core/gui.org")
+(bmaas/load-module "core/keybindings.org")
+(bmaas/load-module "core/miscs.org")
+(bmaas/load-module "core/org.org")
+(bmaas/load-module "core/writing.org")
+(bmaas/load-module "core/evil.org")
 #+END_SRC

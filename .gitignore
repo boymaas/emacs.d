@@ -17,3 +17,10 @@ elpa
 # el-get
 el-get
 
+.recentf
+.saved-places
+
+# generated elisp files out of org literals
+core.el
+core/*.el
+core/*.elc
