@@ -93,6 +93,22 @@ starting point.
 ;; (global-set-key (kbd "<f11>") 'bmaas/toggle-fullscreen)
 #+END_SRC
 
+* Powerline
+  :PROPERTIES:
+  :CUSTOM_ID: powerline
+  :END:
+
+Powerline is an eye candy for emacs [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Mode-Line.html][mode line]]. Actually, the [[https://github.com/milkypostman/powerline][emacs powerline]] is
+inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There're also powerline variants for [[https://github.com/erikw/tmux-powerline][tmux]], [[https://github.com/milkbikis/powerline-shell][shell]], etc.
+
+#+NAME: powerline
+#+BEGIN_SRC emacs-lisp
+;(defun bmaas/powerline-setup ()
+;  (powerline-default-theme))
+
+;(bmaas/install 'powerline 'bmaas/powerline-setup)
+#+END_SRC
+
 * Solarized Color Theme
   :PROPERTIES:
   :CUSTOM_ID: color-theme
@@ -111,22 +127,6 @@ oh-my-emacs.
 #+END_SRC
 
 ** Q&A
-
-* Powerline
-  :PROPERTIES:
-  :CUSTOM_ID: powerline
-  :END:
-
-Powerline is an eye candy for emacs [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Mode-Line.html][mode line]]. Actually, the [[https://github.com/milkypostman/powerline][emacs powerline]] is
-inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There're also powerline variants for [[https://github.com/erikw/tmux-powerline][tmux]], [[https://github.com/milkbikis/powerline-shell][shell]], etc.
-
-#+NAME: powerline
-#+BEGIN_SRC emacs-lisp
-(defun bmaas/powerline-setup ()
-  (powerline-default-theme))
-
-(bmaas/install 'powerline 'bmaas/powerline-setup)
-#+END_SRC
 
 * Yascroll
   :PROPERTIES:
