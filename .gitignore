@@ -24,3 +24,9 @@ el-get
 core.el
 core/*.el
 core/*.elc
+
+# tmpfiles
+ac-comphist.dat
+projectile-bookmarks.eld 
+projectile.cache
+projectile-bookmarks.eld
