@@ -139,6 +139,56 @@ it to =;=.
       (evil-leader/set-key "X" 'er/expand-region)))
   (eval-after-load "magit"
     (evil-leader/set-key "g" 'magit-status))
+  (eval-after-load "smartparens"
+    (evil-leader/set-key
+      "sf" 'sp-forward-sexp
+      "sb" 'sp-backward-sexp
+
+      "sd" 'sp-down-sexp
+      "sD" 'sp-backward-down-sexp
+      "sa" 'sp-beginning-of-sexp
+      "se" 'sp-end-of-sexp
+
+      "su" 'sp-up-sexp
+      ;; (define-key emacs-lisp-mode-map (kbd ")") 'sp-up-sexp)
+      "sU" 'sp-backward-up-sexp
+      "st" 'sp-transpose-sexp
+
+      "sn" 'sp-next-sexp
+      "sp" 'sp-previous-sexp
+
+      "sk" 'sp-kill-sexp
+      "sy" 'sp-copy-sexp
+
+      "ss" 'sp-forward-slurp-sexp
+      "sr" 'sp-forward-barf-sexp
+      "sS" 'sp-backward-slurp-sexp
+      "sR" 'sp-backward-barf-sexp
+      "sF" 'sp-forward-symbol
+      "sB" 'sp-backward-symbol
+
+      "s[" 'sp-select-previous-thing
+      "s]" 'sp-select-next-thing
+
+      ;; (define-key sp-keymap (kbd "M-s M-i") 'sp-splice-sexp)
+      ;; (define-key sp-keymap (kbd "M-s <delete>") 'sp-splice-sexp-killing-forward)
+      ;; (define-key sp-keymap (kbd "M-s <backspace>") 'sp-splice-sexp-killing-backward)
+      ;; (define-key sp-keymap (kbd "M-s M-<backspace>") 'sp-splice-sexp-killing-around)
+
+      "swd" 'sp-unwrap-sexp
+      "swb" 'sp-backward-unwrap-sexp
+
+      "smt" 'sp-prefix-tag-object
+      "smp" 'sp-prefix-pair-object
+      "smc" 'sp-convolute-sexp
+      "sma" 'sp-absorb-sexp
+      "sme" 'sp-emit-sexp
+      "smp" 'sp-add-to-previous-sexp
+      "smn" 'sp-add-to-next-sexp
+      "smj" 'sp-join-sexp
+      "sms" 'sp-split-sexp
+      "smr" 'sp-raise-sexp
+      ))
   (evil-leader/set-key
     "k" 'kill-buffer)
   (global-evil-leader-mode))
