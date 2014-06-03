@@ -247,18 +247,23 @@ one project contains multiple files with the same name, you can't
 differentiate them in helm's "projectile files list", so maybe add the
 fullpath aside to filename is a good idea.
 
+We use grizzl completion to facilitate the searching for files etc
+
 With projectile, you can find/grep/list files *within a project*, switch/view
 a list of known project you have viewed recently, kills all project buffers
 with a single shortcut, etc. Sounds great, ha? So, don't hesitate any more,
-just enjoy it!
+justo enjoy it!
 
 #+NAME: projectile
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/projectile-setup ()
   (projectile-global-mode)
-  (setq projectile-enable-caching t)
+  (setq projectile-enable-caching nil)
+  (setq projectile-completion-system 'grizzl)
+
   (global-set-key (kbd "C-x c h") 'helm-projectile))
 
+(bmaas/install 'grizzl 'bmaas/noop)
 (bmaas/install 'projectile 'bmaas/projectile-setup)
 #+END_SRC
 
@@ -313,7 +318,7 @@ some time to master these wonderful commands, which will make your life easier.
   (forward-line -1)
   (indent-according-to-mode))
 
-(defun bmaas/martparens-setup ()
+(defun bmaas/smartparens-setup ()
   ;; global
   (require 'smartparens-config)
   (setq sp-autoskip-closing-pair 'always)
@@ -413,7 +418,7 @@ some time to master these wonderful commands, which will make your life easier.
                    :post-handlers
                    '((bmaas/create-newline-and-enter-sexp "RET")))))
 
-(bmaas/install 'smartparens bmaas/smartparens-setup)
+(bmaas/install 'smartparens 'bmaas/smartparens-setup)
 #+END_SRC
 
 * Quickrun
@@ -426,7 +431,7 @@ way. Just run it, without thinking about too much other chores.
 
 #+NAME: quickrun
 #+BEGIN_SRC emacs-lisp
-(bmaas/install 'quickrun bmaas/noop)
+(bmaas/install 'quickrun 'bmaas/noop)
 #+END_SRC
 
 * Diminish
