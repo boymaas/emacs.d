@@ -9,8 +9,6 @@ making my org-mode experience more pleasurable.
 We need to update org-files regularly so nice to be
 able to select them quicly
 
-*** TODO use projectile find file in directory. Only .org files if possible
-
 #+begin_src emacs-lisp :tangle yes
 (setq org-directory "~/Sites/planning/")
 
@@ -36,12 +34,15 @@ Several customization of org-mode behaviour. Collected throught time reflecting
 personal pereferences.
 
 #+begin_src emacs-lisp :tangle yes
+
+(require 'helm-org)
+
 ;; log transfer to done state, so it's visible in the
 ;; timeline
 (setq org-log-done t)
 
 ;; clockcum format for org-agenda-report
-(setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+(setq org-time-clocksum-format '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
 
 ;; uset completion in org-mode
 (setq org-completion-use-ido t)
@@ -53,13 +54,13 @@ personal pereferences.
 (setq org-adapt-indentation t)
 
 ; Refile targets include this file and any file contributing to the agenda - up to X levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 2) (org-agenda-files :maxlevel . 2))))
+; To let path completion on refileing work with helm mode, the org-outline-path-complete-in-steps must
+; be nil, so we see nice full paths.
+(setq org-refile-targets '((buffer-file-name :maxlevel . 2) (org-agenda-files :maxlevel . 2))
+      org-refile-use-outline-path 'file ; either nil, file, full-file-path
+      org-outline-path-complete-in-steps nil)
 
-; Targets start with the file name - allows creating level 1 tasks
-(setq org-refile-use-outline-path (quote file))
 
-; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
-;(setq org-outline-path-complete-in-steps t)
 ;; some handy settings
 (setq org-timeline-show-empty-dates t)
 (setq org-insert-mode-line-in-empty-file t)
@@ -108,7 +109,7 @@ excellent remember.el package. Up to version 6.36, Org used a special setup for
 remember.el, then replaced it with org-remember.el. As of version 8.0,
 org-remember.el has been completely replaced by org-capture.el.
 
-#+begin_src elisp
+#+begin_src emacs-lisp :tangle yes
 (setq org-capture-templates
 '(("t" "Todo" entry
   (file+headline "~/Sites/planning/gtd.org" "Refile")
@@ -121,7 +122,7 @@ org-remember.el has been completely replaced by org-capture.el.
   "\n* %^{topic} %T \n%i%?\n")
  ("s" "Someday" entry
   (file+headline "~/Sites/planning/gtd.org" "")
-  "\n* %^{topic} %T \n%i%?\n"))
+  "\n* %^{topic} %T \n%i%?\n")))
 
 (evil-leader/set-key
   "or" 'org-capture)
@@ -134,7 +135,8 @@ Org agenda is the main point to get an overview of appointments and work to be
 be done.
 
 #+begin_src emacs-lisp :tangle yes
-(require 'org-agenda)
+(setq org-agenda-files '("~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org"))
+
 
 (setq org-agenda-custom-commands
       (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
@@ -175,7 +177,7 @@ be done.
 (setq org-agenda-start-on-weekday nil)
 
 ;; Custom agenda keys
-(define-key org-agenda-keymap (kbd "w") 'org-agenda-refile)
+;;(define-key org-agenda-keymap (kbd "w") 'org-agenda-refile)
 
 ;; (backing-up policy)
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
