@@ -123,6 +123,16 @@ it to =;=.
       "pm" 'projectile-commander
       "ph" 'helm-projectile
       ))
+  (eval-after-load "org-mode"
+    (evil-leader/set-key
+      "oa" 'org-agenda
+      "oo" 'org-open-at-point
+      "ols" 'org-store-link
+      "oli" 'org-insert-link
+      ))
+  (eval-after-load "yasnippet"
+    (evil-leader/set-key
+      "is" 'yas-insert-snippet))
   (eval-after-load "expand-region"
     (progn
       (setq expand-region-contract-fast-key "z")
