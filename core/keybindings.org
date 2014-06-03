@@ -51,6 +51,10 @@ Key bindings for oh-my-emacs, mainly imported from [[https://github.com/eschulte
 #+BEGIN_SRC emacs-lisp
 (windmove-default-keybindings) ;; Shift+direction
 
+;; on my mac shifp up returns <select> so I bind this to windmove
+;; as well
+(global-set-key (kbd "<select>") 'windmove-up)
+
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
