@@ -76,7 +76,7 @@ FILENAME defaults to `buffer-file-name'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-agenda-files (quote ("~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org" "~/Sites/planning/gtd.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
