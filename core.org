@@ -45,14 +45,14 @@ configuration. The elements I find important are the following:
 - fast loading!
   this wil be done by using the following package:
 
-    https://github.com/jwiegley/use-package 
+    https://github.com/jwiegley/use-package
 
   #+BEGIN_QUOTE
     The use-package declaration macro allows you to isolate package configuration
     in your ".emacs" in a way that is performance-oriented and, well, just tidy.
     I created it because I have over 80 packages that I use in Emacs, and things
     were getting difficult to manage. Yet with this utility my total load time
-    is just under 1 second, with no loss of functionality! 
+    is just under 1 second, with no loss of functionality!
   #+END_QUOTE
 
 - installing per module
@@ -84,7 +84,7 @@ configuration. The elements I find important are the following:
    (el-get 'sync (mapcar 'el-get-source-name el-get-sources)))
 #+END_SRC
 
-- some general function I use throughout my config
+- some general functions I use throughout my config
 
 #+NAME: bmaas/load-module
 #+BEGIN_SRC emacs-lisp
