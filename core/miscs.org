@@ -68,7 +68,7 @@ emacs if you use =(server-start)= while keeps emacs alive if you use
 =(server-mode t)=, I don't know why. If you know the details, please tell me.
 
 #+NAME: emacs-server
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisa :tangle :no
 (server-mode t)
 #+END_SRC
 
