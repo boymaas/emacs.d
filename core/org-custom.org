@@ -134,6 +134,8 @@ Org agenda is the main point to get an overview of appointments and work to be
 be done.
 
 #+begin_src emacs-lisp :tangle yes
+(require 'org-agenda)
+
 (setq org-agenda-custom-commands
       (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
               ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
@@ -184,7 +186,7 @@ be done.
 
 #+begin_src emacs-lisp :tangle yes
 ; Erase all reminders and rebuilt reminders for today from the agenda
-(defun bmaas/org-agenda-to-appt ()
+(defun bmaas/agenda-to-appt ()
   (interactive)
   (setq appt-time-msg-list nil)
   (org-agenda-to-appt))
