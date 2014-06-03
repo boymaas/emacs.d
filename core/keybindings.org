@@ -49,7 +49,14 @@ Key bindings for oh-my-emacs, mainly imported from [[https://github.com/eschulte
 
 * Window switching.
 #+BEGIN_SRC emacs-lisp
-(windmove-default-keybindings) ;; Shift+direction
+(windmove-defaoult-keybindings) ;; Shift+direction
+
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
 #+END_SRC
