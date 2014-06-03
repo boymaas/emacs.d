@@ -11,7 +11,7 @@
 ;; will not; however, if there's an error in other files loaded by init.el,
 ;; both "emacs" and "emacs --debug-init" will entering the debugger. I don't
 ;; know why.
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 ;; believe me, you don't need menubar, toolbar nor scrollbar
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
@@ -55,6 +55,7 @@ FILENAME defaults to `buffer-file-name'."
 ;; package to be installed via el-get
 (defun bmaas/org-mode-setup ()
   ;; markdown export support
+  (require 'org-agenda)
   (require 'ox-md))
 
 (add-to-list 'el-get-sources
@@ -70,16 +71,21 @@ FILENAME defaults to `buffer-file-name'."
 ;; load up the core-config
 (org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
-;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org" "~/Sites/planning/gtd.org"))))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-selection ((t (:background "green" :foreground "color-16")))))
+ '(diff-changed ((t (:foreground "color-16"))))
+ '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
+ '(helm-selection ((t (:background "green" :foreground "color-16"))))
+ '(magit-diff-add ((t (:inherit diff-added :background "#5f8700" :foreground "color-16"))))
+ '(magit-diff-del ((t (:inherit diff-removed :background "tomato" :foreground "color-16")))))
+
+;;; init.el ends here
