@@ -68,26 +68,67 @@ it to =;=.
       "b" 'switch-to-buffer))
   (eval-after-load "helm"
     (evil-leader/set-key
+      "f" 'projectile-find-file
+      "F" 'helm-find-files
       "F" 'helm-for-files
+
       "l" 'helm-locate
       "c" 'helm-colors
       "y" 'helm-show-kill-ring
       "t" 'helm-top
       "m" 'helm-man-woman
+
       "x" 'helm-M-x
-      "f" 'helm-find-files
-      "b" 'helm-buffers-list))
+      "X" 'smex
+
+      "b" 'ido-switch-buffer
+      "eb" 'ibuffer
+      "B" 'helm-buffers-list
+
+      ;; custom
+      ";" 'evil-buffer
+
+      "el" 'projectile-find-dir
+
+      "c" 'evilnc-comment-or-uncomment-lines
+
+      ))
+  (eval-after-load "projectile"
+    (evil-leader/set-key
+      "p4f" 'projectile-find-file-other-window
+      "p4t" 'projectile-find-implementation-or-test-other-window
+      "pf" 'projectile-find-file
+      "pT" 'projectile-find-test-file
+      "pl" 'projectile-find-file-in-directory
+      "pt" 'projectile-toggle-between-implementation-and-test
+      "pg" 'projectile-grep
+      "p4b" 'projectile-switch-to-buffer-other-window
+      "pb" 'projectile-switch-to-buffer
+      "po" 'projectile-multi-occur
+      "pr" 'projectile-replace
+      "pi" 'projectile-invalidate-cache
+      "pR" 'projectile-regenerate-tags
+      "pj" 'projectile-find-tag
+      "pk" 'projectile-kill-buffers
+      "pd" 'projectile-find-dir
+      "pD" 'projectile-dired
+      "pv" 'projectile-vc-dir
+      "pe" 'projectile-recentf
+      "pa" 'projectile-ack
+      "pA" 'projectile-ag
+      "pc" 'projectile-compile-project
+      "pp" 'projectile-test-project
+      "pz" 'projectile-cache-current-file
+      "ps" 'projectile-switch-project
+      "pm" 'projectile-commander
+      "ph" 'helm-projectile
+      ))
   (eval-after-load "expand-region"
     (progn
       (setq expand-region-contract-fast-key "z")
       (evil-leader/set-key "X" 'er/expand-region)))
   (eval-after-load "magit"
     (evil-leader/set-key "g" 'magit-status))
-  (eval-after-load "git-gutter-mode"
-    (evil-leader/set-key
-      "s" 'git-gutter:stage-hunk
-      "n" 'git-gutter:next-hunk
-      "p" 'git-gutter:previous-hunk))
   (evil-leader/set-key
     "k" 'kill-buffer)
   (global-evil-leader-mode))
