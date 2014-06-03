@@ -4,18 +4,12 @@
 Org mode customizations, there are primaraly usefull settings
 making my org-mode experience more pleasurable.
 
-* Org clocking
+** Fast access to org-files
 
-Normal time format is in days, we want to bill hours so I adapted the
-clocksum format to a more usefull one.
+We need to update org-files regularly so nice to be
+able to select them quicly
 
-#+begin_src emacs-lisp :tangle yes
-  (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
-#+end_src
-
-* Other
-
-This is old org-mode config. I will seperate/customize this in a later stage.
+*** TODO use projectile find file in directory. Only .org files if possible
 
 #+begin_src emacs-lisp :tangle yes
 (setq org-directory "~/Sites/planning/")
@@ -24,41 +18,70 @@ This is old org-mode config. I will seperate/customize this in a later stage.
   (concat org-directory fname))
 
 
-(define-key evil-normal-state-map ";oo" 'org-open-at-point)
+(defun gtd ()
+    (interactive)
+    (find-file (org-path "gtd.org")))
+(defun journal ()
+    (interactive)
+    (find-file (org-path "journal.org")))
 
-(define-key evil-normal-state-map ";ol" 'org-store-link)
-(define-key evil-normal-state-map ";oL" 'org-insert-link)
-(define-key evil-normal-state-map ";oa" 'org-agenda)
+(evil-leader/set-key
+  "og" 'gtd
+  "oj" 'journal)
+#+end_src
 
-;(define-key org-mode-map "\t" 'org-indent-line-function)
+** Customizations
+
+Several customization of org-mode behaviour. Collected throught time reflecting
+personal pereferences.
+
+#+begin_src emacs-lisp :tangle yes
+;; log transfer to done state, so it's visible in the
+;; timeline
 (setq org-log-done t)
 
 ;; clockcum format for org-agenda-report
 (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
 
+;; uset completion in org-mode
 (setq org-completion-use-ido t)
 
+;; don't auto indent my files
 (setq org-startup-indented nil)
+
+;; indent my org files, true indenting
 (setq org-adapt-indentation t)
 
-; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
+; Refile targets include this file and any file contributing to the agenda - up to X levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 2) (org-agenda-files :maxlevel . 2))))
+
 ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
+
 ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
 ;(setq org-outline-path-complete-in-steps t)
+;; some handy settings
+(setq org-timeline-show-empty-dates t)
+(setq org-insert-mode-line-in-empty-file t)
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
               (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P@)" "|" "CANCELLED(c@/!)"))))
 
+#+end_src
 
-(require 'org-clock)
-(require 'org-remember)
+** Org clocking
 
+Normal time format is in days, we want to bill hours so I adapted the
+clocksum format to a more usefull one.
+
+#+begin_src emacs-lisp :tangle yes
+; Set default column view headings: Task Effort Clock_Summary
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+;; Fortmat of org-clock-report CLOCKSUMS need hours ..
+(setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
 ;; Resume clocking tasks when emacs is restarted
 (org-clock-persistence-insinuate)
-;;
 ;; Yes it's long... but more is better ;)
 (setq org-clock-history-length 35)
 ;; Resume clocking task on clock-in if the clock is open
@@ -73,73 +96,44 @@ This is old org-mode config. I will seperate/customize this in a later stage.
 (setq org-clock-out-when-done nil)
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (setq org-clock-persist 'history)
+; global Effort estimate values
+(setq org-global-properties (quote (("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00 12:00 16:00 20:00 24:00"))))
+#+end_src
 
-;; org-checklist functionality
-(eval-after-load "org"
-  '(require 'org-checklist))
+** Capture
 
-(evil-define-key 'normal evil-org-mode-map
-  ";oc" 'org-toggle-checkbox)
+Capture lets you quickly store notes with little interruption of your work
+flow. Org's method for capturing new items is heavily inspired by John Wiegley
+excellent remember.el package. Up to version 6.36, Org used a special setup for
+remember.el, then replaced it with org-remember.el. As of version 8.0,
+org-remember.el has been completely replaced by org-capture.el.
 
-(require 'remember)
+#+begin_src elisp
+(setq org-capture-templates
+'(("t" "Todo" entry
+  (file+headline "~/Sites/planning/gtd.org" "Refile")
+  "* TODO %^{Brief Description} %^g\n%?\nAdded: %U\nLink: %a")
+ ("j" "Journal" entry
+  (file+headline "~/Sites/planning/journal.org" "")
+  "\n* %^{topic} %T \n%i%c%?\nLink: %a\n")
+ ("n" "Note" entry
+  (file+headline "~/Sites/planning/gtd.org" "Notes")
+  "\n* %^{topic} %T \n%i%?\n")
+ ("s" "Someday" entry
+  (file+headline "~/Sites/planning/gtd.org" "")
+  "\n* %^{topic} %T \n%i%?\n"))
 
-;; (org-remember-insinuate) ;; see below
-;; insinuate didn't word zo there 3 rows are a quick workaround
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(add-hook 'remember-mode-hook 'org-remember-apply-template)
+(evil-leader/set-key
+  "or" 'org-capture)
 
-;; the remember templates
+#+end_src
 
-;;     %^{prompt}  prompt the user for a string and replace this sequence with it.
-;;                 You may specify a default value and a completion table with
-;;                 %^{prompt|default|completion2|completion3...}
-;;                 The arrow keys access a prompt-specific history.
-;;     %a          annotation, normally the link created with org-store-link
-;;     %A          like %a, but prompt for the description part
-;;     %i          initial content, the region when remember is called with C-u.
-;;                 The entire text will be indented like %i itself.
-;;     %t          timestamp, date only
-;;     %T          timestamp with date and time
-;;     %u, %U      like the above, but inactive timestamps
-;;     %^t         like %t, but prompt for date.  Similarly %^T, %^u, %^U
-;;                 You may define a prompt like %^{Birthday}t
-;;     %n          user name (taken from user-full-name)
-;;     %c          Current kill ring head.
-;;     %x          Content of the X clipboard.
-;;     %^C         Interactive selection of which kill or clip to use.
-;;     %^L         Like %^C, but insert as link.
-;;     %^g         prompt for tags, with completion on tags in target file.
-;;     %k          title of currently clocked task
-;;     %K          link to currently clocked task
-;;     %^G         prompt for tags, with completion all tags in all agenda files.
-;;     %^{prop}p   Prompt the user for a value for property prop
-;;     %:keyword   specific information for certain link types, see below
-;;     % [file]     insert the contents of the file given by file
-;;     % (sexp)     evaluate Elisp sexp and replace with the result
-;;     %!          immediately store note after completing the template
-;;                 (skipping the C-c C-c that normally triggers storing)
-;;     %&          jump to target location immediately after storing note
+** Agenda settings
 
-(setq org-remember-templates
-     '(
-      ("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U\nLink: %a" "~/Sites/planning/gtd.org" "Refile")
-      ("Journal" ?j "\n* %^{topic} %T \n%i%c%?\nLink: %a\n" "~/Sites/planning/journal.org")
-      ("Note" ?n "\n* %^{topic} %T \n%i%?\n" "~/Sites/planning/gtd.org" "Notes")
-      ("Someday" ?s "\n* %^{topic} %T \n%i%?\n" "~/Sites/planning/gtd.org")
-      ))
+Org agenda is the main point to get an overview of appointments and work to be
+be done.
 
-(define-key evil-normal-state-map ";or" 'org-remember)
-
-;; some handy settings
-(setq org-timeline-show-empty-dates t)
-(setq org-insert-mode-line-in-empty-file t)
-
-;; Where to put the refile trees
-;;(setq org-refile-targets (quote (("~/Planning/gtd.gtd" :maxlevel . 1) ("~/Planning/notes.gtd" :level . 2))))
-(setq org-refile-targets (quote ( (org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
-
-;; some fast access to the agendas custom commands
+#+begin_src emacs-lisp :tangle yes
 (setq org-agenda-custom-commands
       (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
               ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
@@ -151,44 +145,9 @@ This is old org-mode config. I will seperate/customize this in a later stage.
                 (tags-todo "@refile")
                 (tags-todo "@tasks")
                 (todo "TODO")
-                (tags "@daily+LEVEL=2/-DONE")
-                (tags-todo "@shopping")))
+                (tags "@daily+LEVEL=2/-DONE")))
               ("n" "Notes" tags "note" nil))))
 
-;; quick access function to our todo file
-(defun gtd ()
-    (interactive)
-    (find-file (org-path "gtd.org")))
-(defun journal ()
-    (interactive)
-    (find-file (org-path "journal.org")))
-;; and a global shortcut for it
-(define-key evil-normal-state-map ";og" 'gtd)
-(define-key evil-normal-state-map ";oj" 'journal)
-
-; Set default column view headings: Task Effort Clock_Summary
-(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
-; global Effort estimate values
-(setq org-global-properties (quote (("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00 12:00 16:00 20:00 24:00"))))
-
-
-; Erase all reminders and rebuilt reminders for today from the agenda
-(defun my-org-agenda-to-appt ()
-  (interactive)
-  (setq appt-time-msg-list nil)
-  (org-agenda-to-appt))
-
-; Rebuild the reminders everytime the agenda is displayed
-(add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
-
-; This is at the end of my .emacs - so appointments are set up when Emacs starts
-(my-org-agenda-to-appt)
-
-; Activate appointments so we get notifications
-(appt-activate t)
-
-; If we leave Emacs running overnight - reset the appointments one minute after midnight
-(run-at-time "24:01" nil 'my-org-agenda-to-appt)
 
 ; some extra configs
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
@@ -213,21 +172,41 @@ This is old org-mode config. I will seperate/customize this in a later stage.
 ;; Start the weekly agenda today
 (setq org-agenda-start-on-weekday nil)
 
-;; Disable display of the time grid
-;(setq org-agenda-time-grid
-;      (quote (nil "----------------"
-;                  (800 1000 1200 1400 1600 1800 2000))))
-
-;; custom keys
+;; Custom agenda keys
 (define-key org-agenda-keymap (kbd "w") 'org-agenda-refile)
 
 ;; (backing-up policy)
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
-;; Publishing
-;(require 'org-publish)
-;(require 'org-exp)
+#+end_src
 
+** Appointments
+
+#+begin_src emacs-lisp :tangle yes
+; Erase all reminders and rebuilt reminders for today from the agenda
+(defun bmaas/org-agenda-to-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
+; Rebuild the reminders everytime the agenda is displayed
+(add-hook 'org-finalize-agenda-hook 'bmaas/agenda-to-appt)
+
+; If we leave Emacs running overnight - reset the appointments one minute after midnight
+(run-at-time "24:01" nil 'bmaas/agenda-to-appt)
+
+; This is at the end of my .emacs - so appointments are set up when Emacs starts
+(bmaas/agenda-to-appt)
+
+; Activate appointments so we get notifications
+(appt-activate t)
+#+end_src
+
+** Publishing
+
+For now we only publish fortunebet planning to online server.
+
+#+begin_src emacs-lisp :tangle yes
 (setq org-publish-project-alist
       '(("fortunebet"
          ;; Path to your org files.
@@ -244,5 +223,4 @@ This is old org-mode config. I will seperate/customize this in a later stage.
 ;; strange thing this has to be set to nil otherwise
 ;; export won't happen
 (setq org-export-copy-to-kill-ring nil)
-
 #+end_src
