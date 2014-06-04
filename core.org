@@ -112,6 +112,7 @@ We only load the core module. All other modules are loaded when needed, this kee
 
 ;; some many used modules
 (bmaas/load-module "modules/clojure.org")
+(bmaas/load-module "modules/javascript.org")
 
 #+END_SRC
 
