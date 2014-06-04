@@ -11,7 +11,7 @@
 ;; will not; however, if there's an error in other files loaded by init.el,
 ;; both "emacs" and "emacs --debug-init" will entering the debugger. I don't
 ;; know why.
-(setq debug-on-error nil)
+(setq debug-on-error t)
 
 ;; believe me, you don't need menubar, toolbar nor scrollbar
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
@@ -68,8 +68,6 @@ FILENAME defaults to `buffer-file-name'."
 (defvar bmaas/home-dir (file-name-directory (or load-file-name (buffer-file-name)))
   "emacs config home directory.")
 
-;; load up the core-config
-(org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -87,5 +85,11 @@ FILENAME defaults to `buffer-file-name'."
  '(helm-selection ((t (:background "green" :foreground "color-16"))))
  '(magit-diff-add ((t (:inherit diff-added :background "#5f8700" :foreground "color-16"))))
  '(magit-diff-del ((t (:inherit diff-removed :background "tomato" :foreground "color-16")))))
+
+;; Do not want backtrace window to pop up
+(setq debug-on-error nil)
+
+;; load up the core-config
+(org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
 ;;; init.el ends here

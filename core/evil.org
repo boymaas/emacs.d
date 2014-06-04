@@ -40,6 +40,9 @@ Emacs session.
   (setq evil-auto-indent t)
   (setq evil-regexp-search t)
   (setq evil-want-C-i-jump t)
+  ;; normal redo key
+  (global-set-key (kbd "C-r") 'undo-tree-redo)
+
   (add-hook 'text-mode-hook 'turn-on-evil-mode)
   (add-hook 'prog-mode-hook 'turn-on-evil-mode)
   (add-hook 'comint-mode-hook 'turn-on-evil-mode)
@@ -47,6 +50,7 @@ Emacs session.
 
 (bmaas/install 'evil 'bmaas/evil-setup)
 #+END_SRC
+
 
 * Evil-leader
   :PROPERTIES:
@@ -62,6 +66,11 @@ it to =;=.
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/evil-leader-setup ()
   (evil-leader/set-leader ";")
+
+  ;; evil leader also in insert state, by prepending non-normal-prefix "C-" ..
+  (setq evil-leader/in-all-states t)
+  (setq evil-leader/non-normal-prefix "C-")
+
   (unless (featurep 'helm)
     (evil-leader/set-key
       "e" 'find-file
@@ -90,10 +99,10 @@ it to =;=.
       ;; custom
       ";" 'evil-buffer
 
-      "el" 'projectile-find-dir
+      "el" (lambda () (interactive)
+             (dired "."))
 
       ;;"c" 'evilnc-comment-or-uncomment-lines
-
       ))
   (eval-after-load "projectile"
     (evil-leader/set-key
@@ -197,6 +206,73 @@ it to =;=.
 
 (bmaas/install 'evil-leader 'bmaas/evil-leader-setup)
 #+END_SRC
+
+* Evil modes handling
+
+We prefer to be in evil mode in all kinds of buffers. Searching google I
+encountered[[https://gitorious.org/evil/evil/source/8a9aeae5db3bbb19d2349b7de86d8de3c151e123:evil-integration.el][ Evil repos - integration]] which gives some hints on how to integrate.
+
+So to get the integration I want I move all the "emacs states" to the
+evil-motion states. Then I move some common keys from the motion state map
+to the normal state map so they won't conflict with normal behaviour.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/move-key (keymap-from keymap-to key)
+  "Moves key binding from one keymap to another and delete from the old location. "
+  (define-key keymap-to key (lookup-key keymap-from key))
+  (define-key keymap-from key nil))
+
+
+(eval-after-load 'evil
+  '(progn
+     (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
+     (setq evil-emacs-state-modes nil)
+     (append evil-motion-state-modes '(dired-mode))
+
+     ;; move many caught keys to normal map
+     (bmaas/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+     (bmaas/move-key evil-motion-state-map evil-normal-state-map " ")
+
+     ;; needed to activate settings
+     (evil-mode)))
+#+end_src
+
+** Ibuffer overrides
+
+#+begin_src emacs-lisp :tangle yes
+(eval-after-load 'ibuffer
+  '(progn
+    (evil-make-overriding-map ibuffer-mode-map 'motion)))
+#+end_src
+
+
+** Magit overrides
+
+Enter motion mode as specified above, but make the magit-mode-map override,
+the default motion keys.
+
+#+begin_src emacs-lisp :tangle yes
+(eval-after-load 'magit
+  '(progn
+    (evil-make-overriding-map magit-mode-map 'motion)))
+#+end_src
+
+** Dired overrides
+
+Dired seems to go to evil-normal mode. I want it to be motion state!
+
+Does not work, since enter is not functioning in motion state ..
+
+#+begin_src emacs-lisp :tangle no
+(defun bmaas/force-evil-motion-state ()
+  (evil-motion-state))
+
+(add-hook 'dired-mode-hook 'bmaas/force-evil-motion-state)
+#+end_src
+
+** TODO this is probably more reasonable
+  https://github.com/prooftechnique/.emacs.d/blob/master/config/jhenahan-evil.el
+  https://github.com/edwtjo/evil-org-mode
 
 * Evil-surround
   :PROPERTIES:
