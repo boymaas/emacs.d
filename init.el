@@ -76,16 +76,12 @@ FILENAME defaults to `buffer-file-name'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(safe-local-variable-values (quote ((emacs-lisp-docstring-fill-column . 75)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-changed ((t (:foreground "color-16"))))
- '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
- '(helm-selection ((t (:background "green" :foreground "color-16"))))
- '(magit-diff-add ((t (:inherit diff-added :background "#5f8700" :foreground "color-16"))))
- '(magit-diff-del ((t (:inherit diff-removed :background "tomato" :foreground "color-16")))))
+ '(helm-selection ((t (:background "green" :foreground "color-16")))))
 
 ;;; init.el ends here
