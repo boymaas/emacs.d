@@ -107,7 +107,8 @@ evil-normal-state-map.
 
 * Evil keybindings
 
-  Notice we are setting mode local bindings
+  Notice we are setting mode local bindings, so ;c stays available for
+  others. The locals will override the normal leaders
 
 #+begin_src emacs-lisp :tangle yes
 (evil-leader/set-key-for-mode 'clojure-mode
