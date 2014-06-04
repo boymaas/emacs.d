@@ -196,6 +196,53 @@ tags and directives in ruby comments.
 (bmaas/install 'yard-mode 'bmaas/yard-mode-setup)
 #+END_SRC
 
+
+* Rspec-mode
+
+I frequently use rspec, and need some of its functionality
+to run tests.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/rspec-mode-setup ()
+  (rspec-install-snippets)
+  (setq rspec-use-rake-flag nil))
+
+(bmaas/install 'rspec-mode 'bmaas/rspec-mode-setup)
+#+end_src
+
+* Fast test toggling
+
+I often need to setup a quick test layout where I want source
+in one screen and test code in another screen. Following
+functions define this behaviour and bind it locally to <Leader>.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/open-test-in-split-window ()
+  (interactive)
+  (delete-other-windows)
+  (split-window-right)
+  (rspec-toggle-spec-and-target))
+
+(eval-after-load 'ruby-mode
+  '(evil-leader/set-key-for-mode 'ruby-mode
+     "." 'bmaas/open-test-in-split-window))
+#+end_src
+
+* Test bindings
+
+I want to run tests quickly while developing in ruby. So
+we set some local bindings.
+
+#+begin_src emacs-lisp :tangle yes
+(eval-after-load 'ruby-mode
+  '(evil-leader/set-key-for-mode 'ruby-mode
+     "tt" 'rspec-verify
+     "ts" 'rspec-verify-single
+     "ta" 'rspec-verify-all
+     "td" 'rspec-disable-example
+     "te" 'rspec-enable-example))
+#+end_src
+
 * Todo
 - Ah, rails support, lots of works, so, as it always said, any help will be
   appreciated.
