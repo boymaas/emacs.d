@@ -72,14 +72,16 @@ it to =;=.
       "F" 'helm-find-files
       "F" 'helm-for-files
 
-      "l" 'helm-locate
-      "c" 'helm-colors
+      "hl" 'helm-locate
+      ;;"c" 'helm-colors
       "y" 'helm-show-kill-ring
-      "t" 'helm-top
-      "m" 'helm-man-woman
+      "ht" 'helm-top
+      "hm" 'helm-man-woman
+      "ha" 'helm-apropos
+      "hr" 'helm-resume
 
       "x" 'helm-M-x
-      "X" 'smex
+      ;;"X" 'smex
 
       "b" 'ido-switch-buffer
       "eb" 'ibuffer
@@ -90,7 +92,7 @@ it to =;=.
 
       "el" 'projectile-find-dir
 
-      "c" 'evilnc-comment-or-uncomment-lines
+      ;;"c" 'evilnc-comment-or-uncomment-lines
 
       ))
   (eval-after-load "projectile"

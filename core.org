@@ -108,6 +108,15 @@ We only load the core module. All other modules are loaded when needed, this kee
 (bmaas/load-module "core/org.org")
 (bmaas/load-module "core/writing.org")
 (bmaas/load-module "core/evil.org")
-
 (bmaas/load-module "core/org-custom.org")
+
+;; some many used modules
+(bmaas/load-module "modules/clojure.org")
+
 #+END_SRC
+
+** Modules
+
+#+begin_src emacs-lisp :tangle yes
+
+#+end_src

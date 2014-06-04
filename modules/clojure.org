@@ -1,0 +1,133 @@
+#+TITLE: Clojure
+#+OPTIONS: toc:2 num:nil ^:nil
+
+This file contains some settings for [[* Clojure][Clojure]] programming language.
+
+* Prerequisites
+  :PROPERTIES:
+  :CUSTOM_ID: clojure-prerequisites
+  :END:
+
+#+NAME: clojure-prerequisites
+#+CAPTION: Prerequisites for ome-clojure module
+|            | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
+|------------+---------+--------------------+-----------+--------+----------+------------|
+| [[http://leiningen.org/][Leiningen]]  | [web]   | [web]              | [web]     | [web]  | [web]    | Yes        |
+
+Note:
+- [[http://leiningen.org/][Leiningen]] for Clojure. I recommend you install leiningen from the official
+  website to keep update with the lastest version.
+
+* El-get packages
+  :PROPERTIES:
+  :CUSTOM_ID: clojure-el-get-packages
+  :END:
+
+#+NAME: clojure-el-get-packages
+#+CAPTION: El-get packages for ome-clojure module
+|              | Status   | Description                               |
+|--------------+----------+-------------------------------------------|
+| [[https://github.com/clojure-emacs/clojure-mode][clojure-mode]] | Required | Major mode for Clojure.                   |
+| [[https://github.com/clojure-emacs/cider][CIDER]]        | Required | CIDER is a Clojure IDE and REPL for Emacs |
+| [[https://github.com/purcell/ac-nrepl.git][ac-nrepl]]     | Required | AC backend for nrepl.                     |
+
+* Clojure
+  :PROPERTIES:
+  :CUSTOM_ID: clojure
+  :END:
+
+[[http://www.clojure.org][Clojure]] is a modern Lisp on top of JVM, it is a member of the Lisp family of
+languages. Clojure extends the code-as-data system beyond parenthesized lists
+(s-expressions) to vectors and maps.
+
+Since Clojure is a Lisp dialect, it should work the SLIME way. Yeah, first
+comes [[https://github.com/technomancy/swank-clojure][swank-clojure]], then [[https://github.com/clojure-emacs/cider][CIDER]][1]. The only thing you need to install is
+[[http://leiningen.org/][leiningen]] 2.x. I recommend you to install it manually, since not all
+[[https://github.com/technomancy/leiningen/wiki/Packaging][package manager]] provides the latest version.
+
+The general way to install lastest stable leiningen is:
+#+BEGIN_SRC sh
+wget -O /tmp/lein https://raw.github.com/technomancy/leiningen/stable/bin/lein
+sudo mv /tmp/lein /usr/bin/lein
+lein version
+#+END_SRC
+
+Or you can see leiningen's [[https://github.com/technomancy/leiningen/wiki/Upgrading][wiki]] for upgrading details.
+
+Now, just open a clojure file, then =cider-jack-in=, and you can program
+Clojure the SLIME way. [[http://vimeo.com/22798433][Here]] is an awesome live demo to demonstrate the Clojure
+workflow.
+
+It's really really awesome, ah?
+
+#+NAME: clojure
+#+BEGIN_SRC emacs-lisp
+(bmaas/install 'clojure-mode 'bmaas/noop)
+
+(defun bmaas/cider-setup ()
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (setq cider-repl-tab-command 'indent-for-tab-command)
+  (setq cider-repl-pop-to-buffer-on-connect nil)
+  (setq cider-popup-stacktraces nil)
+  (setq cider-repl-popup-stacktraces t)
+  (setq cider-auto-select-error-buffer t)
+  (setq nrepl-hide-special-buffers t)
+  (setq nrepl-buffer-name-separator "-")
+  (setq nrepl-buffer-name-show-port t))
+
+(bmaas/install 'cider 'bmaas/cider-setup)
+
+(defun bmaas/ac-nrepl-setup ()
+  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+  (eval-after-load "auto-complete"
+    '(add-to-list 'ac-modes 'cider-repl-mode)))
+
+(bmaas/install 'ac-nrepl 'bmaas/ac-nrepl-setup)
+#+END_SRC
+
+* Normal keybindings
+
+Cider jump is disabled by a evil-mode mapping to evil-repeat function
+there are many ways to fix this. One is to rebind the M-. to the cider jump
+functoin, which would leave this mapping in place in all other normal modes.
+
+Another would be to insert a custom keymap in the emulation mode maps, which
+is a lot of work and would override the mapping also for every binding.
+
+Simplest way is just to clear the binding by setting it to =nil= in the
+evil-normal-state-map.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/cider-local-keys ()
+  (define-key evil-normal-state-map (kbd "M-.") nil))
+
+(add-hook 'cider-mode-hook 'bmaas/cider-local-keys)
+#+end_src
+
+* Evil keybindings
+#+begin_src emacs-lisp :tangle yes
+(evil-leader/set-key
+  "cj" 'cider-jack-in
+  "cqq" 'cider-quit
+  "cqr" 'cider-restart
+  "cef" 'cider-eval-load-file
+  "ceb" 'cider-eval-buffer
+  "cer" 'cider-eval-region
+  "cele" 'cider-eval-last-sexp
+  "celp" 'cider-eval-print-last-sexp
+  "celr" 'cider-eval-last-sexp-and-replace
+  "cet" 'cider-eval-defun-at-point
+  "cr" 'cider-switch-to-repl-buffer
+  "cd" 'cider-doc
+  "ci" 'cider-inspect
+  "cm" 'cider-macroexpand-1
+  )
+#+end_src
+
+* Todos
+- The boot up speed of JVM is too slow, so we may need to refer to
+  http://icylisper.github.io/jark/.
+
+
+[1] CIDER was formerly known as and renamed from =nrepl.el=.
