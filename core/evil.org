@@ -1,4 +1,4 @@
-#+TITLE: Core module
+#+TITLE: Evil setup
 #+OPTIONS: toc:2 num:nil ^:nil
 
 * El-get packages
@@ -207,7 +207,7 @@ it to =;=.
 (bmaas/install 'evil-leader 'bmaas/evil-leader-setup)
 #+END_SRC
 
-* Evil modes handling
+* Evil-everywhere - evil-mode integration
 
 We prefer to be in evil mode in all kinds of buffers. Searching google I
 encountered[[https://gitorious.org/evil/evil/source/8a9aeae5db3bbb19d2349b7de86d8de3c151e123:evil-integration.el][ Evil repos - integration]] which gives some hints on how to integrate.
@@ -216,18 +216,38 @@ So to get the integration I want I move all the "emacs states" to the
 evil-motion states. Then I move some common keys from the motion state map
 to the normal state map so they won't conflict with normal behaviour.
 
+Some buffers we don't want motion mode, like the buffers with composed
+keymaps such as the magit-key-mode. Here we want to force emacs state.
+
+For this it has to be removed from the motions-states list and added to
+the emacs list state.
+
+You can add these specific modes the the =bmaas/evil-emacs-state-modes=.
+
+To add extra modes to the motions states just add entries to the variable
+=bmaas/evil-motion-state-modes=.
+
 #+begin_src emacs-lisp :tangle yes
+(defvar bmaas/evil-emacs-state-modes '(magit-key-mode))
+(defvar bmaas/evil-motion-state-modes '(dired-mode))
+
 (defun bmaas/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another and delete from the old location. "
   (define-key keymap-to key (lookup-key keymap-from key))
   (define-key keymap-from key nil))
 
-
 (eval-after-load 'evil
   '(progn
+     ;; all emacs mode modes beome motion modes
      (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
-     (setq evil-emacs-state-modes nil)
-     (append evil-motion-state-modes '(dired-mode))
+     (append evil-motion-state-modes bmaas/evil-motion-state-modes)
+
+     (setq evil-emacs-state-modes '())
+
+     ;; except for several modes we want to keep emacs
+     (dolist (a-mode  bmaas/evil-emacs-state-modes)
+           (setq evil-motion-state-modes (delq 'a-mode evil-motion-state-modes))
+           (add-to-list 'evil-emacs-state-modes a-mode))
 
      ;; move many caught keys to normal map
      (bmaas/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
@@ -245,7 +265,6 @@ to the normal state map so they won't conflict with normal behaviour.
     (evil-make-overriding-map ibuffer-mode-map 'motion)))
 #+end_src
 
-
 ** Magit overrides
 
 Enter motion mode as specified above, but make the magit-mode-map override,
@@ -254,7 +273,10 @@ the default motion keys.
 #+begin_src emacs-lisp :tangle yes
 (eval-after-load 'magit
   '(progn
-    (evil-make-overriding-map magit-mode-map 'motion)))
+     (evil-emacs-state-modes )
+     (add-hook )
+     (dolist (a-magit-mode-map  (list magit-mode-map))
+             (evil-make-overriding-map a-magit-mode-map 'motion))))
 #+end_src
 
 ** Dired overrides
