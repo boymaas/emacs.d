@@ -106,8 +106,11 @@ evil-normal-state-map.
 #+end_src
 
 * Evil keybindings
+
+  Notice we are setting mode local bindings
+
 #+begin_src emacs-lisp :tangle yes
-(evil-leader/set-key
+(evil-leader/set-key-for-mode 'clojure-mode
   "cj" 'cider-jack-in
   "cqq" 'cider-quit
   "cqr" 'cider-restart
