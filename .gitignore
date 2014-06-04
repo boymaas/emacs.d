@@ -25,10 +25,11 @@ core.el
 core/*.el
 core/*.elc
 *.elc
+/modules/*.el
 
 # tmpfiles
 ac-comphist.dat
-projectile-bookmarks.eld 
+projectile-bookmarks.eld
 projectile.cache
 projectile-bookmarks.eld
 /bookmarks
