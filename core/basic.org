@@ -120,7 +120,7 @@ respectively.
 (when (eq system-type 'darwin)
   ;(setq mac-command-modifier 'meta)
   ;(setq mac-option-modifier 'control)
-  
+
   ;; Make cut and paste work with the OS X clipboard
   (defun live-copy-from-osx ()
     (shell-command-to-string "pbpaste"))
@@ -275,6 +275,11 @@ extension for GNU Emacs 24.
 (bmaas/install 'flycheck 'bmaas/flycheck-setup)
 #+END_SRC
 
+* Bookmarks
+Save bookmarks every modification
+#+begin_src emacs-lisp :tangle yes
+(setq bookmarks-save-flag 1)
+#+end_src
 * Todo
 ** Flycheck
 - Customizable prefix key, see https://github.com/flycheck/flycheck/issues/223.
