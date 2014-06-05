@@ -51,7 +51,7 @@ personal pereferences.
 (setq org-startup-indented nil)
 
 ;; indent my org files, true indenting
-(setq org-adapt-indentation t)
+(setq org-adapt-indentation nil)
 
 ; Refile targets include this file and any file contributing to the agenda - up to X levels deep
 ; To let path completion on refileing work with helm mode, the org-outline-path-complete-in-steps must
