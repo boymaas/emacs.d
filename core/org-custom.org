@@ -39,9 +39,9 @@ Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][
   (evil-leader/set-key-for-mode 'org-mode
     "t" 'org-show-todo-tree
     "<" 'org-shiftmetaleft
-    ">" 'org-shiftmetaright)
-  (evil-insert-state)
-  (evil-normal-state))
+    ">" 'org-shiftmetaright
+    "ci" 'org-clock-in
+    "co" 'org-clock-out))
 
 (add-hook 'org-mode-hook 'evil-org-mode/set-leader-keys)
 #+end_src
@@ -274,4 +274,14 @@ For now we only publish fortunebet planning to online server.
 ;; strange thing this has to be set to nil otherwise
 ;; export won't happen
 (setq org-export-copy-to-kill-ring nil)
+#+end_src
+
+** Faces
+
+#+begin_src emacs-lisp :tangle yes
+(defun evil-org-mode/set-faces ()
+  (custom-set-faces
+   '(org-todo ((t (:background "black" :foreground "red" :weight bold))))))
+
+(add-hook 'org-mode-hook 'evil-org-mode/set-faces)
 #+end_src
