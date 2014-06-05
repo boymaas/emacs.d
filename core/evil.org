@@ -230,8 +230,9 @@ To add extra modes to the motions states just add entries to the variable
 =bmaas/evil-motion-state-modes=.
 
 #+begin_src emacs-lisp :tangle yes
-(defvar bmaas/evil-emacs-state-modes '(magit-key-mode))
+(defvar bmaas/evil-emacs-state-modes '(magit-key-mode magit-process-mode))
 (defvar bmaas/evil-motion-state-modes '(dired-mode))
+
 
 (defun bmaas/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another and delete from the old location. "
