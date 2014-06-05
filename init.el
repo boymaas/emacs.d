@@ -68,6 +68,8 @@ FILENAME defaults to `buffer-file-name'."
 (defvar bmaas/home-dir (file-name-directory (or load-file-name (buffer-file-name)))
   "emacs config home directory.")
 
+;; load up the core-config
+(org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -88,8 +90,5 @@ FILENAME defaults to `buffer-file-name'."
 
 ;; Do not want backtrace window to pop up
 (setq debug-on-error nil)
-
-;; load up the core-config
-(org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
 ;;; init.el ends here
