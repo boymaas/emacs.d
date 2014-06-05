@@ -1,0 +1,170 @@
+#+TITLE: Web
+#+OPTIONS: toc:2 num:nil ^:nil
+
+This module contains some packages for web development in Emacs.
+
+* Prerequisites
+  :PROPERTIES:
+  :CUSTOM_ID: web-prerequisites
+  :END:
+
+#+NAME: web-prerequisites
+#+CAPTION: Prerequisites for bmaas/web module
+|      | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
+|------+---------+--------------------+-----------+--------+----------+------------|
+| less | [npm]   | [npm]              | [npm]     | [npm]  | [npm]    | No         |
+
+* El-get packages
+  :PROPERTIES:
+  :CUSTOM_ID: web-el-get-packages
+  :END:
+
+#+NAME: web-el-get-packages
+#+CAPTION: El-get packages for bmaas/web module
+|               | Status   | Description                                    |
+|---------------+----------+------------------------------------------------|
+| [[http://web-mode.org/][web-mode.el]]   | Required | An emacs major mode for editing html templates |
+| [[http://julien.danjou.info/projects/emacs-packages#rainbow-mode][rainbow-mode]]  | Required | Colorize color names in buffers                |
+| [[https://github.com/purcell/less-css-mode][less-css-mode]] | Optional | Emacs mode for LESS CSS (lesscss.org)          |
+
+* Basic css settings
+  :PROPERTIES:
+  :CUSTOM_ID: basic-css
+  :END:
+
+The builtin =css-mode= is derived from =fundamental-mode=, so we need an extra
+hook to enable =linum-mode= in =css-mode=.
+
+#+NAME: basic-css
+#+BEGIN_SRC emacs-lisp
+(setq css-indent-offset 2)
+
+(add-hook 'css-mode-hook
+          (lambda ()
+            (linum-mode 1)))
+#+END_SRC
+
+* Web-mode
+  :PROPERTIES:
+  :CUSTOM_ID: web-mode
+  :END:
+
+The most awful part of web page editing(or programming, if you like) is, one
+single web page often contains multiple types of code snippets. For example,
+you can put CSS/JavaScript/PHP in just one single page, which make it difficult
+for an editor to work properly, such as proper indentation, syntax
+highlighting, etc.
+
+The modern web development is ruled by the [[http://en.wikipedia.org/wiki/Model%25E2%2580%2593view%25E2%2580%2593controller][MVC]] pattern, in which the various
+[[http://en.wikipedia.org/wiki/Web_template_system][web template system]] is an important component. Just like normal html page, you
+can mix together HTML, CSS, JavaScript and a special web template language
+together as you like. You may wonder, is it possible for Emacs, an editor, to
+edit all different code snippets without switching between different modes?
+
+The answer is yes, web have [[http://web-mode.org/][web-mode]], a really genius emacs package. You can
+even edit normal html page using web-mode.
+
+There're still a minor problem, different web projects often has different
+coding styles, such as indentation spaces. So it is not possible for us to set
+various web-mode options in our =.emacs= and expect that it will works for all
+web projects. The answer lies in the [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][Emacs Manual]].
+
+#+NAME: web-mode
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/web-mode-setup ()
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+  (defun bmaas/web-mode-hook ()
+    ;; indentation
+    ;; HTML offset indentation
+    (setq web-mode-markup-indent-offset 2)
+    ;; CSS offset indentation
+    (setq web-mode-code-indent-offset 2)
+    ;; Script offset indentation (for JavaScript, Java, PHP, etc.)
+    (setq web-mode-css-indent-offset 2)
+    ;; HTML content indentation
+    (setq web-mode-indent-style 2)
+
+    ;; padding
+    ;; For <style> parts
+    (setq web-mode-style-padding 1)
+    ;; For <script> parts
+    (setq web-mode-script-padding 1)
+    ;; For multi-line blocks
+    (setq web-mode-block-padding 0))
+
+  (add-hook 'web-mode-hook 'bmaas/web-mode-hook))
+
+(bmaas/install 'web-mode 'bmaas/web-mode-setup)
+#+END_SRC
+
+* Less-css-mode
+  :PROPERTIES:
+  :CUSTOM_ID: less-css-mode
+  :END:
+
+Writing plain CSS is quite boring sometimes since CSS didn't support basic
+programming techniques such as variables. Thus some nerds create some
+programming languages which extend CSS with programming language features, and
+"compiles" to css when it is necessary. [[http://www.lesscss.org/][LESS]] is one of them.
+
+#+NAME: less-css-mode
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/less-css-mode-setup ()
+  (setq less-css-compile-at-save t))
+
+(when (executable-find "lessc")
+  (bmaas/install 'less-css-mode 'bmaas/less-css-mode-setup))
+#+END_SRC
+* rainbow-mode
+  :PROPERTIES:
+  :CUSTOM_ID: rainbow-mode
+  :END:
+
+Colors is one of the main actors in CSS game. [[http://julien.danjou.info/projects/emacs-packages#rainbow-mode][rainbow-mode]] makes your life a
+little [[http://blog.gabrielsaldana.org/easy-css-editing-with-emacs/][easier]] by making css colors more visible.
+
+#+NAME: rainbow-mode
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/rainbow-mode-setup ()
+  (add-hook 'css-mode-hook 'rainbow-mode))
+
+(bmaas/install 'rainbow-mode 'bmaas/rainbow-mode-setup)
+#+END_SRC
+
+* scss-mode
+Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/scss-mode-setup ()
+  (setq scss-compile-at-save nil))
+
+(bmaas/install 'scss-mode 'bmaas/scss-mode-setup)
+#+end_src
+
+* haml-mode
+
+Haml (HTML abstraction markup language) is based on one primary principle:
+markup should be beautiful. It’s not just beauty for beauty’s sake either; Haml
+accelerates and simplifies template creation down to veritable haiku.
+
+#+begin_src emacs-lisp :tangle yes
+(bmaas/install 'haml-mode 'bmaas/noop)
+#+end_src
+
+** flymake haml
+
+An Emacs flymake handler for syntax-checking HAML source code.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/flymake-haml-setup ()
+  (add-hook 'haml-mode-hook 'flymake-haml-load))
+(bmaas/install 'flymake-haml 'bmaas/flymake-haml-setup)
+#+end_src

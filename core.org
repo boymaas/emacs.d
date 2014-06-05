@@ -114,6 +114,7 @@ We only load the core module. All other modules are loaded when needed, this kee
 (bmaas/load-module "modules/clojure.org")
 (bmaas/load-module "modules/javascript.org")
 (bmaas/load-module "modules/ruby.org")
+(bmaas/load-module "modules/web.org")
 
 #+END_SRC
 
