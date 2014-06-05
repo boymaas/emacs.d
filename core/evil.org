@@ -239,9 +239,9 @@ To add extra modes to the motions states just add entries to the variable
 (eval-after-load 'evil
   '(progn
      ;; all emacs mode modes beome motion modes
-     (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
-     (append evil-motion-state-modes bmaas/evil-motion-state-modes)
-
+     (setq evil-motion-state-modes (append evil-emacs-state-modes
+                                           evil-motion-state-modes
+                                           bmaas/evil-motion-state-modes))
      (setq evil-emacs-state-modes '())
 
      ;; except for several modes we want to keep emacs
@@ -272,11 +272,7 @@ the default motion keys.
 
 #+begin_src emacs-lisp :tangle yes
 (eval-after-load 'magit
-  '(progn
-     (evil-emacs-state-modes )
-     (add-hook )
-     (dolist (a-magit-mode-map  (list magit-mode-map))
-             (evil-make-overriding-map a-magit-mode-map 'motion))))
+  '(evil-make-overriding-map magit-mode-map 'motion))
 #+end_src
 
 ** Dired overrides
