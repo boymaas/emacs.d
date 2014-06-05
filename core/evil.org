@@ -94,7 +94,13 @@ it to =;=.
       ;;"X" 'smex
 
       "b" 'ido-switch-buffer
-      "eb" 'ibuffer
+
+      ;; todo: maybe this can be done with advise?
+      "eb" (lambda ()
+             (interactive)
+             (if (fboundp 'bmaas/persp-ibuffer)
+                          (bmaas/persp-ibuffer)
+                        (ibuffer)))
       "B" 'helm-buffers-list
 
       ;; custom
@@ -104,6 +110,16 @@ it to =;=.
              (dired "."))
 
       ;;"c" 'evilnc-comment-or-uncomment-lines
+      ))
+  (eval-after-load "persp-mode"
+    (evil-leader/set-key
+      "ws" 'persp-switch
+      "wkb" 'persp-remove-buffer
+      "wab" 'persp-add-buffer
+      "wS" 'persp-save-state-to-file
+      "wL" 'persp-load-state-from-file
+      "wK" 'persp-kill
+      "wI" 'persp-import-buffers
       ))
   (eval-after-load "projectile"
     (evil-leader/set-key
@@ -213,7 +229,7 @@ it to =;=.
 We prefer to be in evil mode in all kinds of buffers. Searching google I
 encountered[[https://gitorious.org/evil/evil/source/8a9aeae5db3bbb19d2349b7de86d8de3c151e123:evil-integration.el][ Evil repos - integration]] which gives some hints on how to integrate.
 
-** Emacs states to motion states
+** TODO Emacs states to motion states
 
 So to get the integration I want I move all the "emacs states" to the
 evil-motion states. Then I move some common keys from the motion state map
@@ -233,12 +249,19 @@ To add extra modes to the motions states just add entries to the variable
 #+begin_src emacs-lisp :tangle yes
 (defvar bmaas/evil-emacs-state-modes)
 (defvar bmaas/evil-motion-state-modes)
+(defvar bmaas/evil-overriding-mode-maps)
 
 (setq bmaas/evil-emacs-state-modes '(magit-key-mode
                                      magit-process-mode
                                      magit-branch-manager-mode
-                                     org-agenda-mode))
+                                     org-agenda-mode
+                                     custom-mode))
+
 (setq bmaas/evil-motion-state-modes '(dired-mode))
+
+(setq bmaas/evil-overriding-mode-maps (list dired-mode-map
+                                        ;...
+                                            ))
 
 (defun bmaas/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another and delete from the old location. "
@@ -257,6 +280,11 @@ To add extra modes to the motions states just add entries to the variable
      (dolist (a-mode  bmaas/evil-emacs-state-modes)
            (setq evil-motion-state-modes (delq a-mode evil-motion-state-modes))
            (add-to-list 'evil-emacs-state-modes a-mode))
+
+     ;; make overriding map defined modes
+     (dolist (a-mode-map bmaas/evil-overriding-mode-maps)
+       (evil-make-overriding-map a-mode-map 'motion))
+
 
      ;; move many caught keys to normal map
      (bmaas/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
