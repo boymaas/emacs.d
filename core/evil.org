@@ -212,6 +212,8 @@ it to =;=.
 We prefer to be in evil mode in all kinds of buffers. Searching google I
 encountered[[https://gitorious.org/evil/evil/source/8a9aeae5db3bbb19d2349b7de86d8de3c151e123:evil-integration.el][ Evil repos - integration]] which gives some hints on how to integrate.
 
+** Emacs states to motion states
+
 So to get the integration I want I move all the "emacs states" to the
 evil-motion states. Then I move some common keys from the motion state map
 to the normal state map so they won't conflict with normal behaviour.
@@ -246,7 +248,7 @@ To add extra modes to the motions states just add entries to the variable
 
      ;; except for several modes we want to keep emacs
      (dolist (a-mode  bmaas/evil-emacs-state-modes)
-           (setq evil-motion-state-modes (delq 'a-mode evil-motion-state-modes))
+           (setq evil-motion-state-modes (delq a-mode evil-motion-state-modes))
            (add-to-list 'evil-emacs-state-modes a-mode))
 
      ;; move many caught keys to normal map
