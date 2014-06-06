@@ -34,6 +34,7 @@ If you need to turn off evil temporarily for a single buffer, use
 off evil-mode globally, which means, evil-mode will be turned off for the whole
 Emacs session.
 
+
 #+NAME: evil
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/evil-setup ()
@@ -48,7 +49,10 @@ Emacs session.
   (add-hook 'comint-mode-hook 'turn-on-evil-mode)
   (add-hook 'Info-mode-hook 'turn-off-evil-mode))
 
+
 (bmaas/install 'evil 'bmaas/evil-setup)
+
+
 #+END_SRC
 
 * Evil state based modeline color
@@ -58,17 +62,20 @@ Got this from emacs-wiki as a snippet.
 
 #+begin_src emacs-lisp :tangle yes
 ;; change mode-line color by evil state
-(lexical-let ((default-color (cons (face-background 'mode-line)
-                                   (face-foreground 'mode-line))))
-  (add-hook 'post-command-hook
-            (lambda ()
-              (let ((color (cond ((minibufferp) default-color)
-                                 ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-                                 ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-                                 ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-                                 (t default-color))))
-                (set-face-background 'mode-line (car color))
-                (set-face-foreground 'mode-line (cdr color))))))
+(defvar bmaas/default-modeline-color (cons (face-background 'mode-line)
+                                           (face-foreground 'mode-line)))
+
+(defun bmaas/change-modeline-color-on-buffer-state ()
+  (let ((color (cond ((minibufferp) bmaas/default-modeline-color)
+                     ((evil-insert-state-p) '("black" . "#cccccc"))
+                     ((evil-emacs-state-p)  '("black" . "blue"))
+                     ((evil-motion-state-p)  '("black" . "Yellow"))
+                     ;;((buffer-modified-p)   '("#006fa0" . "#cccccc"))
+                     (t bmaas/default-modeline-color))))
+    (set-face-background 'mode-line (car color))
+    (set-face-foreground 'mode-line (cdr color))))
+
+(add-hook 'post-command-hook 'bmaas/change-modeline-color-on-buffer-state)
 #+end_src
 
 * Evil-leader
@@ -81,14 +88,23 @@ provides an easy way to bind keys under a variable prefix key. The default
 binding of =<leader>= is =\=, which is not easy to reach, so I bind
 it to =;=.
 
+My choice for =;= has some limitations, since the =C-;= combination will
+not be send by some terminals. Which has to do with the =modifyOtherKeys=
+extention which has been introduced in later terminal implemenations.
+
+iTerm2 which I use will not send the C-; combination.
+
+http://manytricks.com/keycodes/ has an app to find
+keycodes for your system.
+
 #+NAME: evil-leader
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/evil-leader-setup ()
   (evil-leader/set-leader ";")
 
-  ;; evil leader also in insert state, by prepending non-normal-prefix "C-" ..
-  (setq evil-leader/in-all-states t)
+  ; enable in all states
   (setq evil-leader/non-normal-prefix "C-")
+  (setq evil-leader/in-all-states t)
 
   (unless (featurep 'helm)
     (evil-leader/set-key
@@ -238,7 +254,11 @@ it to =;=.
       ))
   (evil-leader/set-key
     "k" 'kill-buffer)
-  (global-evil-leader-mode))
+  (global-evil-leader-mode)
+  ;; Messages buffer does not get the leader because
+  ;; it exists already. We just kill it so it opens again
+  (kill-buffer "*Messages*")
+)
 
 (bmaas/install 'evil-leader 'bmaas/evil-leader-setup)
 #+END_SRC
