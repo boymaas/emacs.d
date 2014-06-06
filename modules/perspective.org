@@ -27,6 +27,9 @@ Switched to [[https://github.com/Bad-ptr/persp-mode.el][perp-mode]] see github
   (setq persp-when-kill-switch-to-buffer-in-perspective t)
   ;; switch off animation of restoring window configuration
   (setq wg-morph-on nil)
+  ;; no-auto-resume want to load buffers when I start using
+  ;; workspaces
+  (setq persp-auto-resume-time 0.0)
   (persp-mode))
 
 (bmaas/install 'persp-mode 'bmaas/persp-mode-setup)
