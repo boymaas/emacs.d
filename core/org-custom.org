@@ -4,7 +4,7 @@
 Org mode customizations, there are primaraly usefull settings
 making my org-mode experience more pleasurable.
 
-* Custom keymap
+* Evil-Org: custom keymap
 
 Evil with org mode gives some behaviour that is confusing, I want to be able to
 TAB in normal mode, and have it working as expected.
@@ -44,6 +44,37 @@ Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][
     "co" 'org-clock-out))
 
 (add-hook 'org-mode-hook 'evil-org-mode/set-leader-keys)
+#+end_src
+
+* Windmove compatibility
+
+Windmove uses =shift-<cusrsor>= keys to navigate. Org-mode also
+uses this paradigm.
+
+Shifted cursor keys will then execute Org commands in the following contexts:
+- on a headline, changing TODO state (left/right) and priority (up/down)
+- on a time stamp, changing the time
+- in a plain list item, changing the bullet type
+- in a property definition line, switching between allowed values
+- in the BEGIN line of a clock table (changing the time block).
+Outside these contexts, the commands will throw an error.
+
+All this functionality is handled by the =org-shiftright= and =org-shiftleft=
+functions.
+
+We will remove this binding from the org-mode map so the normal windmove
+functionality will work.
+
+#+begin_src emacs-lisp :tangle yes
+(eval-after-load "org-mode"
+  (progn
+    (dolist (shift-cursor-key '("S-<left>"
+                                "S-<right>"
+                                "S-<up>"
+                                "S-<down>"))
+      (let ((org-mode-function (lookup-key org-mode-map (kbd shift-cursor-key))))
+        (define-key org-mode-map (kbd shift-cursor-key) nil)
+        (define-key org-mode-map (kbd (format "C-%s" shift-cursor-key)) org-mode-function)))))
 #+end_src
 
 * Settings
