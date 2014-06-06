@@ -136,6 +136,34 @@ respectively.
      (setq interprogram-paste-function 'live-copy-from-osx)))
 #+END_SRC
 
+* Terminal Shift-up => <select> issue
+ But this data is overridden by the
+data provided by the terminfo database, so my guess is that the terminfo
+database is incorrect (and/or that the byte sequences sent by those
+terminal emulators for S-up and select are the same, so the database is
+not incorrect, but the result is still undesirable).
+
+You should be able to work around the issue with something like:
+
+#+begin_src emacs-lisp :tangle no
+  (define-key input-decode-map "\e[1;2A" [S-up])
+#+end_src
+
+And for this to take effect at the right time, you will have to use in
+your .emacs something like:
+
+#+begin_src emacs-lisp :tangle no
+  (if (equal "xterm" (tty-type))
+      (define-key input-decode-map "\e[1;2A" [S-up]))
+#+end_src
+
+and if you use Emacs with multiple terminals, you'll additionally need:
+
+#+begin_src emacs-lisp :tangle yes
+  (defadvice terminal-init-xterm (after select-shift-up activate)
+    (define-key input-decode-map "\e[1;2A" [S-up]))
+#+end_src
+
 * Auto-fill Mode
   :PROPERTIES:
   :CUSTOM_ID: auto-fill
@@ -270,7 +298,9 @@ extension for GNU Emacs 24.
 (defun bmaas/flycheck-setup ()
   (eval-after-load 'flycheck
     '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))
-  (add-hook 'prog-mode-hook 'flycheck-mode))
+  ;; disabled, manually enable flycheck
+  ;;(add-hook 'prog-mode-hook 'flycheck-mode)
+  )
 
 (bmaas/install 'flycheck 'bmaas/flycheck-setup)
 #+END_SRC
