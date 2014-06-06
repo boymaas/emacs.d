@@ -17,6 +17,13 @@
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
+(defvar bmaas/home-dir (file-name-directory (or load-file-name (buffer-file-name)))
+  "emacs config home directory.")
+
+;; Do a standard byte-compile of all files in this config dir
+(defun bmaas/byte-compile-all ()
+  (byte-recompile-directory bmaas/home-dir 0))
+
 ;; Now install el-get at the very first
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -65,8 +72,6 @@ FILENAME defaults to `buffer-file-name'."
 
 (el-get 'sync (mapcar 'el-get-source-name el-get-sources))
 
-(defvar bmaas/home-dir (file-name-directory (or load-file-name (buffer-file-name)))
-  "emacs config home directory.")
 
 ;; load up the core-config
 (org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
