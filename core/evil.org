@@ -253,6 +253,7 @@ keycodes for your system.
       "smr" 'sp-raise-sexp
       ))
   (evil-leader/set-key
+    "'" 'comment-region
     "k" 'kill-buffer)
   (global-evil-leader-mode)
   ;; Messages buffer does not get the leader because
