@@ -29,6 +29,7 @@ Switched to [[https://github.com/Bad-ptr/persp-mode.el][perp-mode]] see github
   (setq wg-morph-on nil)
   ;; no-auto-resume want to load buffers when I start using
   ;; workspaces
+  (setq persp-auto-save-opt 0)
   (setq persp-auto-resume-time 0.0)
   (persp-mode))
 
