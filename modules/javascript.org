@@ -71,7 +71,7 @@ way to solve this.
             ;;                nil
             ;;                :post-handlers
             ;;                '((bmaas/create-newline-and-enter-sexp js3-enter-key))))
-  (add-to-list 'ac-modes 'js3-mode))
+  )
 
 (bmaas/install 'js3-mode 'bmaas/js3-mode-setup)
 #+END_SRC

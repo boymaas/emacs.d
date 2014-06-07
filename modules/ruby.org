@@ -126,11 +126,12 @@ Basic features of robe:
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/robe-mode-setup ()
   (add-hook 'robe-mode-hook 'ac-robe-setup)
-  (add-to-list 'ac-modes 'inf-ruby-mode)
   (add-hook 'inf-ruby-mode-hook 'ac-robe-setup))
 
 (bmaas/install 'robe-mode 'bmaas/robe-mode-setup)
 #+END_SRC
+
+
 
 * Smartparens-ruby
   :PROPERTIES:

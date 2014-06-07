@@ -76,14 +76,6 @@ It's really really awesome, ah?
   (setq nrepl-buffer-name-show-port t))
 
 (bmaas/install 'cider 'bmaas/cider-setup)
-
-(defun bmaas/ac-nrepl-setup ()
-  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
-  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-  (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'cider-repl-mode)))
-
-(bmaas/install 'ac-nrepl 'bmaas/ac-nrepl-setup)
 #+END_SRC
 
 * Normal keybindings
