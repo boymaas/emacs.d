@@ -133,10 +133,14 @@ auto-complete for JavaScript programming in Emacs.
 #+NAME: coffeescript mode
 #+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/coffee-mode-hook ()
-  (setq coffee-tab-width 2)
-  (setq coffee-indent-line nil))
+  (setq standard-indent 2)
+  (setq tab-always-indent nil)
+  (setq evil-shift-width 2))
 
 (defun bmaas/coffee-mode-setup ()
+  (setq coffee-tab-width 2)
+  (setq coffee-indent-tabs-mode nil)
+
   (add-hook 'coffee-mode-hook 'bmaas/coffee-mode-hook))
 
 (bmaas/install 'coffee-mode 'bmaas/coffee-mode-setup)
