@@ -497,8 +497,17 @@ like.
   (eval-after-load "undo-tree"
     '(diminish 'undo-tree-mode))
 
+  (eval-after-load "company"
+    '(diminish 'company-mode))
+
+  (eval-after-load "yasnippet"
+    '(diminish 'yas-minor-mode))
+
+  (eval-after-load "evil-org"
+    '(diminish 'evil-org-mode))
+
   (eval-after-load "git-gutter-fringe"
-    '(diminish 'git-gutter-mode)))
+    '(Diminish 'git-gutter-mode)))
 
 (bmaas/install 'diminish 'bmaas/diminish-setup)
 #+END_SRC
