@@ -141,7 +141,9 @@ auto-complete for JavaScript programming in Emacs.
   (setq coffee-tab-width 2)
   (setq coffee-indent-tabs-mode nil)
 
-  (add-hook 'coffee-mode-hook 'bmaas/coffee-mode-hook))
+  (evil-define-key 'visual coffee-mode-map ";c" 'coffee-compile-region))
+
+  (add-hook 'coffee-mode-hook 'bmaas/coffee-mode-hook)
 
 (bmaas/install 'coffee-mode 'bmaas/coffee-mode-setup)
 #+END_SRC
