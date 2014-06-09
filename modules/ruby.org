@@ -124,9 +124,7 @@ Basic features of robe:
 
 #+NAME: robe-mode
 #+BEGIN_SRC emacs-lisp
-(defun bmaas/robe-mode-setup ()
-  (add-hook 'robe-mode-hook 'ac-robe-setup)
-  (add-hook 'inf-ruby-mode-hook 'ac-robe-setup))
+(defun bmaas/robe-mode-setup ())
 
 (bmaas/install 'robe-mode 'bmaas/robe-mode-setup)
 #+END_SRC
