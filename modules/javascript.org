@@ -147,3 +147,43 @@ auto-complete for JavaScript programming in Emacs.
 
 (bmaas/install 'coffee-mode 'bmaas/coffee-mode-setup)
 #+END_SRC
+
+** Coffeescript extract class into a file
+
+Working on projects I often find I want to extract certain classes to seperate
+files. So this macro is the result. Select a class and you will be prompted for
+a filename derived from the class name underscored. You selection will be
+appended to the file.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/string-camel->underscore (s &optional sep start)
+  "Convert CamelCase string S to lower case with word separator SEP.
+Default for SEP is a hyphen \"_\".
+
+If third argument START is non-nil, convert words after that
+index in STRING."
+  (let ((case-fold-search nil))
+    (while (string-match "[A-Z]" s (or start 1))
+      (setq s (replace-match (concat (or sep "_")
+                                     (downcase (match-string 0 s)))
+                             t nil s)))
+    (downcase s)))
+
+(defun bmaas/coffee-sperate-class-in-file (start end)
+  "Select a string beginning with a class \w+. The classname will be used to
+generate a file-name which you can change at the prompt. The contents will be
+  appended to the specified file. And an export clause will be added at the end."
+  (interactive "r")
+  (let ((contents (buffer-substring-no-properties start end))
+        (regexp-class "class \\([a-zA-Z]+\\)"))
+    (if (string-match-p regexp-class contents)
+        (let* ((match (string-match regexp-class contents))
+              (class-name (match-string 1 contents))
+              (file-name (read-string "Filename: "
+                                       (format "%s.coffee"
+                                               (bmaas/string-camel->underscore class-name)))))
+          (append-to-file contents nil file-name)
+          (append-to-file "\n\nroot = exports ? this\n" nil file-name)
+          (append-to-file (format "root.%s = %s\n" class-name class-name) nil file-name)
+          (find-file file-name)))))
+#+end_src
