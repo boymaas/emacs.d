@@ -354,15 +354,15 @@ the default motion keys.
 
 ** Dired overrides
 
-Dired seems to go to evil-normal mode. I want it to be motion state!
+And wdired-mode starts now in instert state, but I want in in normal
+state!
 
-Does not work, since enter is not functioning in motion state ..
+#+begin_src emacs-lisp :tangle yes
+;; wdired in normal state
+(setq evil-insert-state-modes (delete 'wdired-mode evil-insert-state-modes))
+(add-to-list 'evil-normal-state-modes 'wdired-mode)
 
-#+begin_src emacs-lisp :tangle no
-(defun bmaas/force-evil-motion-state ()
-  (evil-motion-state))
-
-(add-hook 'dired-mode-hook 'bmaas/force-evil-motion-state)
+(evil-leader/set-key-for-mode 'dired-mode "e" 'wdired-change-to-wdired-mode)
 #+end_src
 
 ** TODO this is probably more reasonable
