@@ -312,6 +312,20 @@ Save bookmarks every modification
 #+begin_src emacs-lisp :tangle yes
 (setq bookmarks-save-flag 1)
 #+end_src
+
+* Ibuffer
+
+I like to between files using Ibuffer. Removed some confusing info
+from the Ibuffer default column setup.
+
+#+begin_src emacs-lisp :tangle yes
+(setq ibuffer-formats
+      '((mark modified read-only " "
+              (mode 9 9 :left)
+              (name 30 -1 :left :elide))))
+#+end_src
+
+
 * Todo
 ** Flycheck
 - Customizable prefix key, see https://github.com/flycheck/flycheck/issues/223.

@@ -185,5 +185,6 @@ generate a file-name which you can change at the prompt. The contents will be
           (append-to-file contents nil file-name)
           (append-to-file "\n\nroot = exports ? this\n" nil file-name)
           (append-to-file (format "root.%s = %s\n" class-name class-name) nil file-name)
+          (delete-region start end)
           (find-file file-name)))))
 #+end_src
