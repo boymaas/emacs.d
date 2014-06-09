@@ -155,7 +155,8 @@ I made it a default for oh-my-emacs.
 #+NAME: linum-relative
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/linum-relative-setup ()
-  (require 'linum-relative))
+  (require 'linum-relative)
+  (linum-relative-toggle))
 
 (bmaas/install 'linum-relative 'bmaas/linum-relative-setup)
 #+END_SRC
