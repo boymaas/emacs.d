@@ -98,6 +98,8 @@ defines a proper completion function.
   (setq company-idle-delay nil)
   ;; trigger completion on TAB
   (global-set-key (kbd "TAB") 'bmaas/company-mode-indent-or-complete)
+  (define-key company-active-map (kbd "TAB") 'company-complete-common)
+
   ;; run global-company after complete of emacs is initialized
   (add-hook 'after-init-hook 'global-company-mode))
 
