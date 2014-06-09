@@ -19,6 +19,9 @@ Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][
   :keymap (make-sparse-keymap)
   :group 'evil-org)
 
+;; diminish modeline
+(diminish 'evil-org-mode)
+
 (add-hook 'org-mode-hook 'evil-org-mode)
 
 (evil-define-key 'normal evil-org-mode-map

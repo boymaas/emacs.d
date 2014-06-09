@@ -503,8 +503,6 @@ like.
   (eval-after-load "yasnippet"
     '(diminish 'yas-minor-mode))
 
-  (eval-after-load "evil-org"
-    '(diminish 'evil-org-mode))
 
   (eval-after-load "git-gutter-fringe"
     '(Diminish 'git-gutter-mode)))
