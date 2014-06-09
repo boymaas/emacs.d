@@ -47,6 +47,8 @@
 (set-language-environment "UTF-8")
 ;; auto revert buffer globally
 (global-auto-revert-mode t)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 ;; set TAB and indention
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
