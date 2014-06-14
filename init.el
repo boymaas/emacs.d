@@ -22,6 +22,7 @@
 
 ;; Do a standard byte-compile of all files in this config dir
 (defun bmaas/byte-compile-all ()
+  (interactive)
   (byte-recompile-directory bmaas/home-dir 0))
 
 ;; Now install el-get at the very first
@@ -81,14 +82,15 @@ FILENAME defaults to `buffer-file-name'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("~/Sites/planning/clojure.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org")))
  '(safe-local-variable-values (quote ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face tabs trailing lines-tail) (require-final-newline . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-changed ((t (:foreground "color-16"))) t)
- '(diff-removed ((t (:inherit diff-changed :background "#553333"))) t)
+ '(diff-changed ((t (:foreground "color-16"))))
+ '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
  '(helm-selection ((t (:background "green" :foreground "color-16"))))
  '(magit-diff-add ((t (:inherit diff-added :background "#5f8700" :foreground "color-16"))))
  '(magit-diff-del ((t (:inherit diff-removed :background "tomato" :foreground "color-16"))))

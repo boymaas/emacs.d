@@ -297,19 +297,14 @@ To add extra modes to the motions states just add entries to the variable
                                      org-agenda-mode
                                      custom-mode))
 
-(setq bmaas/evil-motion-state-modes '(dired-mode))
-
-(setq bmaas/evil-overriding-mode-maps (list dired-mode-map
-                                        ;...
-                                            ))
+(setq bmaas/evil-motion-state-modes '(dired-mode cider-inspect-mode cider-stacktrace-mode))
 
 (defun bmaas/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another and delete from the old location. "
   (define-key keymap-to key (lookup-key keymap-from key))
   (define-key keymap-from key nil))
 
-(eval-after-load 'evil
-  '(progn
+(defun bmaas/evil-everywhere ()
      ;; all emacs mode modes beome motion modes
      (setq evil-motion-state-modes (append evil-emacs-state-modes
                                            evil-motion-state-modes
@@ -321,17 +316,40 @@ To add extra modes to the motions states just add entries to the variable
            (setq evil-motion-state-modes (delq a-mode evil-motion-state-modes))
            (add-to-list 'evil-emacs-state-modes a-mode))
 
-     ;; make overriding map defined modes
-     (dolist (a-mode-map bmaas/evil-overriding-mode-maps)
-       (evil-make-overriding-map a-mode-map 'motion))
-
-
      ;; move many caught keys to normal map
      (bmaas/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
      (bmaas/move-key evil-motion-state-map evil-normal-state-map " ")
 
      ;; needed to activate settings
-     (evil-mode)))
+     (evil-mode))
+
+;; need to run this after all modes are initialized. Otherwise some mode-maps
+;; will not be available (eg. cider-inspector-mode-map)
+(add-hook 'after-init-hook 'bmaas/evil-everywhere)
+
+;; bmaas: initialize the eval-after-load forms, some files are autoloaded
+;;        and some vars are not present at after-init time.
+(defun bmaas/evil-intercept-motion-map-after-load (mode-base-name)
+  "Makes an intercept map for motion state after loading the file
+defined by `mode-base-name`. Map name is derived from mode-base-name
+
+eg. cider-stacktrace => cider-stacktrace-mode-map"
+
+  ;; note that to capture the mode* let variables inside the lambda
+  ;; we need a lexical-let construct. Dynamic binding is default in emacs
+  (let* ( ( mode (format "%s-mode" mode-base-name))
+          ( mode-hook (format "%s-hook" mode))
+          ( mode-map (format "%s-map" mode)))
+    (eval-after-load mode-base-name
+      `(progn
+         (evil-make-intercept-map ,(intern mode-map))))))
+
+(bmaas/evil-intercept-motion-map-after-load "cider-stacktrace")
+(bmaas/evil-intercept-motion-map-after-load "cider-inspector")
+(bmaas/evil-intercept-motion-map-after-load "dired")
+(bmaas/evil-intercept-motion-map-after-load "magit")
+
+
 #+end_src
 
 ** Ibuffer overrides

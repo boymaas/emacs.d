@@ -113,7 +113,7 @@ evil-normal-state-map.
   "cele" 'cider-eval-last-sexp
   "celp" 'cider-eval-print-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
-  "cet" 'cider-eval-defun-at-point
+  "cc" 'cider-eval-defun-at-point
   "cr" 'cider-switch-to-repl-buffer
   "cd" 'cider-doc
   "ci" 'cider-inspect
