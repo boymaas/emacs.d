@@ -118,7 +118,12 @@ evil-normal-state-map.
   "cd" 'cider-doc
   "ci" 'cider-inspect
   "cm" 'cider-macroexpand-1
+  "." 'projectile-find-implementation-or-test-other-window
+  "t" 'clojure-test-run-tests
+  "T" 'clojure-test-run-test
+  "." 'projectile-find-implementation-or-test-other-window
   )
+
 #+end_src
 
 * Todos
