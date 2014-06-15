@@ -83,7 +83,6 @@ defines a proper completion function.
   "Keymap that is enabled during an active completion.")
 #+end_src
 
-
 ** Setup
 
 #+begin_src emacs-lisp :tangle yes
@@ -98,7 +97,7 @@ defines a proper completion function.
   (setq company-idle-delay nil)
   ;; trigger completion on TAB
   (global-set-key (kbd "TAB") 'bmaas/company-mode-indent-or-complete)
-  (define-key company-active-map (kbd "TAB") 'company-complete-common)
+  (define-key company-active-map (kbd "TAB") 'company-complete-selection)
 
   ;; run global-company after complete of emacs is initialized
   (add-hook 'after-init-hook 'global-company-mode))
@@ -240,8 +239,8 @@ TODO:
   (setq yas-prompt-functions
         '(yas-popup-isearch-prompt
           yas-no-prompt))
-  (yas/load-directory "~/.emacs.d/snippets")
-  (yas-global-mode))
+  (yas-global-mode)
+  (yas-load-directory "~/.emacs.d/snippets"))
 
 (bmaas/install 'popup 'bmaas/noop)
 (bmaas/install 'yasnippet 'bmaas/yasnippet-setup)
