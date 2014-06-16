@@ -98,6 +98,7 @@ keycodes for your system.
       "ha" 'helm-apropos
       "hr" 'helm-resume
       "hb" 'helm-bookmarks
+      "hg" 'helm-do-grep
 
       "x" 'helm-M-x
       ;;"X" 'smex
