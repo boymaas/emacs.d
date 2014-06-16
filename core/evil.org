@@ -269,7 +269,7 @@ keycodes for your system.
 We prefer to be in evil mode in all kinds of buffers. Searching google I
 encountered[[https://gitorious.org/evil/evil/source/8a9aeae5db3bbb19d2349b7de86d8de3c151e123:evil-integration.el][ Evil repos - integration]] which gives some hints on how to integrate.
 
-** TODO Emacs states to motion states
+** Emacs states to motion states
 
 So to get the integration I want I move all the "emacs states" to the
 evil-motion states. Then I move some common keys from the motion state map
@@ -295,7 +295,7 @@ To add extra modes to the motions states just add entries to the variable
                                      magit-process-mode
                                      magit-branch-manager-mode
                                      org-agenda-mode
-                                     custom-mode))
+                                     Custom-mode))
 
 (setq bmaas/evil-motion-state-modes '(dired-mode cider-inspect-mode cider-stacktrace-mode))
 
