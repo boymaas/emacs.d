@@ -1,49 +1,10 @@
 #+TITLE: JavaScript
 #+OPTIONS: toc:2 num:nil ^:nil
 
-As with python, there're many choices to do JavaScript programming in Emacs,
-however, IMHO, none of them are perfect, and easy to use. I've spent weeks of
-spare time to experience various emacs packages for JavaScript, and only
-figured out a not too bad solution based on [[https://github.com/thomblake/js3-mode][js3-mode]], [[https://github.com/abicky/nodejs-repl.el][nodejs-repl]], and [[https://github.com/marijnh/tern][tern]].
-
-* Prerequisites
-  :PROPERTIES:
-  :CUSTOM_ID: javascript-prerequisites
-  :END:
-
-#+NAME: javascript-prerequisites
-#+CAPTION: Prerequisites for bmaas/javascript module
-|        | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
-|--------+---------+--------------------+-----------+--------+----------+------------|
-| [[http://nodejs.org/][nodejs]] |         | nodejs             |           |        |          | Yes        |
-| [[http://ternjs.net/][tern]]   |         | [npm]              | [npm]     | [npm]  | [npm]    | Yes        |
-
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: javascript-el-get-packages
-  :END:
-
-#+NAME: javascript-el-get-packages
-#+CAPTION: El-get packages for bmaas/javascript module
-|             | Description                             | Status   |
-|-------------+-----------------------------------------+----------|
-| [[https://github.com/thomblake/js3-mode][js3-mode]]    | A chimeric fork of js2-mode and js-mode | Required |
-| [[https://github.com/defunkt/coffee-mode][coffee-mode]] | A great coffee script mode              | Required |
-
 * js3-mode
   :PROPERTIES:
   :CUSTOM_ID: js3-mode
   :END:
-
-As the author said, [[https://github.com/thomblake/js3-mode][js3-mode]] is a "A chimeric fork of js2-mode and
-js-mode". The main advantage of js3-mode over js2-mode, IMHO, is its
-indentation work as I expected. However, some third party packages depend on
-js2-mode, so this is a trade-off. I'm familiar with the internals of js2-mode,
-any discussion is welcomed if you prefer js2-mode over js3-mode.
-
-And another small issue is, js3-mode bind the =RET= key to =js3-enter-key=,
-which break smartparens's newline and indentation. I didn't figure out a good
-way to solve this.
 
 #+NAME: js3-mode
 #+BEGIN_SRC emacs-lisp
@@ -74,58 +35,6 @@ way to solve this.
   )
 
 (bmaas/install 'js3-mode 'bmaas/js3-mode-setup)
-#+END_SRC
-
-* Tern
-  :PROPERTIES:
-  :CUSTOM_ID: tern
-  :END:
-
-Tern is a stand-alone code-analysis engine for JavaScript. It is written in
-JavaScript, and capable of running both on [[http://nodejs.org/][nodejs]] and in the browser.
-
-IMHO, tern is really an awesome project, various editors including Emacs
-provides tern support. The author of tern, [[http://marijnhaverbeke.nl/][Marijin Haverbeke]], is really a cool
-guy, an excellent JavaScript/Lisp hacker. He is also a tech writer, the author
-of "Eloquent JavaScript".
-
-Tern is really cool, besides the parser, it even has type inference for
-JavaScript. And it works both for browser and nodejs in an extensible way. For
-example, to get completion for both nodejs and jquery, just put a
-=.tern-project= file in your js project root directory, the content of this
-=.tern-project= file is self-explained, see tern's [[http://ternjs.net/doc/manual.html#configuration][manual]] for tech details.
-
-#+NAME: tern-project
-#+BEGIN_SRC javascript
-{
-  "libs": [
-    "browser",
-    "jquery"
-  ],
-  "plugins": {
-    "node": {}
-  }
-}
-#+END_SRC
-
-It is quite easy to setup and configure tern, the only thing you need to do is
-=sudo npm install -g tern=. Enjoy the auto-completion support from tern and
-auto-complete for JavaScript programming in Emacs.
-
-#+NAME: tern
-#+BEGIN_SRC emacs-lisp :tangle no
-(defun bmaas/tern-setup ()
-  (when (el-get-package-installed-p 'js2-mode)
-    (add-hook 'js2-mode-hook (lambda () (tern-mode t))))
-  (when (el-get-package-installed-p 'js3-mode)
-    (add-hook 'js3-mode-hook (lambda () (tern-mode t))))
-  (setq tern-command (cons (executable-find "tern") '()))
-  (eval-after-load 'tern
-    '(progn
-       (require 'tern-auto-complete)
-       (tern-ac-setup))))
-
-(bmaas/install 'tern 'bmaas/tern-setup)
 #+END_SRC
 
 * Coffeescript mode

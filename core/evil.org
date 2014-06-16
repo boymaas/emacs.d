@@ -1,39 +1,15 @@
 #+TITLE: Evil setup
 #+OPTIONS: toc:2 num:nil ^:nil
 
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: core-packages
-  :END:
-
-#+NAME: core-packages
-#+CAPTION: El-get packages matrix for ome-advanced module
-|                  | Status      | Description                                   |
-|------------------+-------------+-----------------------------------------------|
-| [[http://gitorious.org/evil][evil]]             | Required    | Finally, the Emacs OS get a good editor.      |
-| [[https://github.com/cofi/evil-leader][evil-leader]]      | Required    | <leader> key for evil.                        |
-| [[https://github.com/timcharper/evil-surround][evil-surround]]    | Recommended | Surround.vim for evil.                        |
-| [[https://github.com/magnars/expand-region.el][expand-region.el]] | Recommended | Expand and select.                            |
-| [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]]   | Recommended | Yet another emacs front-end to ack.           |
-| [[https://github.com/winterTTr/ace-jump-mode][ace-jump-mode]]    | Recommended | A quick cursor location minor mode for emacs. |
-
 * Evil
   :PROPERTIES:
   :CUSTOM_ID: evil
   :END:
 
-#+BEGIN_QUOTE
-As a poke at Emacs' creeping featurism, vi advocates have been known to
-describe Emacs as "a great operating system, lacking only a decent editor".
-
--- [[http://en.wikipedia.org/wiki/Editor_war][Editor war]]
-#+END_QUOTE
-
 If you need to turn off evil temporarily for a single buffer, use
 =M-x evil-local-mode= instead of =M-x evil-mode=, since the latter will turn
 off evil-mode globally, which means, evil-mode will be turned off for the whole
 Emacs session.
-
 
 #+NAME: evil
 #+BEGIN_SRC emacs-lisp
@@ -51,8 +27,6 @@ Emacs session.
 
 
 (bmaas/install 'evil 'bmaas/evil-setup)
-
-
 #+END_SRC
 
 * Evil state based modeline color
@@ -348,8 +322,6 @@ eg. cider-stacktrace => cider-stacktrace-mode-map"
 (bmaas/evil-intercept-motion-map-after-load "cider-inspector")
 (bmaas/evil-intercept-motion-map-after-load "dired")
 (bmaas/evil-intercept-motion-map-after-load "magit")
-
-
 #+end_src
 
 ** Ibuffer overrides
@@ -392,19 +364,6 @@ state!
   :CUSTOM_ID: evil-surround
   :END:
 
-As I said, =smartparens= is the ultimate pair management solution for
-Emacs. So why [[https://github.com/timcharper/evil-surround][evil-surround]]?
-
-[[https://github.com/timcharper/evil-surround][evil-surround]] is a port of [[https://github.com/tpope/vim-surround][vim-surround]] to evil. I think you can treat
-=evil-surround= as a complement of =smartparens= in pair changing, deleting
-and adding, while =smartparens= is good at pair inserting and operating.
-
-IMHO, no editors can compete with Vim in pure text editing speed. So I
-think =evil-surround= is still worth a try. [[http://www.catonmat.net/blog/vim-plugins-surround-vim/][Here]] is an excellent and concise
-tutorial for =vim-surround=. Note that there may be some minor differences
-between =evil-surround= and =vim-surround=. However, for daily use, they're
-almost the same.
-
 #+NAME: evil-surround
 #+BEGIN_SRC emacs-lisp
 (bmaas/install 'evil-surround 'bmaas/noop)
@@ -432,11 +391,11 @@ Oh-my-emacs adopt [[https://github.com/cofi/evil-leader][evil-leader]] and bind 
 (defun bmaas/ace-jump-mode-setup ()
   (when (and (featurep 'evil) (featurep 'evil-leader))
     (evil-leader/set-key
-      "c" 'ace-jump-char-mode
-      "w" 'ace-jump-word-mode
-      "l" 'ace-jump-line-mode)))
+      "jc" 'ace-jump-char-mode
+      "jw" 'ace-jump-word-mode
+      "jl" 'ace-jump-line-mode)))
 
-(bmaas/install 'ace-jump-mode 'bmaas/noop)
+(bmaas/install 'ace-jump-mode 'bmaas/ace-jump-mode-setup)
 #+END_SRC
 
 * Ack-and-a-half

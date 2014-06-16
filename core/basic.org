@@ -1,32 +1,6 @@
 #+TITLE: Basic emacs configuration
 #+OPTIONS: toc:nil num:nil ^:nil
 
-* Prerequisites
-  :PROPERTIES:
-  :CUSTOM_ID: basic-prerequisites
-  :END:
-
-#+NAME: basic-prerequisites
-#+CAPTION: Prerequisites for ome-basic module
-|            | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
-|------------+---------+--------------------+-----------+--------+----------+------------|
-| [[http://aspell.net/][GNU Aspell]] |         | aspell, aspell-en  |           |        |          |            |
-
-* El-get Packages
-  :PROPERTIES:
-  :CUSTOM_ID: basic-el-get-packages
-  :END:
-
-#+NAME: basic-el-get-packages
-#+CAPTION: el-get packages for ome-basic module
-|                  | Status      | Description                                       |
-|------------------+-------------+---------------------------------------------------|
-| saveplace        | Builtin     | Save cursor place in opened files.                |
-| recentf          | Builtin     | Maintains a recent opened file list.              |
-| uniquify         | Builtin     | Better differentiate buffers with same file name. |
-| auto-fill-mode   | Builtin     | We should still obey the 80-characters rule.      |
-| [[https://github.com/flycheck/flycheck][flycheck]]         | Recommended | aka "Flymake done right"                          |
-
 * Some Basic Settings
   :PROPERTIES:
   :CUSTOM_ID: basic
@@ -113,10 +87,8 @@ There're multiple [[http://wikemacs.org/index.php/Installing_Emacs_on_OS_X][choi
 got my Emacs with =brew install emacs --cocoa=. This version of emacs even has
 native [[http://batsov.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-osx-full-screen-support/][full screen support]].
 
-Another problem with emacs on Mac OX X is the keybindings to =Meta= and
-=Control=. Since most of the macbooks lack the right =Control= key, I prefer
-to bind Mac's =Command= and =Option= key to Emacs's =Meta= and =Control= key,
-respectively.
+Notice the interprogram-{cut,paste}-function's, enabled by pbpaste and pbcopy.
+Very handy when doing interop from terminal to mac-osx.
 
 #+BEGIN_SRC emacs-lisp
 (when (eq system-type 'darwin)
@@ -139,14 +111,14 @@ respectively.
 #+END_SRC
 
 * Terminal Shift-up => <select> issue
- But this data is overridden by the
-data provided by the terminfo database, so my guess is that the terminfo
-database is incorrect (and/or that the byte sequences sent by those
-terminal emulators for S-up and select are the same, so the database is
-not incorrect, but the result is still undesirable).
 
-You should be able to work around the issue with something like:
 
+Data is overridden by the data provided by the terminfo database, so my guess
+is that the terminfo database is incorrect (and/or that the byte sequences sent
+by those terminal emulators for S-up and select are the same, so the database
+is not incorrect, but the result is still undesirable).
+
+So redefining the input-decode, should do the trick.
 #+begin_src emacs-lisp :tangle no
   (define-key input-decode-map "\e[1;2A" [S-up])
 #+end_src
@@ -159,12 +131,14 @@ your .emacs something like:
       (define-key input-decode-map "\e[1;2A" [S-up]))
 #+end_src
 
-and if you use Emacs with multiple terminals, you'll additionally need:
+And if you use Emacs with multiple terminals, you'll additionally need:
 
 #+begin_src emacs-lisp :tangle yes
   (defadvice terminal-init-xterm (after select-shift-up activate)
     (define-key input-decode-map "\e[1;2A" [S-up]))
 #+end_src
+
+Now shift-up should come through nicely.
 
 * Auto-fill Mode
   :PROPERTIES:
@@ -174,14 +148,6 @@ and if you use Emacs with multiple terminals, you'll additionally need:
 [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Auto-Fill.html][Auto Fill mode]] is a buffer-local minor mode in which lines are broken
 automatically when they become too wide. Breaking happens only when you type a
 <SPC> or <RET>.
-
-You may wonder why we still live with 80 columns rule in modern life, in which
-we have large monitors, intelligent editors(or IDEs). I don't explain the
-reasons here, you can refer stackoverflow [[http://stackoverflow.com/questions/110928/is-there-a-valid-reason-for-enforcing-a-maximum-width-of-80-characters-in-a-code][1]] and [[http://stackoverflow.com/questions/373561/do-people-still-live-by-the-80-column-rule][2]] to get some feeling.
-
-I zealously wrap my code at 80 columns if possible, and encourage my colleagues
-to follow the same rule. In fact, there're some projects in which 80 columns
-rule is mandatory.
 
 I enable auto fill minor mode for text-mode and prog-mode and all [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Derived-Modes.html][derived modes]]
 from them[1]. For how to quickly fill a paragraph or region, see [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Fill-Commands.html][Explicit Fill Commands]].
@@ -308,7 +274,10 @@ extension for GNU Emacs 24.
 #+END_SRC
 
 * Bookmarks
-Save bookmarks every modification
+
+Save bookmarks every modification, so I don't loose my bookmarks on a forced
+closing of emacs ..
+
 #+begin_src emacs-lisp :tangle yes
 (setq bookmarks-save-flag 1)
 #+end_src
@@ -324,14 +293,3 @@ from the Ibuffer default column setup.
               (mode 9 9 :left)
               (name 30 -1 :left :elide))))
 #+end_src
-
-
-* Todo
-** Flycheck
-- Customizable prefix key, see https://github.com/flycheck/flycheck/issues/223.
-- Checkers for Common Lisp.
-- Test with big files for performance.
-- More documentation and tutorial.
-
-[1] Actually, emacs has only three [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Major-Modes.html][basic major modes]], so we actually enable
-auto-fill in almost every programming and writing modes.

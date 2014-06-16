@@ -6,7 +6,6 @@
 This org-file is an example of literal programming, emacs will load the org file
 and untangles the file into a elisp source file to be loaded by emacs.
 
-
 ** Cl-lib
    :PROPERTIES:
    :CUSTOM_ID: cl-lib

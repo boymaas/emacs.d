@@ -1,20 +1,6 @@
 #+TITLE: GUI
 #+OPTIONS: toc:nil num:nil ^:nil
 
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: gui-el-get-packages
-  :END:
-
-#+NAME: gui-el-get-packages
-#+CAPTION: El-get packages for ome-gui module
-|                       | Status   | Description                            |
-|-----------------------+----------+----------------------------------------|
-| [[https://github.com/sellout/emacs-color-theme-solarized.git][color-theme-solarized]] | Required | Adopt this as the default color-theme. |
-| [[https://github.com/milkypostman/powerline][powerline]]             | Required | Eye candy for Emacs mode line.         |
-| [[https://github.com/m2ym/yascroll-el][yascroll]]              | Required | Eye candy for Emacs scroll bar.        |
-| [[https://github.com/coldnew/linum-relative][linum-relative]]        | Required | Eye candy for Emacs linum-mode.        |
-
 * Basic GUI Settings
 #+NAME: gui-basics
 #+BEGIN_SRC emacs-lisp
@@ -102,11 +88,11 @@ Powerline is an eye candy for emacs [[http://www.gnu.org/software/emacs/manual/h
 inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There're also powerline variants for [[https://github.com/erikw/tmux-powerline][tmux]], [[https://github.com/milkbikis/powerline-shell][shell]], etc.
 
 #+NAME: powerline
-#+BEGIN_SRC emacs-lisp
-;(defun bmaas/powerline-setup ()
-;  (powerline-default-theme))
+#+BEGIN_SRC emacs-lisp :tangle no
+(defun bmaas/powerline-setup ()
+  (powerline-default-theme))
 
-;(bmaas/install 'powerline 'bmaas/powerline-setup)
+(bmaas/install 'powerline 'bmaas/powerline-setup)
 #+END_SRC
 
 * Solarized Color Theme
@@ -125,8 +111,6 @@ oh-my-emacs.
 
 (bmaas/install 'solarized-theme 'bmaas/solarized-theme-setup)
 #+END_SRC
-
-** Q&A
 
 * Yascroll
   :PROPERTIES:
@@ -148,9 +132,8 @@ oh-my-emacs.
   :CUSTOM_ID: linum-relative
   :END:
 
-I think the inspiration of [[https://github.com/coldnew/linum-relative][linum-relative]] comes from [[https://github.com/myusuf3/numbers.vim][numbers.vim]]. Thanks
-[[https://github.com/vimeitor][vimeitor]] for methoning this for me, I tried and I found it's really useful. So
-I made it a default for oh-my-emacs.
+Nice relative linenumbers, after using it a while I prefer normal
+lin numbering.
 
 #+NAME: linum-relative
 #+BEGIN_SRC emacs-lisp
@@ -160,8 +143,3 @@ I made it a default for oh-my-emacs.
 
 (bmaas/install 'linum-relative 'bmaas/linum-relative-setup)
 #+END_SRC
-
-* Todo
-** Speedbar
-- Combine projectile and speedbar to provide a project navigation
-  feature. [[https://github.com/rdallasgray/graphene][graphene]] has a solution, which may be worth a try.

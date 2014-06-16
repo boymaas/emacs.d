@@ -8,51 +8,10 @@ planning, and authoring with a fast and effective plain-text system.
 Org Mode can be used as a very simple folding outliner or as a complex
 GTD system or tool for reproducible research and literate programming.
 
-For more information on org-mode check out [[http://orgmode.org/worg/][worg]], a large Org-mode wiki
-which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
-
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: org-el-get-packages
-  :END:
-
-#+NAME: org-el-get-packages
-#+CAPTION: El-get packages for ome-org module
-|            | Status      | Description                               |
-|------------+-------------+-------------------------------------------|
-| [[http://orgmode.org/][org-mode]]   | Required    | One of the killer Apps on Emacs platform. |
-| [[http://www.emacswiki.org/emacs/Htmlize][htmlize]].el | Recommended | Export an buffer to html format.          |
-| [[http://staff.science.uva.nl/~dominik/Tools/cdlatex/][CDLaTeX]]    | Recommended | Speedy \LaTeX{} input.                    |
-
 * Org-mode upgrade
   :PROPERTIES:
   :CUSTOM_ID: org-mode-upgrade
   :END:
-
-#+BEGIN_QUOTE
-Org 8.0 is the most disruptive major version of Org.
-
--- http://orgmode.org/Changes_old.html
-#+END_QUOTE
-
-So why upgrade? Because it is there, it is the future of org-mode. Second, I
-want to export my org files to markdown format, sometimes, and org-mode 8.x
-provide a new great export engine, which is one of the most exciting features
-of org-mode 8.x, check [[http://article.gmane.org/gmane.emacs.orgmode/65574][the mailing list]] for original announcing post. For other
-features, check [[http://orgmode.org/worg/org-8.0.html][org 8.0 upgrading doc]].
-
-You can get the latest org-mode by =M-x el-get-install RET org-mode=
-directly. However, we need some tricks to make it work.
-
-Oh-my-emacs use =org-babel= from =org-mode= to provide a literate emacs
-configuration, so we need to =(require 'org)= just after oh-my-emacs
-starts. However, by default, emacs will load the builtin =org-mode=
-instead of the latest =org-mode= package from =el-get=. To replace the builtin
-=org-mode= with the latest =org-mode= from =el-get= when we boot
-for the initial oh-my-emacs setup, we need to install =org-mode= just
-after =el-get= setup, that means, =org-mode= should be the first package to be
-installed via =el-get=, this can be done by putting the following code snippet
-to =$HOME/.emacs.d/init.el=:
 
 #+NAME: org-mode-upgrade
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -66,26 +25,6 @@ to =$HOME/.emacs.d/init.el=:
                               (ome-org-mode-setup))))
 
 (el-get 'sync (mapcar 'el-get-source-name el-get-sources))
-#+END_SRC
-
-* Keybindings
-  :PROPERTIES:
-  :CUSTOM_ID: keybindings
-  :END:
-
-#+NAME: keybindings
-#+BEGIN_SRC emacs-lisp
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "M-C-n") 'outline-next-visible-heading)
-            (local-set-key (kbd "M-C-p") 'outline-previous-visible-heading)
-            (local-set-key (kbd "M-C-u") 'outline-up-heading)
-            ;; table
-            (local-set-key (kbd "M-C-w") 'org-table-copy-region)
-            (local-set-key (kbd "M-C-y") 'org-table-paste-rectangle)
-            (local-set-key (kbd "M-C-l") 'org-table-sort-lines)
-            ;; display images
-            (local-set-key (kbd "M-I") 'org-toggle-iimage-in-org)))
 #+END_SRC
 
 * Speed keys
@@ -111,26 +50,6 @@ display a list of the code blocks commands and their related keys.
   :PROPERTIES:
   :CUSTOM_ID: babel
   :END:
-This activates a number of widely used languages, you are encouraged
-to activate more languages using the customize interface for the
-`=org-babel-load-languages=' variable, or with an elisp form like the
-one below.  The customize interface of `=org-babel-load-languages='
-contains an up to date list of the currently supported languages.
-
-#+NAME: babel
-#+BEGIN_SRC emacs-lisp :tangle no
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (sh . t)))
-#+END_SRC
-
-You are encouraged to add the following to your personal configuration
-although it is not added by default as a security precaution.
-
-#+BEGIN_SRC emacs-lisp :tangle no
-(setq org-confirm-babel-evaluate nil)
-#+END_SRC
 
 Use =C-c '= to edit the current code block. This brings up a language
 major-mode edit buffer containing the body of the code block. Manually saving
@@ -280,6 +199,3 @@ math]]" for details.
 (when (el-get-package-is-installed 'cdlatex-mode)
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
 #+END_SRC
-
-* Todo
-- How to handle =org-mode= format like ===?

@@ -1,43 +1,7 @@
 #+TITLE: Miscs
 #+OPTIONS: toc:nil num:nil ^:nil
 
-This file contains things that still don't find a good place to put, :-).
-
-* Prerequisites
-  :PROPERTIES:
-  :CUSTOM_ID: miscs-prerequisites
-  :END:
-
-#+NAME: miscs-prerequisites
-#+CAPTION: Prerequisites for ome-miscs module
-|     | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
-|-----+---------+--------------------+-----------+--------+----------+------------|
-| [[http://w3m.sourceforge.net/][w3m]] |         | w3m, w3m-img       |           |        |          | No         |
-
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: miscs-el-get-packages
-  :END:
-
-#+NAME: miscs-el-get-packages
-#+CAPTION: El-get packages for ome-miscs module
-|                    | Status      | Description                                        |
-|--------------------+-------------+----------------------------------------------------|
-| [[https://github.com/jlr/rainbow-delimiters][rainbow-delimiters]] | Required    | Colorful parens.                                   |
-| [[http://magit.github.io/magit/][magit]]              | Required    | Git in Emacs.                                      |
-| [[https://github.com/bbatsov/projectile][projectile]]         | Required    | Project managment in Emacs.                        |
-| [[https://github.com/Fuco1/smartparens][smartparens]]        | Required    | The ulitimate paren management solution for Emacs. |
-| [[http://emacs-w3m.namazu.org/][emacs-w3m]]          | Recommended | Browsing HTML docs in Emacs.                       |
-| [[https://github.com/syohex/emacs-quickrun][quickrun]]           | Recommended | Just as its name said.                             |
-| [[http://www.eskimo.com/~seldon/diminish.el][diminish]]           | Recommended | Clean up mode line space.                          |
-| [[https://github.com/syohex/emacs-git-gutter-fringe][git-gutter-fringe]]  | Recommended | Fringe version of [[https://github.com/syohex/emacs-git-gutter][git-gutter.el]]                    |
-
 * Enable some dangerous commands
-
-Emacs may be slow when you editing large files with many minor modes
-on. [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Narrowing.html][Narrowing]] allows you focus in on some portion of the buffer, making the
-rest temporarily inaccessible. Widening is the reverse of narrowing, which
-cancels the narrowing, and makes the entire buffer once again accessible.
 
 By default, the narrowing commands are considered to be dangerous, we just
 remove the dangerous tag here.
@@ -46,30 +10,6 @@ remove the dangerous tag here.
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-#+END_SRC
-
-* Toggle server mode .
-  :PROPERTIES:
-  :CUSTOM_ID: emacs-server
-  :END:
-
-You can [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html][use emacs as a server]], which "listens" for external edit requests and
-acts accordingly. Thus you can =alias vim=emacsclient= as the lucky
-stuff, :-).
-
-There're two ways to turn on =server-mode= on emacs start:
-- =(server-mode t)=
-- =(server-start)=
-
-In either way you can use =emacsclient= to connect an existing emacs server,
-and finish editing by typing =C-x #(server-edit)=, which will "kill" the
-=emacscient=. You can also quit =emacsclient= by =C-x C-c=, but this will kill
-emacs if you use =(server-start)= while keeps emacs alive if you use
-=(server-mode t)=, I don't know why. If you know the details, please tell me.
-
-#+NAME: emacs-server
-#+BEGIN_SRC emacs-lisa :tangle :no
-(server-mode t)
 #+END_SRC
 
 * Random Number
@@ -164,12 +104,6 @@ keybindings for =outline-minor-mode=.
   :CUSTOM_ID: magit
   :END:
 
-[[http://www.git-scm.com/][Git]] might be the most popular version control system in the world by far, every
-programmer should try it, learn it, and finally master it. In fact, mastering
-git will boost your workflow and efficiency to a new level. Besides version
-control, git can also do other useful things such as file and storage
-sync. [[http://en.wikipedia.org/wiki/Linus_Torvalds][Linus Torvalds]], father of git, describes git as [[http://linux.die.net/man/1/git][a stupid content tracker]]:
-
 #+BEGIN_QUOTE
 In many ways you can just see git as a filesystem - it's content-
 addressable, and it has a notion of versioning, but I really really
@@ -180,22 +114,10 @@ interest in creating a traditional SCM system.
 -- Linus Torvalds, http://marc.info/?l=linux-kernel&m=111314792424707
 #+END_QUOTE
 
-Actually, "git is fundamentally a content-addressable filesystem with a
-VCS user interface written on top of it[1]".
-
-[[http://magit.github.io/magit/][Magit]] integrate emacs with git, which will make your workflow smoother and more
-enjoyable. Of course there're other choices, but I prefer magit, view [[http://alexott.net/en/writings/emacs-vcs/EmacsGit.html][Alexott's
-Blog]] for technical details.
-
-There're a huge collection of magit commands which I can't remember at all,
-check the magit [[http://daemianmack.com/magit-cheatsheet.html][cheatsheet]] for details. The entry point to magit is
-=magit-status=, by default, ome bind "C-x g" to this command.
-
 #+NAME: magit
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/magit-setup ()
   ;; magit-status is the entry point
-  (global-set-key (kbd "C-x g") 'magit-status)
   (add-hook 'git-rebase-mode-hook
             (lambda ()
               (evil-local-mode -1))))
@@ -228,31 +150,28 @@ of the time. But we still turn on it globally to make it a fallback when
   :CUSTOM_ID: projectile
   :END:
 
-Emacs is good at file/buffer management, but lacks support for project level
-management. Fortunately, [[https://github.com/bbatsov/projectile][projectile]], a project created by [[http://batsov.com/][Bozhidar Batsov]], also
-the author of [[https://github.com/bbatsov/prelude][emacs prelude]], solved this problem in a lightweight, elegant,
-flexible and portable way.
+This library provides easy project management and navigation. The concept of a
+project is pretty basic - just a folder containing special file. Currently git,
+mercurial, darcs and bazaar repos are considered projects by default. So are
+lein, maven, sbt, rebar and bundler projects. If you want to mark a folder
+manually as a project just create an empty .projectile file in it. Some of
+Projectile's features:
 
-The concept of a project in projectile is pretty easy and basic -- just s
-folder containing special file. "Currently =git=, =mercurial=, =darcs= and
-=bazaar= repos are considered projects by default. So are =lein=, =maven=,
-=sbt=, =rebar= and =bundler= projects. If you want to mark a folder manually as
-a project just create an empty .projectile file in it."
-
-Projectile is flexible, you can use different completion backends, such as the
-emacs builtin =ido= with [[https://github.com/lewang/flx][flx-ido]], [[https://github.com/d11wtq/grizzl][grizzl]], or just regular completion, it also
-offers =helm= integration, which is great in oh-my-emacs since oh-my-emacs
-enables =helm= by default. But there's still room for improvement, I think, if
-one project contains multiple files with the same name, you can't
-differentiate them in helm's "projectile files list", so maybe add the
-fullpath aside to filename is a good idea.
-
-We use grizzl completion to facilitate the searching for files etc
-
-With projectile, you can find/grep/list files *within a project*, switch/view
-a list of known project you have viewed recently, kills all project buffers
-with a single shortcut, etc. Sounds great, ha? So, don't hesitate any more,
-justo enjoy it!
+- jump to a file in project
+- jump to a directory in project
+- jump to a file in a directory
+- jump to a project buffer
+- jump to a test in project
+- toggle between code and its test
+- jump to recently visited files in the project
+- switch between projects you have worked on
+- kill all project buffers
+- replace in project
+- multi-occur in project buffers
+- grep in project
+- regenerate project etags or gtags (requires gtags).
+- visit project in dired
+- run make in a project with a single key chord
 
 #+NAME: projectile
 #+BEGIN_SRC emacs-lisp
@@ -266,8 +185,6 @@ justo enjoy it!
 (bmaas/install 'grizzl 'bmaas/noop)
 (bmaas/install 'projectile 'bmaas/projectile-setup)
 #+END_SRC
-
-
 
 * Smartparens
   :PROPERTIES:
@@ -286,27 +203,6 @@ of some features, for a complete list and detailed documentation look in the
 
 For the complete picture of what is it about, visit the [[https://github.com/Fuco1/smartparens/wiki][documentation wiki]].
 #+END_QUOTE
-
-Believe me, [[https://github.com/Fuco1/smartparens][smartparens]] is the future, it is the ultimate solution for paren
-pairs management in Emacs world. It is flexible, uniform and highly
-customizable. It is also bundled with a comprehensive documentation, besides
-the aforementioned wiki, you can also =M-x sp-cheat-sheet= to get live
-examples, which, I think, is really a innovative feature.
-
-Smartparens didn't provide keybindings for most of its commands by default, so
-you must define proper =sp-keymap= by yourself, however, smartparens does
-provide =sp-use-paredit-bindings= and =sp-use-smartparens-bindings= as a good
-starting point. We adopt its own keybindings for smartparens, which
-defines =M-s= as the prefix key. The default keybindings provided by
-smartparens has some conflicts with =evil='s =ESC= key. If you have any other
-good suggestions, please tell me, thanks!
-
-I spent about one week's spare time just learning this amazing
-package. Smartparens is not as strict as paredit, for some people that kind of
-strictness seems annoying and weird at first. Paredit is [[http://emacsrocks.com/e14.html][powerful]], so
-smartparens import many features from paredit and provides a compatible, and
-more powerful, flexible version. For any serious Lispers, I recommend you spend
-some time to master these wonderful commands, which will make your life easier.
 
 #+NAME: smartparens
 #+BEGIN_SRC emacs-lisp
@@ -341,55 +237,6 @@ some time to master these wonderful commands, which will make your life easier.
 
   ;; highlights matching pairs
   (show-smartparens-global-mode t)
-
-  ;; keybinding management
-  (define-key sp-keymap (kbd "M-s f") 'sp-forward-sexp)
-  (define-key sp-keymap (kbd "M-s b") 'sp-backward-sexp)
-
-  (define-key sp-keymap (kbd "M-s d") 'sp-down-sexp)
-  (define-key sp-keymap (kbd "M-s D") 'sp-backward-down-sexp)
-  (define-key sp-keymap (kbd "M-s a") 'sp-beginning-of-sexp)
-  (define-key sp-keymap (kbd "M-s e") 'sp-end-of-sexp)
-
-  (define-key sp-keymap (kbd "M-s u") 'sp-up-sexp)
-  ;; (define-key emacs-lisp-mode-map (kbd ")") 'sp-up-sexp)
-  (define-key sp-keymap (kbd "M-s U") 'sp-backward-up-sexp)
-  (define-key sp-keymap (kbd "M-s t") 'sp-transpose-sexp)
-
-  (define-key sp-keymap (kbd "M-s n") 'sp-next-sexp)
-  (define-key sp-keymap (kbd "M-s p") 'sp-previous-sexp)
-
-  (define-key sp-keymap (kbd "M-s k") 'sp-kill-sexp)
-  (define-key sp-keymap (kbd "M-s w") 'sp-copy-sexp)
-
-  (define-key sp-keymap (kbd "M-s s") 'sp-forward-slurp-sexp)
-  (define-key sp-keymap (kbd "M-s r") 'sp-forward-barf-sexp)
-  (define-key sp-keymap (kbd "M-s S") 'sp-backward-slurp-sexp)
-  (define-key sp-keymap (kbd "M-s R") 'sp-backward-barf-sexp)
-  (define-key sp-keymap (kbd "M-s F") 'sp-forward-symbol)
-  (define-key sp-keymap (kbd "M-s B") 'sp-backward-symbol)
-
-  (define-key sp-keymap (kbd "M-s [") 'sp-select-previous-thing)
-  (define-key sp-keymap (kbd "M-s ]") 'sp-select-next-thing)
-
-  (define-key sp-keymap (kbd "M-s M-i") 'sp-splice-sexp)
-  (define-key sp-keymap (kbd "M-s <delete>") 'sp-splice-sexp-killing-forward)
-  (define-key sp-keymap (kbd "M-s <backspace>") 'sp-splice-sexp-killing-backward)
-  (define-key sp-keymap (kbd "M-s M-<backspace>") 'sp-splice-sexp-killing-around)
-
-  (define-key sp-keymap (kbd "M-s M-d") 'sp-unwrap-sexp)
-  (define-key sp-keymap (kbd "M-s M-b") 'sp-backward-unwrap-sexp)
-
-  (define-key sp-keymap (kbd "M-s M-t") 'sp-prefix-tag-object)
-  (define-key sp-keymap (kbd "M-s M-p") 'sp-prefix-pair-object)
-  (define-key sp-keymap (kbd "M-s M-c") 'sp-convolute-sexp)
-  (define-key sp-keymap (kbd "M-s M-a") 'sp-absorb-sexp)
-  (define-key sp-keymap (kbd "M-s M-e") 'sp-emit-sexp)
-  (define-key sp-keymap (kbd "M-s M-p") 'sp-add-to-previous-sexp)
-  (define-key sp-keymap (kbd "M-s M-n") 'sp-add-to-next-sexp)
-  (define-key sp-keymap (kbd "M-s M-j") 'sp-join-sexp)
-  (define-key sp-keymap (kbd "M-s M-s") 'sp-split-sexp)
-  (define-key sp-keymap (kbd "M-s M-r") 'sp-raise-sexp)
 
   ;; pair management
   (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
@@ -453,13 +300,7 @@ people, usually to nothing."
 -- Will Mengarini in diminish.el
 #+END_QUOTE
 
-As oh-my-emacs becomes more and more powerful, the mode line becomes more and
-more congested. [[http://www.eskimo.com/~seldon/diminish.el][diminish.el]] provide us a way to clean up the mode line. BTW, I
-really like its documentation, just check out the source code and you'll get
-everything you need to know about this tiny but powerful mode. See [[http://whattheemacsd.com/init.el-04.html][here]] and
-[[http://emacs-fu.blogspot.com/2010/05/cleaning-up-mode-line.html][here]] for some more details.
-
-You can check the variable =minor-mode-alist= and diminish minor modes as you
+Check the variable =minor-mode-alist= and diminish minor modes as you
 like.
 
 #+NAME: diminish
@@ -509,36 +350,3 @@ like.
 
 (bmaas/install 'diminish 'bmaas/diminish-setup)
 #+END_SRC
-
-* Todo
-- Enable flyspell and ispell in text-mode.
-- Add a dictionary support, such as =sdcv=? Or a better translator support such
-  as =babel= or =gtranslate=?
-- Set emacs auto-save temporary dir instead of .emacs.d
-- Investigate how to use =imenu= and =imenu rescan=.
-- Learn more about emacs mark and selection, why CapsLK turn on selection mode.
-- Integrate elnode, skewer-mode and emacs-request to emacs.
-- Write a proper major-mode for GAS assembly language.
-- Oh-my-emacs keybindings to =C--= conflicts with Emacs's =negative-argument=?
-- Try to get the total boot up time and try to reduce the whole boot up time.
-- Documentation about indentation settings:
-  - http://emacsredux.com/blog/2013/03/29/automatic-electric-indentation/
-- Documentation about occur edit mode, which removes the need of external
-  packages such as iedit:
-  http://batsov.com/articles/2011/08/19/a-peek-at-emacs24/
-- What is emacs desktop-mode?
-- There're some documentation confusions between =sp-beginning-of-sexp= and
-  =sp-end-of-sexp=.
-- What is raw prefix =- C-u=? This comes from docstring for =sp-kill-sexp=.
-- Integrate travis?
-- Make =ome-load= interactive and buffer recognized.
-  - interactive load files
-    - absolute path such as "/home/xiao/.emacs.d/ome-lisp.org"
-    - relative path such as "ome-lisp.org"
-  - with a prefix key, load current buffer
-- More investigation on registers and marks, for better and fast jump in same
-  buffer?
-- Add realtime dictionary support for emacs.
-
-
-[1] See [[http://git-scm.com/book/en/Git-Internals][Git Internals]] to technical details.

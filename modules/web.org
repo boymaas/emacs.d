@@ -3,29 +3,6 @@
 
 This module contains some packages for web development in Emacs.
 
-* Prerequisites
-  :PROPERTIES:
-  :CUSTOM_ID: web-prerequisites
-  :END:
-
-#+NAME: web-prerequisites
-#+CAPTION: Prerequisites for bmaas/web module
-|      | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
-|------+---------+--------------------+-----------+--------+----------+------------|
-| less | [npm]   | [npm]              | [npm]     | [npm]  | [npm]    | No         |
-
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: web-el-get-packages
-  :END:
-
-#+NAME: web-el-get-packages
-#+CAPTION: El-get packages for bmaas/web module
-|               | Status   | Description                                    |
-|---------------+----------+------------------------------------------------|
-| [[http://web-mode.org/][web-mode.el]]   | Required | An emacs major mode for editing html templates |
-| [[http://julien.danjou.info/projects/emacs-packages#rainbow-mode][rainbow-mode]]  | Required | Colorize color names in buffers                |
-| [[https://github.com/purcell/less-css-mode][less-css-mode]] | Optional | Emacs mode for LESS CSS (lesscss.org)          |
 
 * Basic css settings
   :PROPERTIES:
@@ -49,25 +26,15 @@ hook to enable =linum-mode= in =css-mode=.
   :CUSTOM_ID: web-mode
   :END:
 
-The most awful part of web page editing(or programming, if you like) is, one
-single web page often contains multiple types of code snippets. For example,
-you can put CSS/JavaScript/PHP in just one single page, which make it difficult
-for an editor to work properly, such as proper indentation, syntax
-highlighting, etc.
+#+BEGIN_QUOTE
+web-mode.el is an emacs major mode for editing web templates aka HTML files
+embedding parts (CSS/JavaScript) and blocks (pre rendered by client/server side
+engines).
 
-The modern web development is ruled by the [[http://en.wikipedia.org/wiki/Model%25E2%2580%2593view%25E2%2580%2593controller][MVC]] pattern, in which the various
-[[http://en.wikipedia.org/wiki/Web_template_system][web template system]] is an important component. Just like normal html page, you
-can mix together HTML, CSS, JavaScript and a special web template language
-together as you like. You may wonder, is it possible for Emacs, an editor, to
-edit all different code snippets without switching between different modes?
-
-The answer is yes, web have [[http://web-mode.org/][web-mode]], a really genius emacs package. You can
-even edit normal html page using web-mode.
-
-There're still a minor problem, different web projects often has different
-coding styles, such as indentation spaces. So it is not possible for us to set
-various web-mode options in our =.emacs= and expect that it will works for all
-web projects. The answer lies in the [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][Emacs Manual]].
+web-mode.el is compatible with many template engines: PHP, JSP, ASP, Django,
+Twig, Jinja(2), ERB, FreeMarker, Velocity, Cheetah, Smarty, CTemplate,
+Mustache, Blade, ErlyDTL, Go Template, Dust.js, Google Closure (soy), JSX, etc.
+#+END_QUOTE
 
 #+NAME: web-mode
 #+BEGIN_SRC emacs-lisp

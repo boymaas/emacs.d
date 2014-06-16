@@ -3,43 +3,6 @@
 
 This is part of the [[https://github.com/xiaohanyu/oh-my-emacs][oh-my-emacs]].
 
-* Prerequisites
-  :PROPERTIES:
-  :CUSTOM_ID: ruby-prerequisites
-  :END:
-
-This is a experimental prerequisites matrix. Somebody said we can convert this
-type of matrix into a runnable script, however, I think it requires too much
-work. Maybe [[http://www.ansibleworks.com/][ansible]] script is a good choice.
-
-#+NAME: ruby-prerequisites-matrix
-#+CAPTION: Prerequisites for bmaas/ruby module
-|       | Windows | Ubuntu/Debian/Mint | ArchLinux | Fedora | Mac OS X | Mandatory? |
-|-------+---------+--------------------+-----------+--------+----------+------------|
-| ruby  |         | ruby               | ruby      | ruby   |          | Yes        |
-| [[https://github.com/sstephenson/rbenv][rbenv]] |         | [web]              | [web]     | [web]  | homebrew | Yes        |
-| pry   |         | [gem]              | [gem]     | [gem]  | [gem]    | No         |
-
-* El-get packages
-  :PROPERTIES:
-  :CUSTOM_ID: ruby-el-get-packages
-  :END:
-
-#+NAME: ruby-el-get-packages
-#+CAPTION: El-get packages for bmaas/ruby module
-|                    | Status     | Description                                                   |
-|--------------------+------------+---------------------------------------------------------------|
-| [[https://github.com/qoobaa/ruby-electric][ruby-electric]]      | Deprecated | [[https://github.com/Fuco1/smartparens][smartparens]] is amazing.                                       |
-| [[https://github.com/adolfosousa/ruby-block.el][ruby-block]]         | Deprecated | [[https://github.com/Fuco1/smartparens][smartparens]] is amazing.                                       |
-| [[https://github.com/rejeep/ruby-end][ruby-end]]           | Deprecated | [[https://github.com/Fuco1/smartparens/blob/master/smartparens-ruby.el][smartparens-ruby]] is amazing, too.                             |
-| [[http://rubygems.org/gems/rcodetools][rcodetools]]         | Deprecated | Long time no update.                                          |
-| [[http://www.cx4a.org/pub/auto-complete-ruby.el][auto-complete-ruby]] | Deprecated | Depends on [[http://rubygems.org/gems/rcodetools][rcodetools]].                                        |
-| [[https://github.com/nonsequitur/inf-ruby][inf-ruby]]           | Required   | Ruby [[http://en.wikipedia.org/wiki/Read%25E2%2580%2593eval%25E2%2580%2593print_loop][REPL]] in Emacs.                                           |
-| [[https://github.com/dgutov/robe][robe-mode]]          | Required   | Code navigation, documentation lookup and completion for Ruby |
-| [[https://github.com/pd/yard-mode.el][yard-mode]]          | Required   | Emacs minor mode for editing YARD tags                        |
-| [[https://github.com/Fuco1/smartparens][smartparens]]        | Required   | Smartparens is amazing.                                       |
-| [[https://github.com/senny/rbenv.el][rbenv.el]]           | Required   | Emacs integration for [[https://github.com/sstephenson/rbenv][rbenv]].                                  |
-
 * Ruby-mode
   :PROPERTIES:
   :CUSTOM_ID: ruby-mode
@@ -71,21 +34,6 @@ functions for font-locking, indentation and code navigation.
   :PROPERTIES:
   :CUSTOM_ID: inf-ruby
   :END:
-
-I have a dream that one day the builtin =ruby-mode= and [[https://github.com/nonsequitur/inf-ruby][inf-ruby]] will merge
-together to form a new, more powerful =ruby-mode=, just like the builtin
-=python-mode=.
-
-Fortunately, inf-ruby support multiple ruby implementations in a simple
-way. It will use [[http://pryrepl.org/][pry]] if available.
-
-There still lacks a good auto-complete support, however, I think it shouldn't
-be too hard to add auto-complete support by leveraging =inf-ruby-complete=
-provided by =inf-ruby=.
-
-Oh-my-emacs also bind =C-c C-z= to =run-ruby=, instead of the original
-=ruby-switch-to-inf= to make the workflow smoother when you just want to
-evaluate ruby code snippets.
 
 #+NAME: inf-ruby
 #+BEGIN_SRC emacs-lisp
@@ -129,8 +77,6 @@ Basic features of robe:
 (bmaas/install 'robe-mode 'bmaas/robe-mode-setup)
 #+END_SRC
 
-
-
 * Smartparens-ruby
   :PROPERTIES:
   :CUSTOM_ID: smartparens-ruby
@@ -151,18 +97,6 @@ amazing, elegant package.
   :PROPERTIES:
   :CUSTOM_ID: rbenv
   :END:
-
-Ruby is an actively evolving language. Things often happen when you need to
-support multiple versions of ruby with your code base. So you need tools to
-install, and switch between multiple versions of ruby. [[http://rvm.io/][RVM]] is one of the most
-famous ruby version manager tools, however, IMHO, it's just too bloated. I
-prefer [[https://github.com/sstephenson/rbenv][rbenv]] for now. Of course there're other [[https://github.com/postmodern/chruby#alternatives][choices]], but rbenv has
-[[https://github.com/senny/rbenv.el][emacs support]], and various [[https://github.com/sstephenson/rbenv/wiki/Plugins][plugins]], which will make your life much more easier.
-
-[[https://github.com/sstephenson/ruby-build][ruby-build]] is one of the most important plugins of rbenv, actually, you can
-consider it as a sister project of rbenv. Just as its name, it helps to install
-ruby. Please do read its [[https://github.com/sstephenson/ruby-build/wiki][wiki]] to ensure your have necessary packages installed
-before you do your ruby-build.
 
 By default, rbenv will designate the global ruby version via
 =~/.rbenv/version=, so if =(file-exists-p "~/.rbenv/version")=, we know that
@@ -194,7 +128,6 @@ tags and directives in ruby comments.
 
 (bmaas/install 'yard-mode 'bmaas/yard-mode-setup)
 #+END_SRC
-
 
 * Rspec-mode
 
@@ -241,7 +174,3 @@ we set some local bindings.
      "td" 'rspec-disable-example
      "te" 'rspec-enable-example))
 #+end_src
-
-* Todo
-- Ah, rails support, lots of works, so, as it always said, any help will be
-  appreciated.

@@ -3,18 +3,6 @@
 
 Key bindings for oh-my-emacs, mainly imported from [[https://github.com/eschulte/emacs24-starter-kit][emacs24-starter-kit]].
 
-* You know, like Readline.
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-M-h") 'backward-kill-word)
-#+END_SRC
-
-* Align your code in a pretty way.
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x \\") 'align-regexp)
-#+END_SRC
-
 * Completion that uses many different methods to find options.
 
 #+BEGIN_SRC emacs-lisp
@@ -29,22 +17,11 @@ Key bindings for oh-my-emacs, mainly imported from [[https://github.com/eschulte
 #+END_SRC
 
 * Use regex searches by default.
-
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
-#+END_SRC
-
-* File finding
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x C-p") 'find-file-at-point)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
 
 * Window switching.
@@ -61,13 +38,6 @@ Key bindings for oh-my-emacs, mainly imported from [[https://github.com/eschulte
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
-#+END_SRC
-
-* Indentation help
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x ^") 'join-line)
 #+END_SRC
 
 * If you want to be able to M-x without meta
