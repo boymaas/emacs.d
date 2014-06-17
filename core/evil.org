@@ -29,6 +29,17 @@ Emacs session.
 (bmaas/install 'evil 'bmaas/evil-setup)
 #+END_SRC
 
+* Settings
+
+#+begin_src emacs-lisp :tangle yes
+;; DO NOT move cursor back after exiting insert state
+(setq evil-move-cursor-back nil)
+;; DO NOT highlight parens
+(setq evil-highlight-closing-paren-at-point-states nil)
+
+(setq show-paren-highlight-openparen nil)
+#+end_src
+
 * Evil state based modeline color
 
 Colored modeline, for easy determiniation of mode we are in.
@@ -178,58 +189,88 @@ keycodes for your system.
   (eval-after-load "magit"
     (evil-leader/set-key "g" 'magit-status))
   (eval-after-load "smartparens"
-    (evil-leader/set-key
-      "sf" 'sp-forward-sexp
-      "sb" 'sp-backward-sexp
+    (progn
+      ;; Smartparens keybindings in pairs
+      ;; TODO: make a helper out of this
+      (setq bmaas/smartparens-keys
+            '(
+              "sf" sp-forward-sexp
+              "sb" sp-backward-sexp
 
-      "sd" 'sp-down-sexp
-      "sD" 'sp-backward-down-sexp
-      "sa" 'sp-beginning-of-sexp
-      "se" 'sp-end-of-sexp
+              "sd" sp-down-sexp
+              "sD" sp-backward-down-sexp
+              "s^" sp-beginning-of-sexp
+              "s$" sp-end-of-sexp
 
-      "su" 'sp-up-sexp
-      ;; (define-key emacs-lisp-mode-map (kbd ")") 'sp-up-sexp)
-      "sU" 'sp-backward-up-sexp
-      "st" 'sp-transpose-sexp
+              "sU" sp-up-sexp
+              "su" sp-backward-up-sexp
 
-      "sn" 'sp-next-sexp
-      "sp" 'sp-previous-sexp
 
-      "sk" 'sp-kill-sexp
-      "sy" 'sp-copy-sexp
+              "sn" sp-next-sexp
+              "sp" sp-previous-sexp
 
-      "ss" 'sp-forward-slurp-sexp
-      "sr" 'sp-forward-barf-sexp
-      "sS" 'sp-backward-slurp-sexp
-      "sR" 'sp-backward-barf-sexp
-      "sF" 'sp-forward-symbol
-      "sB" 'sp-backward-symbol
+              "st" sp-transpose-sexp
+              "sk" sp-kill-sexp
+              "sy" sp-copy-sexp
 
-      "s[" 'sp-select-previous-thing
-      "s]" 'sp-select-next-thing
 
-      ;; (define-key sp-keymap (kbd "M-s M-i") 'sp-splice-sexp)
-      ;; (define-key sp-keymap (kbd "M-s <delete>") 'sp-splice-sexp-killing-forward)
-      ;; (define-key sp-keymap (kbd "M-s <backspace>") 'sp-splice-sexp-killing-backward)
-      ;; (define-key sp-keymap (kbd "M-s M-<backspace>") 'sp-splice-sexp-killing-around)
+              "s//" sp-splice-sexp
+              "s/f" sp-splice-sexp-killing-forward
+              "s/b" sp-splice-sexp-killing-backward
+              "s/a" sp-splice-sexp-killing-around
 
-      "swd" 'sp-unwrap-sexp
-      "swb" 'sp-backward-unwrap-sexp
 
-      "smt" 'sp-prefix-tag-object
-      "smp" 'sp-prefix-pair-object
-      "smc" 'sp-convolute-sexp
-      "sma" 'sp-absorb-sexp
-      "sme" 'sp-emit-sexp
-      "smp" 'sp-add-to-previous-sexp
-      "smn" 'sp-add-to-next-sexp
-      "smj" 'sp-join-sexp
-      "sms" 'sp-split-sexp
-      "smr" 'sp-raise-sexp
-      ))
+              "ss" sp-forward-slurp-sexp
+              "sr" sp-forward-barf-sexp
+
+              "sS" sp-backward-slurp-sexp
+              "sR" sp-backward-barf-sexp
+
+              "sF" sp-forward-symbol
+              "sB" sp-backward-symbol
+
+              "s[" sp-select-previous-thing
+              "s]" sp-select-next-thing
+
+
+              "swr" sp-rewrap-sexp
+              "swd" sp-unwrap-sexp
+              "swb" sp-backward-unwrap-sexp
+
+              "smt" sp-prefix-tag-object
+              "smp" sp-prefix-pair-object
+
+              "smc" sp-convolute-sexp
+
+              "sma" sp-absorb-sexp
+              "sme" sp-emit-sexp
+
+              "smp" sp-add-to-previous-sexp
+              "smn" sp-add-to-next-sexp
+
+              "smj" sp-join-sexp
+              "sms" sp-split-sexp
+
+              "smr" sp-raise-sexp))
+
+      (defun partition (l n)  ;"demo" grade, cursorily tested
+        "Return a list of L's consecutive sublists of length N."
+        (assert (zerop (mod (length l) n)))
+        (loop for l on l by #'(lambda (l) (nthcdr n l)) collect (subseq l 0 n)))
+
+      ;; undefine the normal s = which is substitute
+      (define-key evil-normal-state-map (kbd "s") nil)
+
+      ;; now map all smartparens actions for quick access to s-prefix
+      (dolist (key-combo (partition bmaas/smartparens-keys 2))
+        (let* ((key (first key-combo))
+               (exp (second key-combo)))
+          (define-key evil-normal-state-map (kbd key) exp)))))
+
   (evil-leader/set-key
-    "'" 'comment-region
-    "k" 'kill-buffer)
+    "'" 'comment-or-uncomment-region
+    "k" 'kill-buffer
+    "w" 'save-buffer)
   (global-evil-leader-mode)
   ;; Messages buffer does not get the leader because
   ;; it exists already. We just kill it so it opens again
@@ -237,6 +278,7 @@ keycodes for your system.
 )
 
 (bmaas/install 'evil-leader 'bmaas/evil-leader-setup)
+
 #+END_SRC
 
 * Evil-everywhere - evil-mode integration
@@ -270,9 +312,13 @@ To add extra modes to the motions states just add entries to the variable
                                      magit-process-mode
                                      magit-branch-manager-mode
                                      org-agenda-mode
-                                     Custom-mode))
+                                     Custom-mode
+                                     ))
 
-(setq bmaas/evil-motion-state-modes '(dired-mode cider-inspect-mode cider-stacktrace-mode))
+(setq bmaas/evil-motion-state-modes '(dired-mode
+                                      cider-inspect-mode
+                                      cider-doc-mode
+                                      cider-stacktrace-mode))
 
 (defun bmaas/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another and delete from the old location. "
