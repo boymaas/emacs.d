@@ -235,8 +235,8 @@ For the complete picture of what is it about, visit the [[https://github.com/Fuc
     (add-hook 'ielm-mode-hook
               'smartparens-strict-mode))
 
-  ;; highlights matching pairs
-  (show-smartparens-global-mode t)
+  ;; do not highlights matching pairs, we have showparens
+  (show-smartparens-global-mode -1)
 
   ;; pair management
   (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
