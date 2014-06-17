@@ -70,11 +70,21 @@ with the current =org-src-mode=. So we have to do some hack to bind =:w= to
 (setq org-edit-src-auto-save-idle-delay 5)
 (setq org-edit-src-content-indentation 0)
 
+(defun bmaas/org-edit-save-and-exit ()
+  (interactive)
+  (org-edit-src-save)
+  (org-edit-src-exit))
+
+
 (add-hook 'org-src-mode-hook
           (lambda ()
+            (evil-leader/set-key-for-mode 'org-src-mode
+              "w" 'bmaas/org-edit-save-and-exit)
+
             (make-local-variable 'evil-ex-commands)
             (setq evil-ex-commands (copy-list evil-ex-commands))
             (evil-ex-define-cmd "w[rite]" 'org-edit-src-save)))
+
 #+END_SRC
 
 * Code block fontification
