@@ -78,6 +78,23 @@
 (delete-selection-mode t)
 #+END_SRC
 
+* Auto compilation of elisp files
+
+One problem with compiling init files is this: if you edit a file, you need to
+remember to compile it again, else emacs will just load the compiled version
+that doesn't have your changes.
+
+#+BEGIN_SRC emacs-lisp
+(defun bmaas/byte-compile-current-buffer ()
+  "`byte-compile' current buffer if it's emacs-lisp-mode and compiled file exists."
+  (interactive)
+  (when (and (eq major-mode 'emacs-lisp-mode)
+             (file-exists-p (byte-compile-dest-file buffer-file-name)))
+    (byte-compile-file buffer-file-name)))
+
+(add-hook 'after-save-hook 'bmaas/byte-compile-current-buffer)
+#+END_SRC
+
 * Mac OS X compatibilities
   :PROPERTIES:
   :CUSTOM_ID: mac
