@@ -77,29 +77,13 @@ FILENAME defaults to `buffer-file-name'."
 ;; load up the core-config
 (org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-input-idle-delay 0.2)
- '(helm-locate-command "mdfind -name %s %s")
- '(helm-match-plugin-mode t nil (helm-match-plugin))
- '(helm-mode t)
- '(org-agenda-files (quote ("~/Sites/planning/clojure.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org")))
- '(safe-local-variable-values (quote ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face tabs trailing lines-tail) (require-final-newline . t)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(diff-changed ((t (:foreground "color-16"))))
- '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
- '(helm-selection ((t (:background "alternateSelectedControlColor" :foreground "alternateSelectedControlTextColor"))))
- '(helm-source-header ((t (:background "#22083397778B" :foreground "white"))))
- '(magit-diff-add ((t (:inherit diff-added :background "none" :foreground "light green"))))
- '(magit-diff-del ((t (:inherit diff-removed :background "none"))))
- '(org-todo ((t (:background "black" :foreground "red" :weight bold)))))
+
+;; set and load our custom file make sure custom file is compiled and thus
+;; reflect latest if changed settings compiled files have preference inside
+;; emacs
+(setq custom-file "~/.emacs.d/custom.el")
+(byte-compile-file custom-file)
+(load custom-file)
 
 ;; Do not want backtrace window to pop up
 (setq debug-on-error nil)
