@@ -109,21 +109,24 @@ We only load the core module. All other modules are loaded when needed, this kee
 (bmaas/load-module "core/evil.org")
 (bmaas/load-module "core/org-custom.org")
 
-;; some many used modules
-(bmaas/load-module "modules/clojure.org")
-(bmaas/load-module "modules/javascript.org")
-(bmaas/load-module "modules/ruby.org")
-(bmaas/load-module "modules/web.org")
-
-;; perspective will be loaded last since
-;; we want perspective to start loading buffers when all
-;; modes are setup
-(bmaas/load-module "modules/perspective.org")
 
 #+END_SRC
 
 ** Modules
 
 #+begin_src emacs-lisp :tangle yes
+
+;; some many used modules
+(bmaas/load-module "modules/clojure.org")
+(bmaas/load-module "modules/javascript.org")
+(bmaas/load-module "modules/ruby.org")
+(bmaas/load-module "modules/web.org")
+
+(bmaas/load-module "modules/rails.org")
+
+;; perspective will be loaded last since
+;; we want perspective to start loading buffers when all
+;; modes are setup
+(bmaas/load-module "modules/perspective.org")
 
 #+end_src

@@ -1,0 +1,54 @@
+#+TITLE: Rails setup
+#+OPTIONS: toc:2 num:nil ^:nil
+
+Contains some helpers created when working on rails projects.
+
+* Internationalizaztion
+
+For a project I needed to translate a lot of pages. This helper will move the
+selected tekst to an locale yaml file. Based on the template path used. Some
+settings are project specific.
+
+#+begin_src emacs-lisp :tangle yes
+
+;; Piece of code heloing in localizing templates inside a rails project
+(defun bmaas/rails/locale-file-name ()
+  (let* ((relative-to-project-dir
+         (file-relative-name (buffer-file-name) (projectile-project-root)))
+        ;; assuming path always starts with app/views we
+        ;; remove first 2 elements of path and ofcourse the filename itself
+        (relative-dir-to-app-view
+         (butlast (cddr (split-string relative-to-project-dir "/"))))
+        (base-name (file-name-sans-extension (file-name-base relative-to-project-dir)
+                    ))
+        ;; now build direcoty
+        (locale-directory (join-string
+                           (append (list "config" "locales" "en") relative-dir-to-app-view (list base-name))
+                           "/"))
+
+        )
+    (join-string (list locale-directory "yml") ".")))
+
+(defun bmaas/rails/yank-text-and-place-in-locale-file (start end)
+  (interactive "r")
+  (let (;; get the translation label using the minibuffer
+        (label (read-from-minibuffer "Translation label: "))
+        ;; get contents to be pasted into the localte file
+        (contents (buffer-substring (region-beginning) (region-end)))
+        (locale-filename (expand-file-name (boymaas/rinari/locale-file-name) (projectile-project-root))))
+    ;; delete region and replace with label
+    (delete-region start end)
+    (insert "= t(:" label ")")
+    ;; now open the locale file, expanded relative to project rool
+    ;; and append text, indented and all
+    (save-excursion
+      (with-current-buffer (find-file-noselect locale-filename)
+        (goto-char (point-max))
+        (newline)
+        (insert "  " label ": " contents)
+        (let ((locale-dir (file-name-directory locale-filename)))
+          (unless (file-directory-p locale-dir)
+              (make-directory locale-dir 'true)))
+        (save-buffer)))
+    (switch-to-buffer (current-buffer))))
+#+end_src
