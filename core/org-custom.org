@@ -80,6 +80,27 @@ functionality will work.
         (define-key org-mode-map (kbd (format "C-%s" shift-cursor-key)) org-mode-function)))))
 #+end_src
 
+* Fast git-push of planning updates
+
+Often when working on a planning, i have to switch to magit, stage and
+commit my org files. This function will automate the process.
+
+#+begin_src emacs-lisp :tangle yes
+;; go to planning dir
+;; add all org-files
+;; commit with standard message
+(defun bmaas/org-git-commit-push-planning-org-files ()
+    (interactive)
+    (let ((default-directory "~/Sites/planning/"))
+      (shell-command "git add *.org >/dev/null")
+      (shell-command "git commit -m 'emacs planning commit' >/dev/null")
+      (shell-command "git push >/dev/null")))
+
+(evil-leader/set-key
+  "oP" 'bmaas/org-git-commit-push-planning-org-files)
+
+#+end_src
+
 * Settings
 ** Fast access to org-files
 
