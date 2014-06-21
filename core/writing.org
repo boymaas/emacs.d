@@ -1,11 +1,6 @@
 #+TITLE: Writing
 #+OPTIONS: toc:nil num:nil ^:nil
 
-This is part of the [[https://github.com/xiaohanyu/oh-my-emacs][oh-my-emacs]].
-
-This file contains some packages for document writing.
-
-
 * Markdown
   :PROPERTIES:
   :CUSTOM_ID: markdown

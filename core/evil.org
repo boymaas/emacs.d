@@ -442,14 +442,6 @@ state!
 in current view. "You can move your cursor to ANY position (across window and
 frame) in emacs by using only 3 times key press."
 
-To tell the truth, I still don't why it it called "ace-jump". Seems [[https://github.com/johnlindquist/AceJump][AceJump]]
-first appears as an [[http://www.jetbrains.com/idea/][Intellij]] [[http://plugins.jetbrains.com/plugin/7086?pr%3DphpStorm][plugin]]. [[http://www.vim.org/scripts/script.php?script_id%3D3526][EasyMotion]] provides a similar feature to Vim.
-
-Oh-my-emacs adopt [[https://github.com/cofi/evil-leader][evil-leader]] and bind serveral keys to ace-jump-mode commands:
-- =<Leader> c=: =ace-jump-char-mode=
-- =<Leader> w=: =ace-jump-word-mode=
-- =<Leader> l=: =ace-jump-line-mode=
-
 #+NAME: ace-jump-mode
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/ace-jump-mode-setup ()
@@ -467,17 +459,7 @@ Oh-my-emacs adopt [[https://github.com/cofi/evil-leader][evil-leader]] and bind 
   :CUSTOM_ID: ack-and-a-ha
   :END:
 
-As we all know, Emacs is a good text editor. However, in some cases, we may
-spend most of our time to text reading instead of editing. As an advanced Emacs
-user, you may know [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Grep-Searching.html][grep-find]], and you may also know that you can jump to the
-next matching item by =M-g n=, oh, that's cool, really. But you still need to
-specify what type of file to search. You don't want to touch binary files with
-Emacs, ha? And, certainly you do want to ignore some hidden files such as files
-and directories used by various version control system. So there comes [[http://beyondgrep.com/][ack]],
-which works as expected.
-
-With the help of [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]], just go to the right place, then =M-x ack=,
-you'll get all you need. Enjoy it.
+Easy searching, and skipping binary files and ohers
 
 #+NAME: ack-and-a-half
 #+BEGIN_SRC emacs-lisp
@@ -492,10 +474,7 @@ you'll get all you need. Enjoy it.
 
 ag, [[https://github.com/ggreer/the_silver_searcher][the silver searcher]], a code searching tool similar to [[http://beyondgrep.com/][ack]] but much more
 faster. It searches code abot 3-5x faster than ack, and "The command name is
-33% shorter than ack, and all keys are on the home row!". I've used it for
-serveral months and it's amazing.
-
-[[https://github.com/bbatsov/projectile][Projectile]] has builtin support for ag(=projectile-ag=) via =C-c p A=.
+33% shorter than ack, and all keys are on the home row!".
 
 #+NAME: ag
 #+BEGIN_SRC emacs-lisp

@@ -78,14 +78,6 @@ overall structure with =outline-minor-mode=, so enabled
 =outline-minor-mode= for all programming modes by adding =outline-minor-mode=
 to =prog-mode-hook=.
 
-By default, outline minor mode provides special key bindings on the =C-c @=
-prefix, which, IMHO, is a little cumbersome to type. You can rebind to other
-keys if you like.
-
-You can get detailed information about =outline-mode= by typing =C-h F
-outline-mode=, and =C-h b= will bring you a full list of keybindings, including
-keybindings for =outline-minor-mode=.
-
 #+NAME: outline
 #+BEGIN_SRC emacs-lisp
 (add-hook 'prog-mode-hook
@@ -134,11 +126,6 @@ interest in creating a traditional SCM system.
 [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Visual-Line-Mode.html][Visual line mode]] is a new mode in Emacs 23. It provides support for editing by
 visual lines. It turns on word-wrapping in the current buffer, and rebinds C-a,
 C-e, and C-k to commands that operate by visual lines instead of logical lines.
-
-[[file:ome-basic.org::*Auto-fill%20Mode][As you know]], we have =turn-on-auto-fill= for =text-mode= and =prog-mode= and
-all derived modes, which may make it useless to turn on =visual-line-mode= most
-of the time. But we still turn on it globally to make it a fallback when
-=auto-fill-mode= was disabled by users.
 
 #+NAME: visual-line-mode
 #+BEGIN_SRC emacs-lisp

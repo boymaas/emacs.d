@@ -1,8 +1,6 @@
 #+TITLE Keybindings
 #+OPTIONS: toc:nil num:nil ^:nil
 
-Key bindings for oh-my-emacs, mainly imported from [[https://github.com/eschulte/emacs24-starter-kit][emacs24-starter-kit]].
-
 * Completion that uses many different methods to find options.
 
 #+BEGIN_SRC emacs-lisp
