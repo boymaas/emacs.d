@@ -127,6 +127,8 @@ keycodes for your system.
       ;; custom
       ";" 'evil-buffer
 
+      "qr" 'quickrun
+
       "el" (lambda () (interactive)
              (dired "."))
 
@@ -202,8 +204,8 @@ keycodes for your system.
               "s^" sp-beginning-of-sexp
               "s$" sp-end-of-sexp
 
-              "sU" sp-up-sexp
-              "su" sp-backward-up-sexp
+              "su" sp-up-sexp
+              "sU" sp-backward-up-sexp
 
 
               "sn" sp-next-sexp
@@ -211,6 +213,7 @@ keycodes for your system.
 
               "st" sp-transpose-sexp
               "sk" sp-kill-sexp
+              "sK" sp-backward-kill-sexp
               "sy" sp-copy-sexp
 
 
@@ -316,6 +319,7 @@ To add extra modes to the motions states just add entries to the variable
                                      ))
 
 (setq bmaas/evil-motion-state-modes '(dired-mode
+                                      grep-mode
                                       cider-inspect-mode
                                       cider-doc-mode
                                       cider-stacktrace-mode))
@@ -324,6 +328,10 @@ To add extra modes to the motions states just add entries to the variable
   "Moves key binding from one keymap to another and delete from the old location. "
   (define-key keymap-to key (lookup-key keymap-from key))
   (define-key keymap-from key nil))
+
+(defun bmaas/copy-key (keymap-from keymap-to key)
+  "Moves key binding from one keymap to another and delete from the old location. "
+  (define-key keymap-to key (lookup-key keymap-from key)))
 
 (defun bmaas/evil-everywhere ()
      ;; all emacs mode modes beome motion modes
@@ -340,6 +348,11 @@ To add extra modes to the motions states just add entries to the variable
      ;; move many caught keys to normal map
      (bmaas/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
      (bmaas/move-key evil-motion-state-map evil-normal-state-map " ")
+
+     ;; wanna be able to enter evil-ex mode from motion state
+     (bmaas/copy-key evil-normal-state-map evil-motion-state-map ":")
+     (define-key evil-normal-state-map ":" 'evil-ex)
+     (define-key evil-motion-state-map ":" 'evil-ex)
 
      ;; needed to activate settings
      (evil-mode))
@@ -400,6 +413,10 @@ state!
 (add-to-list 'evil-normal-state-modes 'wdired-mode)
 
 (evil-leader/set-key-for-mode 'dired-mode "e" 'wdired-change-to-wdired-mode)
+
+;; in dired the : is mapped to some epa stuff as a prefix key
+;; we just want ex mode
+(define-key dired-mode-map ":" nil)
 #+end_src
 
 ** TODO this is probably more reasonable
