@@ -47,13 +47,15 @@ defines a proper completion function.
   ;; no automatic completion, faster typing is good
   (setq company-idle-delay nil)
   ;; trigger completion on TAB
+
   (global-set-key (kbd "TAB") 'bmaas/company-mode-indent-or-complete)
 
-
-
   ;; run global-company after complete of emacs is initialized
-  (add-hook 'after-init-hook (lambda () (global-company-mode)
-                               (define-key company-active-map (kbd "TAB") 'company-complete-selection))))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (global-company-mode)
+              (define-key company-active-map [tab] 'company-complete-selection)
+              (define-key company-active-map (kbd "TAB") 'company-complete-selection))))
 
 (bmaas/install 'company-mode 'bmaas/company-mode-setup)
 #+end_src
