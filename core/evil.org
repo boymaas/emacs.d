@@ -97,8 +97,8 @@ keycodes for your system.
       "b" 'switch-to-buffer))
   (eval-after-load "helm"
     (evil-leader/set-key
-      "f" 'projectile-find-file
-      "F" 'helm-for-files
+      "f" 'helm-for-files
+      "F" 'projectile-find-file
 
       "g" 'projectile-vc
 

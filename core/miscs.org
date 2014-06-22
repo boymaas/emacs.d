@@ -335,5 +335,6 @@ like.
   (eval-after-load "git-gutter-fringe"
     '(Diminish 'git-gutter-mode)))
 
-(bmaas/install 'diminish 'bmaas/diminish-setup)
+(bmaas/install 'diminish 'bmaas/noop)
+(add-hook 'after-init-hook 'bmaas/diminish-setup)
 #+END_SRC
