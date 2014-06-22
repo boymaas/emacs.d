@@ -98,9 +98,11 @@ keycodes for your system.
   (eval-after-load "helm"
     (evil-leader/set-key
       "f" 'projectile-find-file
-      "F" 'helm-find-files
       "F" 'helm-for-files
 
+      "g" 'projectile-vc
+
+      "hp" 'helm-projectile
       "hl" 'helm-locate
       ;;"c" 'helm-colors
       "y" 'helm-show-kill-ring
@@ -114,7 +116,7 @@ keycodes for your system.
       "x" 'helm-M-x
       ;;"X" 'smex
 
-      "b" 'ido-switch-buffer
+      "b" 'helm-buffers-list
 
       ;; todo: maybe this can be done with advise?
       "eb" (lambda ()
@@ -163,7 +165,7 @@ keycodes for your system.
       "pk" 'projectile-kill-buffers
       "pd" 'projectile-find-dir
       "pD" 'projectile-dired
-      "pv" 'projectile-vc-dir
+      "pv" 'projectile-vc
       "pe" 'projectile-recentf
       "pa" 'projectile-ack
       "pA" 'projectile-ag
@@ -188,8 +190,6 @@ keycodes for your system.
     (progn
       (setq expand-region-contract-fast-key "z")
       (evil-leader/set-key "X" 'er/expand-region)))
-  (eval-after-load "magit"
-    (evil-leader/set-key "g" 'magit-status))
   (eval-after-load "smartparens"
     (progn
       ;; Smartparens keybindings in pairs

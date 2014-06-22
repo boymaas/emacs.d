@@ -11,6 +11,10 @@ settings are project specific.
 
 #+begin_src emacs-lisp :tangle yes
 
+(defun bmaas/join-string (l seperator)
+"joins a string with seperator using mapconcat"
+  (mapconcat 'identity l seperator))
+
 ;; Piece of code heloing in localizing templates inside a rails project
 (defun bmaas/rails/locale-file-name ()
   (let* ((relative-to-project-dir
@@ -22,12 +26,10 @@ settings are project specific.
         (base-name (file-name-sans-extension (file-name-base relative-to-project-dir)
                     ))
         ;; now build direcoty
-        (locale-directory (join-string
+        (locale-directory (bmaas/join-string
                            (append (list "config" "locales" "en") relative-dir-to-app-view (list base-name))
-                           "/"))
-
-        )
-    (join-string (list locale-directory "yml") ".")))
+                           "/")))
+    (bmaas/join-string (list locale-directory "yml") ".")))
 
 (defun bmaas/rails/yank-text-and-place-in-locale-file (start end)
   (interactive "r")
@@ -35,7 +37,7 @@ settings are project specific.
         (label (read-from-minibuffer "Translation label: "))
         ;; get contents to be pasted into the localte file
         (contents (buffer-substring (region-beginning) (region-end)))
-        (locale-filename (expand-file-name (boymaas/rinari/locale-file-name) (projectile-project-root))))
+        (locale-filename (expand-file-name (bmaas/rails/locale-file-name) (projectile-project-root))))
     ;; delete region and replace with label
     (delete-region start end)
     (insert "= t(:" label ")")
@@ -51,4 +53,7 @@ settings are project specific.
               (make-directory locale-dir 'true)))
         (save-buffer)))
     (switch-to-buffer (current-buffer))))
+
+(define-key evil-visual-state-map ";t" 'bmaas/rails/yank-text-and-place-in-locale-file)
+
 #+end_src
