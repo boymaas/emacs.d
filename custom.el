@@ -10,7 +10,8 @@
  '(helm-mode t)
  '(ibuffer-saved-filter-groups (quote (("default" ("org-mode" (derived-mode . org-mode)) ("fundamental" (used-mode . fundamental-mode))))))
  '(ibuffer-saved-filters (quote (("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
- '(org-agenda-files (quote ("~/Sites/planning/clojure.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org")))
+ '(org-agenda-files (quote ("~/Sites/planning/breadstone.org" "~/Sites/planning/clojure.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org")))
+ '(rspec-use-spring-when-possible nil)
  '(safe-local-variable-values (quote ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face tabs trailing lines-tail) (require-final-newline . t)))))
 
 (custom-set-faces
