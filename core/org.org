@@ -83,8 +83,8 @@ with the current =org-src-mode=. So we have to do some hack to bind =:w= to
 
             (make-local-variable 'evil-ex-commands)
             (setq evil-ex-commands (copy-list evil-ex-commands))
-            (evil-ex-define-cmd "w[rite]" 'org-edit-src-save)))
-
+            (evil-ex-define-cmd "w[rite]" 'org-edit-src-save)
+            (evil-ex-define-cmd "wq" 'bmaas/org-edit-save-and-exit)))
 #+END_SRC
 
 * Code block fontification
