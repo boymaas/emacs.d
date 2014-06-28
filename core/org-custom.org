@@ -75,9 +75,10 @@ functionality will work.
                                 "S-<right>"
                                 "S-<up>"
                                 "S-<down>"))
-      (let ((org-mode-function (lookup-key org-mode-map (kbd shift-cursor-key))))
-        (define-key org-mode-map (kbd shift-cursor-key) nil)
-        (define-key org-mode-map (kbd (format "C-%s" shift-cursor-key)) org-mode-function)))))
+      (dolist (mode-map (list org-mode-map org-agenda-mode-map))
+        (let ((org-mode-function (lookup-key org-mode-map (kbd shift-cursor-key))))
+          (define-key mode-map (kbd shift-cursor-key) nil)
+          (define-key mode-map (kbd (format "C-%s" shift-cursor-key)) org-mode-function))))))
 #+end_src
 
 * Fast git-push of planning updates
@@ -99,6 +100,22 @@ commit my org files. This function will automate the process.
 (evil-leader/set-key
   "oP" 'bmaas/org-git-commit-push-planning-org-files)
 
+#+end_src
+
+
+* Fast finding of personal org files
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/find-org-file ()
+  "Quick finding of personal org files"
+  (interactive)
+  (find-file
+   (org-path
+    (projectile-completing-read "Org file:"
+                                (directory-files org-directory nil ".org$")))))
+
+(evil-leader/set-key
+  "of" 'bmaas/find-org-file)
 #+end_src
 
 * Settings
