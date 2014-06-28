@@ -167,8 +167,8 @@ keycodes for your system.
       "pD" 'projectile-dired
       "pv" 'projectile-vc
       "pe" 'projectile-recentf
-      "pa" 'projectile-ack
-      "pA" 'projectile-ag
+      "pA" 'projectile-ack
+      "pa" 'projectile-ag
       "pc" 'projectile-compile-project
       "pp" 'projectile-test-project
       "pz" 'projectile-cache-current-file
