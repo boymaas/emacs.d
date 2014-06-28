@@ -52,19 +52,9 @@ display a list of the code blocks commands and their related keys.
   :END:
 
 Use =C-c '= to edit the current code block. This brings up a language
-major-mode edit buffer containing the body of the code block. Manually saving
-this buffer with =<C-x C-s>= will write the contents back to the Org
-buffer. You can also set =org-edit-src-auto-save-idle-delay= to save the base
-buffer after some idle delay, or org-edit-src-turn-on-auto-save to auto-save
-this buffer into a separate file using auto-save-mode. Use =C-c '= again to
-exit.
+major-mode edit buffer containing the body of the code block.
 
-Since adopts [[https://gitorious.org/evil/pages/Home][evil]], there's a small annoyance with =org-src-mode=. Just like
-other modes, you can type =C-x C-s= (which binds to =org-edit-src-save= in
-=org-src-mode= to save your commits), however, typing =:w= (which binds to
-=evil-write=) will cause an error since there's no real file that associates
-with the current =org-src-mode=. So we have to do some hack to bind =:w= to
-=org-edit-src-save=. Check this [[https://bitbucket.org/lyro/evil/issue/399/issues-with-org-src-mode][bitbucket issue ]]for detailed discussion.
+Some customizations to integrate with evil mode.
 
 #+BEGIN_SRC emacs-lisp
 (setq org-edit-src-auto-save-idle-delay 5)
