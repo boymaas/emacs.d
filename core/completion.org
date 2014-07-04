@@ -123,16 +123,14 @@ bindings. When helm starts, remember:
           (type . file)))
 
   (setq helm-for-files-preferred-list
-        '(bmaas/helm-source-projectile-files-list
-          helm-source-buffers-list
-          helm-source-files-in-current-dir
+        '(helm-source-files-in-current-dir
+          bmaas/helm-source-projectile-files-list
           helm-source-recentf
           helm-source-bookmarks
           ))
   )
 
 (bmaas/install 'helm 'bmaas/helm-setup)
-
 #+END_SRC
 
 * Yasnippet
