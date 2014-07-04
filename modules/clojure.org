@@ -18,15 +18,61 @@ languages. Clojure extends the code-as-data system beyond parenthesized lists
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (setq cider-repl-tab-command 'indent-for-tab-command)
   (setq cider-repl-pop-to-buffer-on-connect nil)
-  (setq cider-popup-stacktraces nil)
+  (setq cider-popup-stacktraces t)
   (setq cider-repl-popup-stacktraces t)
   (setq cider-auto-select-error-buffer t)
   (setq nrepl-hide-special-buffers t)
   (setq nrepl-buffer-name-separator "-")
-  (setq nrepl-buffer-name-show-port t))
+  (setq nrepl-buffer-name-show-port t)
+
+  ;; TODO: find cider-repl
+  ;; (eval-after-load "cider-repl-mode"
+  ;;   (define-key cider-repl-mode-map (kbd "C-l") 'cider-repl-clear-buffer))
+)
 
 (bmaas/install 'cider 'bmaas/cider-setup)
 #+END_SRC
+
+* Clojure Refector clj-refactor
+
+A collection of simple clojure refactoring functions.
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/clj-refactor-setup ()
+  (add-hook 'clojure-mode-hook (lambda ()
+                                 (clj-refactor-mode 1)))
+
+  (evil-leader/set-key-for-mode 'clojure-mode
+    "rrf" 'cljr-rename-file
+    "rru" 'cljr-replace-use
+    "rau" 'cljr-add-use-to-ns
+    "rar" 'cljr-add-require-to-ns
+    "rai" 'cljr-add-import-to-ns
+    "rsn" 'cljr-sort-ns
+    "rrr" 'cljr-remove-unused-requires
+    "rsr" 'cljr-stop-referring
+    "rth" 'cljr-thread
+    "ruw" 'cljr-unwind
+    "rua" 'cljr-unwind-all
+    "ril" 'cljr-introduce-let
+    "rel" 'cljr-expand-let
+    "rml" 'cljr-move-to-let
+    "rmf" 'cljr-move-form
+    "rtf" 'cljr-thread-first-all
+    "rtl" 'cljr-thread-last-all
+    "rcp" 'cljr-cycle-privacy
+    "rcc" 'cljr-cycle-coll
+    "rcs" 'cljr-cycle-stringlike
+    "rci" 'cljr-cycle-if
+    "rad" 'cljr-add-declaration
+    "rdk" 'cljr-destructure-keys
+    "rpc" 'cljr-project-clean)
+  )
+
+(bmaas/install 'clj-refactor 'bmaas/clj-refactor-setup)
+
+#+end_src
+
 
 * Normal keybindings
 
@@ -45,6 +91,8 @@ evil-normal-state-map.
   (define-key evil-normal-state-map (kbd "M-.") nil))
 
 (add-hook 'cider-mode-hook 'bmaas/cider-local-keys)
+(add-hook 'clojure-mode-hook 'bmaas/cider-local-keys)
+
 #+end_src
 
 * Evil keybindings
@@ -57,21 +105,22 @@ evil-normal-state-map.
   "cj" 'cider-jack-in
   "cqq" 'cider-quit
   "cqr" 'cider-restart
-  "cef" 'cider-eval-load-file
+  "cef" 'cider-load-file
   "ceb" 'cider-eval-buffer
   "cer" 'cider-eval-region
+  "cl" 'cider-load-file
   "cele" 'cider-eval-last-sexp
-  "celp" 'cider-eval-print-last-sexp
+  "celp" 'cider-pprint-eval-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
   "cc" 'cider-eval-defun-at-point
   "cr" 'cider-switch-to-repl-buffer
+  "cn" 'cider-repl-set-ns
   "cd" 'cider-doc
   "ci" 'cider-inspect
   "cm" 'cider-macroexpand-1
-  "." 'projectile-find-implementation-or-test-other-window
+  "cM" 'cider-macroexpand-all
+  "." 'clojure-jump-between-tests-and-code
   "t" 'clojure-test-run-tests
   "T" 'clojure-test-run-test
-  "." 'projectile-find-implementation-or-test-other-window
   )
-
 #+end_src
