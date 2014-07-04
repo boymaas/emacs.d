@@ -97,8 +97,8 @@ keycodes for your system.
       "b" 'switch-to-buffer))
   (eval-after-load "helm"
     (evil-leader/set-key
-      "f" 'helm-for-files
-      "F" 'projectile-find-file
+      "F" 'helm-for-files
+      "f" 'projectile-find-file
 
       "g" 'projectile-vc
 
@@ -116,7 +116,7 @@ keycodes for your system.
       "x" 'helm-M-x
       ;;"X" 'smex
 
-      "b" 'helm-buffers-list
+      "b" 'switch-to-buffer
 
       ;; todo: maybe this can be done with advise?
       "eb" (lambda ()
@@ -322,7 +322,11 @@ To add extra modes to the motions states just add entries to the variable
                                       grep-mode
                                       cider-inspect-mode
                                       cider-doc-mode
+                                      cider-popup-buffer-mode
+                                      cider-macroexpansion-minor-mode
                                       cider-stacktrace-mode))
+
+
 
 (defun bmaas/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another and delete from the old location. "
@@ -372,7 +376,6 @@ eg. cider-stacktrace => cider-stacktrace-mode-map"
   ;; note that to capture the mode* let variables inside the lambda
   ;; we need a lexical-let construct. Dynamic binding is default in emacs
   (let* ( ( mode (format "%s-mode" mode-base-name))
-          ( mode-hook (format "%s-hook" mode))
           ( mode-map (format "%s-map" mode)))
     (eval-after-load mode-base-name
       `(progn
@@ -380,6 +383,16 @@ eg. cider-stacktrace => cider-stacktrace-mode-map"
 
 (bmaas/evil-intercept-motion-map-after-load "cider-stacktrace")
 (bmaas/evil-intercept-motion-map-after-load "cider-inspector")
+
+;; no hooks available on this minor mode, so we just append
+;; some advice after the minor-mode function
+(defadvice cider-macroexpansion-minor-mode ( after activate-motion-state activate)
+  "activate motionstate after setting of mode"
+  (define-key cider-macroexpansion-minor-mode-map (kbd "M-.") 'cider-jump)
+  (define-key cider-macroexpansion-minor-mode-map (kbd "u")'cider-macroexpand-undo)
+  (evil-make-intercept-map cider-macroexpansion-minor-mode-map)
+  (evil-motion-state))
+
 (bmaas/evil-intercept-motion-map-after-load "dired")
 (bmaas/evil-intercept-motion-map-after-load "magit")
 #+end_src
