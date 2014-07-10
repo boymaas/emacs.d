@@ -108,7 +108,9 @@ evil-normal-state-map.
   "cef" 'cider-load-file
   "ceb" 'cider-eval-buffer
   "cer" 'cider-eval-region
-  "cl" 'cider-load-file
+  "cl" (lambda ()
+         (interactive)
+         (cider-load-file (buffer-file-name)))
   "cele" 'cider-eval-last-sexp
   "celp" 'cider-pprint-eval-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace

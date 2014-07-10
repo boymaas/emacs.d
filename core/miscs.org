@@ -338,3 +338,11 @@ like.
 (bmaas/install 'diminish 'bmaas/noop)
 (add-hook 'after-init-hook 'bmaas/diminish-setup)
 #+END_SRC
+
+* Gist
+
+Needed gist mode to experiment with strokes
+
+#+begin_src emacs-lisp :tangle yes
+(bmaas/install 'gist 'bmaas/noop)
+#+end_src
