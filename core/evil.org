@@ -395,6 +395,14 @@ eg. cider-stacktrace => cider-stacktrace-mode-map"
 
 (bmaas/evil-intercept-motion-map-after-load "dired")
 (bmaas/evil-intercept-motion-map-after-load "magit")
+
+;; git-list mode is another minor mode unable to attach on
+;; make this pattern a macro
+(defadvice gist-list-mode ( after activate-motion-state activate)
+  "activate motionstate after setting of mode"
+  (evil-make-intercept-map gist-list-menu-mode-map)
+  (evil-motion-state))
+
 #+end_src
 
 ** Ibuffer overrides
