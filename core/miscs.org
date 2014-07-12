@@ -346,3 +346,13 @@ Needed gist mode to experiment with strokes
 #+begin_src emacs-lisp :tangle yes
 (bmaas/install 'gist 'bmaas/noop)
 #+end_src
+
+* Custom usefull functions
+
+** copy whole buffer
+#+begin_src emacs-lisp :tangle yes
+(defun bmaap/copy-whole-buffer ()
+    "Copy entire buffer to clipboard"
+    (interactive)
+    (clipboard-kill-ring-save (point-min) (point-max)))
+#+end_src
