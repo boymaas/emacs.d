@@ -91,7 +91,7 @@ inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There'
 #+NAME: color-theme
 #+BEGIN_SRC emacs-lisp
 (defun bmaas/solarized-theme-setup ()
-  (load-theme 'solarized-dark t))
+  (load-theme 'solarized-light t))
 
 (bmaas/install 'solarized-theme 'bmaas/solarized-theme-setup)
 #+END_SRC

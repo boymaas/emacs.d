@@ -3,12 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
  '(evil-highlight-closing-paren-at-point-states (quote (not emacs insert replace normal)))
  '(helm-input-idle-delay 0.2)
  '(helm-locate-command "mdfind -name %s %s")
  '(helm-match-plugin-mode t nil (helm-match-plugin))
  '(helm-mode t)
- '(ibuffer-saved-filter-groups (quote (("default" ("org-mode" (derived-mode . org-mode)) ("fundamental" (used-mode . fundamental-mode))))))
+ '(ibuffer-saved-filter-groups (quote (("org-mode" ("org-mode" (used-mode . org-mode))) ("default" ("org-mode" (derived-mode . org-mode)) ("fundamental" (used-mode . fundamental-mode))))))
  '(ibuffer-saved-filters (quote (("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
  '(org-agenda-files (quote ("~/Sites/planning/crypto_trader.org" "~/Sites/planning/justin.org" "~/Sites/planning/breadstone.org" "~/Sites/planning/clojure.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org")))
  '(rspec-use-spring-when-possible nil)
@@ -19,8 +20,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-changed ((t (:foreground "color-16"))) t)
- '(diff-removed ((t (:inherit diff-changed :background "#553333"))) t)
+ '(diff-changed ((t (:foreground "color-16"))))
+ '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
  '(helm-selection ((t (:background "alternateSelectedControlColor" :foreground "alternateSelectedControlTextColor"))))
  '(helm-source-header ((t (:background "#22083397778B" :foreground "white"))))
  '(magit-diff-add ((t (:inherit diff-added :background "none" :foreground "light green"))))

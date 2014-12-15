@@ -84,6 +84,12 @@ keycodes for your system.
 
 #+NAME: evil-leader
 #+BEGIN_SRC emacs-lisp
+(defun recursive-edit-preserving-window-config ()
+  (interactive)
+  (save-window-excursion
+    (delete-other-windows)
+    (recursive-edit)))
+
 (defun bmaas/evil-leader-setup ()
   (evil-leader/set-leader ";")
 
@@ -273,7 +279,9 @@ keycodes for your system.
   (evil-leader/set-key
     "'" 'comment-or-uncomment-region
     "k" 'kill-buffer
-    "w" 'save-buffer)
+    "w" 'save-buffer
+    "[" 'abort-recursive-edit
+    "]" 'recursive-edit-preserving-window-config)
   (global-evil-leader-mode)
   ;; Messages buffer does not get the leader because
   ;; it exists already. We just kill it so it opens again

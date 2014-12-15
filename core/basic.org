@@ -64,6 +64,10 @@
 ;; as C mode.
 (setq-default major-mode 'text-mode)
 
+;; backup files
+(setq backup-directory-alist `(("." . "~/.saves")))
+
+
 ;;; ido-mode
 (setq ido-enable-prefix nil)
 (setq ido-enable-case nil)
