@@ -74,6 +74,58 @@ A collection of simple clojure refactoring functions.
 #+end_src
 
 
+* Clojure Specjl test setup
+
+When using speclj run this setup
+
+#+BEGIN_SRC emacs-lisp :tangle no
+;; test mode setup for speclj
+(require 'clojure-test-mode)
+
+;; Test navigation:
+(defun clojure-in-tests-p ()
+  (or (string-match-p "spec\." (clojure-find-ns))
+      (string-match-p "/spec" (buffer-file-name))))
+
+(defun clojure-test-for (namespace)
+  "Returns the path of the test file for the given namespace."
+  (let* ((namespace (clojure-underscores-for-hyphens namespace))
+         (segments (split-string namespace "\\.")))
+    (format "%sspec/%s_spec.clj"
+            (file-name-as-directory
+             (locate-dominating-file buffer-file-name "src/"))
+            (mapconcat 'identity segments "/"))))
+
+(defvar clojure-test-for-fn 'clojure-test-for)
+
+(defun clojure-test-implementation-for (namespace)
+  "Returns the path of the src file for the given test namespace."
+  (let* ((namespace (clojure-underscores-for-hyphens namespace))
+         (segments (split-string namespace "\\."))
+         (namespace-end (split-string (car (last segments)) "_"))
+         (namespace-end (mapconcat 'identity (butlast namespace-end 1) "_"))
+         (impl-segments (append (butlast segments 1) (list namespace-end))))
+    (format "%s/src/clj/%s.clj"
+            (locate-dominating-file buffer-file-name "src/")
+            (mapconcat 'identity impl-segments "/"))))
+
+(defvar clojure-test-implementation-for-fn 'clojure-test-implementation-for)
+
+(defun clojure-test-run-tests ()
+  "Run all the tests in the current namespace."
+  (interactive)
+  (save-some-buffers nil (lambda () (equal major-mode 'clojure-mode)))
+  (message "Testing...")
+  (if (not (clojure-in-tests-p))
+      (cider-load-file (buffer-file-name)))
+  (save-window-excursion
+    (if (not (clojure-in-tests-p))
+        (clojure-jump-to-test))
+    (clojure-test-clear)
+    (cider-load-file (buffer-file-name))
+    (message "Test namespace evaluated, look into repl for result")))
+#+END_SRC
+
 * Normal keybindings
 
 Cider jump is disabled by a evil-mode mapping to evil-repeat function
@@ -121,8 +173,8 @@ evil-normal-state-map.
   "ci" 'cider-inspect
   "cm" 'cider-macroexpand-1
   "cM" 'cider-macroexpand-all
-  "." 'clojure-jump-between-tests-and-code
-  "t" 'clojure-test-run-tests
-  "T" 'clojure-test-run-test
+  "." 'cider-test-jump
+  "t" 'cider-test-run-tests
+  "T" 'cider-test-run-test
   )
 #+end_src
