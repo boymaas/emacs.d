@@ -173,7 +173,7 @@ evil-normal-state-map.
   "ci" 'cider-inspect
   "cm" 'cider-macroexpand-1
   "cM" 'cider-macroexpand-all
-  "." 'cider-test-jump
+  "." 'projectile-toggle-between-implementation-and-test
   "t" 'cider-test-run-tests
   "T" 'cider-test-run-test
   )
