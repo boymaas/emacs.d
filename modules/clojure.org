@@ -155,24 +155,29 @@ evil-normal-state-map.
 #+begin_src emacs-lisp :tangle yes
 (evil-leader/set-key-for-mode 'clojure-mode
   "cj" 'cider-jack-in
+  "cJ" 'cider-connect
   "cqq" 'cider-quit
   "cqr" 'cider-restart
   "cef" 'cider-load-file
   "ceb" 'cider-eval-buffer
   "cer" 'cider-eval-region
-  "cl" (lambda ()
-         (interactive)
-         (cider-load-file (buffer-file-name)))
+  "cl" 'cider-load-buffer
   "cele" 'cider-eval-last-sexp
   "celp" 'cider-pprint-eval-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
   "cc" 'cider-eval-defun-at-point
   "cr" 'cider-switch-to-repl-buffer
-  "cn" 'cider-repl-set-ns
+  "cN" 'cider-repl-set-ns
+  "cn" 'cider-eval-ns-form
   "cd" 'cider-doc
+  "cD" 'cider-grimoire
+  "ca" 'cider-apropos
+  "cA" 'cider-apropos-documentation
   "ci" 'cider-inspect
   "cm" 'cider-macroexpand-1
   "cM" 'cider-macroexpand-all
+  "ctv" 'cider-toggle-trace-var
+  "ctv" 'cider-toggle-trace-ns
   "." 'projectile-toggle-between-implementation-and-test
   "t" 'cider-test-run-tests
   "T" 'cider-test-run-test
