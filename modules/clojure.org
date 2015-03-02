@@ -167,8 +167,8 @@ evil-normal-state-map.
   "celr" 'cider-eval-last-sexp-and-replace
   "cc" 'cider-eval-defun-at-point
   "cr" 'cider-switch-to-repl-buffer
-  "cN" 'cider-repl-set-ns
-  "cn" 'cider-eval-ns-form
+  "cn" 'cider-repl-set-ns
+  "cN" 'cider-eval-ns-form
   "cd" 'cider-doc
   "cD" 'cider-grimoire
   "ca" 'cider-apropos
