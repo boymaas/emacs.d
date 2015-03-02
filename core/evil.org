@@ -371,6 +371,8 @@ To add extra modes to the motions states just add entries to the variable
      ;; needed to activate settings
      (evil-mode))
 
+;; (bmaas/evil-everywhere)
+
 ;; need to run this after all modes are initialized. Otherwise some mode-maps
 ;; will not be available (eg. cider-inspector-mode-map)
 (add-hook 'after-init-hook 'bmaas/evil-everywhere)
