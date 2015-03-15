@@ -25,6 +25,9 @@ languages. Clojure extends the code-as-data system beyond parenthesized lists
   (setq nrepl-buffer-name-separator "-")
   (setq nrepl-buffer-name-show-port t)
 
+  (add-hook 'cider-repl-mode-hook #'company-mode)
+  (add-hook 'cider-mode-hook #'company-mode)
+
   ;; TODO: find cider-repl
   ;; (eval-after-load "cider-repl-mode"
   ;;   (define-key cider-repl-mode-map (kbd "C-l") 'cider-repl-clear-buffer))
