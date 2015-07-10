@@ -174,7 +174,7 @@ I enable auto fill minor mode for text-mode and prog-mode and all [[http://www.g
 from them[1]. For how to quickly fill a paragraph or region, see [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Fill-Commands.html][Explicit Fill Commands]].
 
 #+NAME: auto-fill
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (setq-default fill-column 79)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
