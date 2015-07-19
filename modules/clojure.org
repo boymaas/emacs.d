@@ -12,11 +12,13 @@ languages. Clojure extends the code-as-data system beyond parenthesized lists
 
 #+NAME: clojure
 #+BEGIN_SRC emacs-lisp
-(bmaas/install 'clojure-mode 'bmaas/noop)
+
+;; probably not needed anymore
+;(bmaas/install 'clojure-mode 'bmaas/noop)
 
 (defun bmaas/cider-setup ()
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  (setq cider-repl-tab-command 'indent-for-tab-command)
+  ;(setq cider-repl-tab-command 'indent-for-tab-command)
   (setq cider-repl-pop-to-buffer-on-connect nil)
   (setq cider-popup-stacktraces t)
   (setq cider-repl-popup-stacktraces t)
@@ -25,8 +27,8 @@ languages. Clojure extends the code-as-data system beyond parenthesized lists
   (setq nrepl-buffer-name-separator "-")
   (setq nrepl-buffer-name-show-port t)
 
-  (add-hook 'cider-repl-mode-hook #'company-mode)
-  (add-hook 'cider-mode-hook #'company-mode)
+  ;(add-hook 'cider-repl-mode-hook #'company-mode)
+  ;(add-hook 'cider-mode-hook #'company-mode)
 
   ;; TODO: find cider-repl
   ;; (eval-after-load "cider-repl-mode"
