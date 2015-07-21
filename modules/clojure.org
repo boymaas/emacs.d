@@ -183,6 +183,7 @@ evil-normal-state-map.
   "cM" 'cider-macroexpand-all
   "ctv" 'cider-toggle-trace-var
   "ctv" 'cider-toggle-trace-ns
+  "c:" 'cider-read-and-eval
   "." 'projectile-toggle-between-implementation-and-test
   "t" 'cider-test-run-tests
   "T" 'cider-test-run-test
