@@ -25,6 +25,6 @@
  '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
  '(helm-selection ((t (:background "alternateSelectedControlColor" :foreground "alternateSelectedControlTextColor"))))
  '(helm-source-header ((t (:background "#22083397778B" :foreground "white"))))
- '(magit-diff-add ((t (:inherit diff-added :background "none" :foreground "brightblack"))))
- '(magit-diff-del ((t (:inherit diff-removed :background "none"))))
+ '(magit-diff-add ((t (:inherit diff-added :background "green" :foreground "brightblack"))))
+ '(magit-diff-del ((t (:inherit diff-removed :background "red" :foreground "black"))))
  '(org-todo ((t (:background "black" :foreground "red" :weight bold)))))
