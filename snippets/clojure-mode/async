@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: async
+# key: async
+# binding: direct-keybinding
+# --
+(:require [cljs.core.async :refer [chan <! >! timeout pub sub unsub unsub-all]])
+(:require-macros [cljs.core.async.macros :refer [go go-loop]])

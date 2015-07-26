@@ -79,6 +79,16 @@ A collection of simple clojure refactoring functions.
 #+end_src
 
 
+* Figwheel cljs-repl
+#+begin_src emacs-lisp :tangle yes
+(defun cider-figwheel-cljs-repl ()
+  (interactive)
+  (cider-connect "localhost" 7002)
+  (cider-interactive-eval "(use 'figwheel-sidecar.repl-api)")
+  (cider-interactive-eval "(prn \"Use (cljs-repl) to start a cljs repl ...\" )"))
+#+end_src
+
+
 * Clojure Specjl test setup
 
 When using speclj run this setup
@@ -159,8 +169,9 @@ evil-normal-state-map.
 
 #+begin_src emacs-lisp :tangle yes
 (evil-leader/set-key-for-mode 'clojure-mode
-  "cj" 'cider-jack-in
-  "cJ" 'cider-connect
+  "cJ" 'cider-display-current-connection-info
+  "cj" 'cider-connect
+  "cF" 'cider-figwheel-cljs-repl
   "cqq" 'cider-quit
   "cqr" 'cider-restart
   "cef" 'cider-load-file
@@ -171,8 +182,8 @@ evil-normal-state-map.
   "celp" 'cider-pprint-eval-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
   "cc" 'cider-eval-defun-at-point
-  "cr" 'cider-switch-to-repl-buffer
-  "cR" 'cider-rotate-connection
+  "cR" 'cider-switch-to-repl-buffer
+  "cr" 'cider-rotate-connection
   "cn" 'cider-repl-set-ns
   "cN" 'cider-eval-ns-form
   "cd" 'cider-doc

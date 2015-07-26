@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: xhr
+# key: xhr
+# binding: direct-keybinding
+# --
+(go (let [{:keys [code response]} (<! $1)]
+         (case code
+           :ok $2
+           :error $3)
+         ))
