@@ -5,8 +5,15 @@
 
 Twitter client for emacs
 
+V: Open or switch to another timeline by timeline-spec.
+u or C-cC-s: Post a tweet.
+RET: Post a reply to the pointed tweet or open the pointed URL with browse-url.
+C-c RET: Post an organic retweet. This is only a tweet citing the pointed tweet and not an official/native retweet.
+C-uC-c RET: Post an official/native retweet.
+d: Send a direct message.
+C-cC-w: Delete the pointed tweet.
+
 #+begin_src emacs-lisp :tangle yes
-;; limits ibuffer to persp-view of buffers
 (defun bmaas/twittering-mode-setup ()
  (setq twittering-use-master-password t))
 

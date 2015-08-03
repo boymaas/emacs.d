@@ -325,6 +325,7 @@ To add extra modes to the motions states just add entries to the variable
                                      org-agenda-mode
                                      cider-test-report-mode
                                      Custom-mode
+                                     twittering-mode
                                      ))
 
 (setq bmaas/evil-motion-state-modes '(dired-mode
