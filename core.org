@@ -129,4 +129,7 @@ We only load the core module. All other modules are loaded when needed, this kee
 ;; modes are setup
 (bmaas/load-module "modules/perspective.org")
 
+(bmaas/load-module "modules/twitter.org")
+
+
 #+end_src

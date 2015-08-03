@@ -1,0 +1,14 @@
+* Twitter
+  :PROPERTIES:
+  :CUSTOM_ID: twitter-css
+  :END:
+
+Twitter client for emacs
+
+#+begin_src emacs-lisp :tangle yes
+;; limits ibuffer to persp-view of buffers
+(defun bmaas/twittering-mode-setup ()
+ (setq twittering-use-master-password t))
+
+(bmaas/install 'twittering-mode 'bmaas/twittering-mode-setup)
+#+end_src
