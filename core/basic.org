@@ -283,7 +283,7 @@ In order to use =flyspell=, you must install an external spell checker, such as
 extension for GNU Emacs 24.
 
 #+NAME: flycheck
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (defun bmaas/flycheck-setup ()
   (eval-after-load 'flycheck
     '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))
