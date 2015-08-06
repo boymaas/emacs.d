@@ -1,6 +1,21 @@
 #+TITLE: Evil setup
 #+OPTIONS: toc:2 num:nil ^:nil
 
+* Settings
+
+#+begin_src emacs-lisp :tangle yes
+;; DO NOT move cursor back after exiting insert state
+(setq evil-move-cursor-back nil)
+;; DO NOT highlight parens
+(setq evil-highlight-closing-paren-at-point-states nil)
+
+(setq show-paren-highlight-openparen nil)
+
+;; USE evil-esc-mode when not in graphic mode
+(unless (display-graphic-p)
+  (evil-esc-mode))
+#+end_src
+
 * Evil
   :PROPERTIES:
   :CUSTOM_ID: evil
@@ -25,20 +40,8 @@ Emacs session.
   (add-hook 'comint-mode-hook 'turn-on-evil-mode)
   (add-hook 'Info-mode-hook 'turn-off-evil-mode))
 
-
 (bmaas/install 'evil 'bmaas/evil-setup)
 #+END_SRC
-
-* Settings
-
-#+begin_src emacs-lisp :tangle yes
-;; DO NOT move cursor back after exiting insert state
-(setq evil-move-cursor-back nil)
-;; DO NOT highlight parens
-(setq evil-highlight-closing-paren-at-point-states nil)
-
-(setq show-paren-highlight-openparen nil)
-#+end_src
 
 * Evil state based modeline color
 
@@ -83,7 +86,7 @@ http://manytricks.com/keycodes/ has an app to find
 keycodes for your system.
 
 #+NAME: evil-leader
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp tangle yes
 (defun recursive-edit-preserving-window-config ()
   (interactive)
   (save-window-excursion
