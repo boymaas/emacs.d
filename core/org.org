@@ -128,7 +128,7 @@ Actually, =rainbow-delimiters-mode= still has some problems within org-mode's
 code block, which may be a bug of =rainbow-delimiters-mode=.
 
 #+NAME: htmlize
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (defadvice htmlize-buffer-1 (around ome-htmlize-buffer-1 disable)
   (rainbow-delimiters-mode -1)
   ad-do-it
