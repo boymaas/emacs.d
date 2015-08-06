@@ -324,6 +324,7 @@ To add extra modes to the motions states just add entries to the variable
 
 (setq bmaas/evil-emacs-state-modes '(magit-key-mode
                                      magit-process-mode
+                                     magit-popup-mode
                                      magit-branch-manager-mode
                                      org-agenda-mode
                                      cider-test-report-mode
