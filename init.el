@@ -40,9 +40,11 @@
       (eval-print-last-sexp)))
   ;; build melpa packages for el-get
   (el-get-install 'package)
-  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                           ("melpa" . "http://melpa.milkbox.net/packages/")))
+  
   (el-get-elpa-build-local-recipes))
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 
 ;; enable git shallow clone to save time and bandwidth
 (setq el-get-git-shallow-clone t)
