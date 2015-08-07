@@ -199,5 +199,6 @@ evil-normal-state-map.
   "." 'projectile-toggle-between-implementation-and-test
   "t" 'cider-test-run-tests
   "T" 'cider-test-run-test
+  "CR" 'cider-find-and-clear-repl-buffer
   )
 #+end_src
