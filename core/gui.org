@@ -18,10 +18,10 @@
 
 ;; show parenthesis match
 (show-paren-mode 1)
-(setq show-paren-style 'expression)
+(setq show-paren-style 'parenthesis)
 
 ;; Toggle line highlighting in all buffers
-(global-hl-line-mode t)
+(global-hl-line-mode -1)
 #+END_SRC
 
 * Choose Monaco as the Default English Font
