@@ -282,7 +282,7 @@ keycodes for your system.
   (evil-leader/set-key
     "'" 'comment-or-uncomment-region
     "k" 'kill-buffer
-    "w" 'save-buffer
+    "s" 'save-buffer
     "[" 'abort-recursive-edit
     "]" 'recursive-edit-preserving-window-config)
   (global-evil-leader-mode)
@@ -410,6 +410,12 @@ eg. cider-stacktrace => cider-stacktrace-mode-map"
   (evil-make-intercept-map cider-macroexpansion-minor-mode-map)
   (evil-motion-state))
 
+;; Cider debug mode is a minor mode thingy, in which I will
+;; hookin based on the function that triggers the mode
+(defadvice cider--debug-mode ( after activate-emacs-state activate)
+  (evil-make-intercept-map cider--debug-mode-map)
+  (evil-normal-state))
+
 (bmaas/evil-intercept-motion-map-after-load "dired")
 (bmaas/evil-intercept-motion-map-after-load "magit")
 
@@ -419,7 +425,6 @@ eg. cider-stacktrace => cider-stacktrace-mode-map"
   "activate motionstate after setting of mode"
   (evil-make-intercept-map gist-list-menu-mode-map)
   (evil-motion-state))
-
 #+end_src
 
 ** Ibuffer overrides

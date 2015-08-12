@@ -179,7 +179,7 @@ evil-normal-state-map.
   "cer" 'cider-eval-region
   "cl" 'cider-load-buffer
   "cele" 'cider-eval-last-sexp
-  "celp" 'cider-pprint-eval-last-sexp
+  "celp" 'cider-eval-print-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
   "cc" 'cider-eval-defun-at-point
   "cR" 'cider-switch-to-repl-buffer
@@ -201,4 +201,10 @@ evil-normal-state-map.
   "T" 'cider-test-run-test
   "CR" 'cider-find-and-clear-repl-buffer
   )
+
+;; Use the same evil leaders inside the derived major mode for
+;; clojuerscript
+(let ((mode-map (cdr (assoc 'clojure-mode evil-leader--mode-maps))))
+  (push (cons 'clojurescript-mode mode-map) evil-leader--mode-maps))
+
 #+end_src

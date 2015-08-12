@@ -254,7 +254,9 @@ Org agenda is the main point to get an overview of appointments and work to be
 be done.
 
 #+begin_src emacs-lisp :tangle yes
-(setq org-agenda-files '("~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org"))
+
+;; These are set in custom.el
+;;(setq org-agenda-files '("~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/crypto_trader.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org"))
 
 
 (setq org-agenda-custom-commands
