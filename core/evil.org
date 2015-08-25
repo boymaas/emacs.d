@@ -106,8 +106,8 @@ keycodes for your system.
       "b" 'switch-to-buffer))
   (eval-after-load "helm"
     (evil-leader/set-key
-      "F" 'helm-for-files
       "f" 'projectile-find-file
+      "F" 'helm-projectile-find-file
 
       "g" 'projectile-vc
 
@@ -172,7 +172,7 @@ keycodes for your system.
       "pR" 'projectile-regenerate-tags
       "pj" 'projectile-find-tag
       "pk" 'projectile-kill-buffers
-      "pd" 'projectile-find-dir
+      "pd" 'helm-projectile-find-dir
       "pD" 'projectile-dired
       "pv" 'projectile-vc
       "pe" 'projectile-recentf

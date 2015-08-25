@@ -314,3 +314,12 @@ from the Ibuffer default column setup.
               (mode 9 9 :left)
               (name 30 -1 :left :elide))))
 #+end_src
+
+* Hide Show mode
+
+Make it easier to navigate files. Mapped in emacs
+to the zR, zm and other files
+
+#+begin_src emacs-lisp :tangle yes
+
+#+end_src

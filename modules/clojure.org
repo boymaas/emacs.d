@@ -47,6 +47,8 @@ A collection of simple clojure refactoring functions.
   (add-hook 'clojure-mode-hook (lambda ()
                                  (clj-refactor-mode 1)))
 
+  (add-hook 'clojure-mode-hook 'hs-minor-mode)
+
   (evil-leader/set-key-for-mode 'clojure-mode
     "rrf" 'cljr-rename-file
     "rru" 'cljr-replace-use
@@ -83,8 +85,8 @@ A collection of simple clojure refactoring functions.
 #+begin_src emacs-lisp :tangle yes
 (defun cider-figwheel-cljs-repl ()
   (interactive)
-  (cider-connect "localhost" 7002)
-  (cider-interactive-eval "(use 'figwheel-sidecar.repl-api)")
+  ;(cider-connect "localhost" 7002)
+  (cider-interactive-pprint-eval "(prn '(use 'figwheel-sidecar.repl-api))")
   (cider-interactive-eval "(prn \"Use (cljs-repl) to start a cljs repl ...\" )"))
 #+end_src
 
@@ -179,7 +181,7 @@ evil-normal-state-map.
   "cer" 'cider-eval-region
   "cl" 'cider-load-buffer
   "cele" 'cider-eval-last-sexp
-  "celp" 'cider-eval-print-last-sexp
+  "celp" 'cider-pprint-eval-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
   "cc" 'cider-eval-defun-at-point
   "cR" 'cider-switch-to-repl-buffer
