@@ -4,17 +4,63 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cider-macroexpansion-suppress-namespaces nil)
- '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
+ '(custom-safe-themes
+   (quote
+    ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
  '(evil-highlight-closing-paren-at-point-states (quote (not emacs insert replace normal)))
  '(helm-input-idle-delay 0.2)
  '(helm-locate-command "mdfind -name %s %s")
  '(helm-match-plugin-mode t nil (helm-match-plugin))
  '(helm-mode t)
- '(ibuffer-saved-filter-groups (quote (("org-mode" ("org-mode" (used-mode . org-mode))) ("default" ("org-mode" (derived-mode . org-mode)) ("fundamental" (used-mode . fundamental-mode))))))
- '(ibuffer-saved-filters (quote (("gnus" ((or (mode . message-mode) (mode . mail-mode) (mode . gnus-group-mode) (mode . gnus-summary-mode) (mode . gnus-article-mode)))) ("programming" ((or (mode . emacs-lisp-mode) (mode . cperl-mode) (mode . c-mode) (mode . java-mode) (mode . idl-mode) (mode . lisp-mode)))))))
- '(org-agenda-files (quote ("~/Sites/planning/crypto_trader.org" "~/Sites/planning/justin.org" "~/Sites/planning/breadstone.org" "~/Sites/planning/clojure.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/sellsimple.org" "~/Sites/planning/fortunebet.org")))
+ '(ibuffer-saved-filter-groups
+   (quote
+    (("org-mode"
+      ("org-mode"
+       (used-mode . org-mode)))
+     ("default"
+      ("org-mode"
+       (derived-mode . org-mode))
+      ("fundamental"
+       (used-mode . fundamental-mode))))))
+ '(ibuffer-saved-filters
+   (quote
+    (("gnus"
+      ((or
+        (mode . message-mode)
+        (mode . mail-mode)
+        (mode . gnus-group-mode)
+        (mode . gnus-summary-mode)
+        (mode . gnus-article-mode))))
+     ("programming"
+      ((or
+        (mode . emacs-lisp-mode)
+        (mode . cperl-mode)
+        (mode . c-mode)
+        (mode . java-mode)
+        (mode . idl-mode)
+        (mode . lisp-mode)))))))
+ '(magit-merge-arguments (quote ("--no-ff")))
+ '(org-agenda-files
+   (quote
+    ("~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org")))
  '(rspec-use-spring-when-possible nil)
- '(safe-local-variable-values (quote ((emacs-lisp-docstring-fill-column . 75) (eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face tabs trailing lines-tail) (require-final-newline . t)))))
+ '(safe-local-variable-values
+   (quote
+    ((emacs-lisp-docstring-fill-column . 75)
+     (eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook"
+           (add-hook
+            (quote write-contents-functions)
+            (lambda nil
+              (delete-trailing-whitespace)
+              nil))
+           (require
+            (quote whitespace))
+           "Sometimes the mode needs to be toggled off and on."
+           (whitespace-mode 0)
+           (whitespace-mode 1))
+     (whitespace-line-column . 80)
+     (whitespace-style face tabs trailing lines-tail)
+     (require-final-newline . t)))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
