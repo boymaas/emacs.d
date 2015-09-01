@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cider-macroexpansion-display-namespaces nil)
  '(cider-macroexpansion-suppress-namespaces nil)
  '(custom-safe-themes
    (quote
@@ -12,6 +13,7 @@
  '(helm-locate-command "mdfind -name %s %s")
  '(helm-match-plugin-mode t nil (helm-match-plugin))
  '(helm-mode t)
+ '(hs-hide-comments-when-hiding-all nil)
  '(ibuffer-saved-filter-groups
    (quote
     (("org-mode"

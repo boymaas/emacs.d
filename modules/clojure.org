@@ -88,6 +88,34 @@ A collection of simple clojure refactoring functions.
   ;(cider-connect "localhost" 7002)
   (cider-interactive-pprint-eval "(prn '(use 'figwheel-sidecar.repl-api))")
   (cider-interactive-eval "(prn \"Use (cljs-repl) to start a cljs repl ...\" )"))
+
+(defun bmaas/increment-number-at-point ()
+      (interactive)
+      (skip-chars-backward "0123456789")
+      (or (looking-at "[0123456789]+")
+          (error "No number at point"))
+      (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+(defun bmaas/decrement-number-at-point ()
+      (interactive)
+      (skip-chars-backward "0123456789")
+      (or (looking-at "[0123456789]+")
+          (error "No number at point"))
+      (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
+
+(defun bmaas/inc-and-save ()
+  (interactive)
+  (bmaas/increment-number-at-point)
+  (save-buffer))
+
+(defun bmaas/dec-and-save ()
+  (interactive)
+  (bmaas/decrement-number-at-point)
+  (save-buffer))
+
+(define-key clojure-mode-map (kbd "ESC <up>") 'bmaas/inc-and-save)
+(define-key clojure-mode-map (kbd "ESC <down>") 'bmaas/dec-and-save)
+
 #+end_src
 
 
@@ -158,6 +186,8 @@ evil-normal-state-map.
 #+begin_src emacs-lisp :tangle yes
 (defun bmaas/cider-local-keys ()
   (define-key evil-normal-state-map (kbd "M-.") nil))
+
+
 
 (add-hook 'cider-mode-hook 'bmaas/cider-local-keys)
 (add-hook 'clojure-mode-hook 'bmaas/cider-local-keys)
