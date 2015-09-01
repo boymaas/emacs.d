@@ -91,15 +91,15 @@ A collection of simple clojure refactoring functions.
 
 (defun bmaas/increment-number-at-point ()
       (interactive)
-      (skip-chars-backward "0123456789")
-      (or (looking-at "[0123456789]+")
+      (skip-chars-backward "0123456789-")
+      (or (looking-at "-?[0123456789]")
           (error "No number at point"))
       (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
 
 (defun bmaas/decrement-number-at-point ()
       (interactive)
-      (skip-chars-backward "0123456789")
-      (or (looking-at "[0123456789]+")
+      (skip-chars-backward "0123456789-")
+      (or (looking-at "-?[0123456789]")
           (error "No number at point"))
       (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
 
