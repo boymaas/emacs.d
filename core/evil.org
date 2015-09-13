@@ -100,6 +100,8 @@ keycodes for your system.
   (setq evil-leader/non-normal-prefix "C-")
   (setq evil-leader/in-all-states t)
 
+  (setq evil-symbol-word-search t)
+
   (unless (featurep 'helm)
     (evil-leader/set-key
       "e" 'find-file
