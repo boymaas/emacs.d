@@ -139,6 +139,27 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
 A collection of simple clojure refactoring functions.
 
 #+begin_src emacs-lisp :tangle yes
+
+(defun cljr-create-test-file ()
+  (interactive)
+  (let* ((test-file (s-replace-all '(("/src/" . "/test/") (".clj" . "_test.clj"))
+                                   (buffer-file-name)))
+         (test-dir (file-name-directory test-file))
+         (test-name (file-name-nondirectory test-file)))
+    (make-directory test-dir :create-parents)
+    (find-file-other-window test-file)
+    (cljr--add-ns-if-blank-clj-file)
+    (save-buffer)))
+
+;; (defun cljr--create-missing-test-file (oldfun &rest args)
+;;   (condition-case nil
+;;       (funcall oldfun)
+;;     ('error (save-window-excursion (cljr-create-test-file)) (funcall oldfun))))
+
+;;(advice-add 'projectile-toggle-between-implementation-and-test :around
+;;            #'cljr--create-missing-test-file)
+
+
 (defun bmaas/clj-refactor-setup ()
   (add-hook 'clojure-mode-hook (lambda ()
                                  (clj-refactor-mode 1)))
@@ -179,13 +200,14 @@ A collection of simple clojure refactoring functions.
 
 * Figwheel cljs-repl
 #+begin_src emacs-lisp :tangle yes
-(defun cider-figwheel-cljs-repl ()
+(defun bmaas/cider-figwheel-repl ()
   (interactive)
-  ;(cider-connect "localhost" 7002)
-  (cider-interactive-pprint-eval "(prn '(use 'figwheel-sidecar.repl-api))")
-  (cider-interactive-eval "(prn \"Use (cljs-repl) to start a cljs repl ...\" )"))
-
-
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(require 'figwheel-sidecar.repl-api)
+             (figwheel-sidecar.repl-api/cljs-repl)")
+    (cider-repl-return)))
 #+end_src
 
 
@@ -273,7 +295,7 @@ evil-normal-state-map.
 (evil-leader/set-key-for-mode 'clojure-mode
   "cJ" 'cider-display-current-connection-info
   "cj" 'cider-connect
-  "cF" 'cider-figwheel-cljs-repl
+  "cF" 'bmaas/cider-figwheel-repl
   "cqq" 'cider-quit
   "cqr" 'cider-restart
   "cef" 'cider-load-file
