@@ -332,11 +332,11 @@ evil-normal-state-map.
   "cele" 'cider-eval-last-sexp
   "celp" 'cider-pprint-eval-last-sexp
   "celr" 'cider-eval-last-sexp-and-replace
+  "cen" 'cider-eval-ns-form
   "cc" 'cider-eval-defun-at-point
   "cR" 'cider-switch-to-repl-buffer
   "cr" 'cider-rotate-connection
   "cn" 'cider-repl-set-ns
-  "cN" 'cider-eval-ns-form
   "cd" 'cider-doc
   "cD" 'cider-grimoire
   "ca" 'cider-apropos
