@@ -134,6 +134,18 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
 #+end_src
 
 
+* CIDER
+
+#+begin_src emacs-lisp :tangle yes
+(setq cider-prompt-for-project-on-connect nil)
+
+
+;; Does not work
+;;(bmaas/install 'clojure-quick-repls 'bmaas/noop)
+
+
+#+end_src
+
 * Clojure Refector clj-refactor
 
 A collection of simple clojure refactoring functions.
@@ -180,6 +192,9 @@ A collection of simple clojure refactoring functions.
     "rua" 'cljr-unwind-all
     "ril" 'cljr-introduce-let
     "rel" 'cljr-expand-let
+    "red" 'cljr-extract-def
+    "rec" 'cljr-extract-constant
+    "ref" 'cljr-extract-function
     "rml" 'cljr-move-to-let
     "rmf" 'cljr-move-form
     "rtf" 'cljr-thread-first-all
@@ -208,6 +223,17 @@ A collection of simple clojure refactoring functions.
     (insert "(require 'figwheel-sidecar.repl-api)
              (figwheel-sidecar.repl-api/cljs-repl)")
     (cider-repl-return)))
+
+(defun bmaas/cider-node-repl ()
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(require '[cljs.repl.node :as node]
+                      '[cemerick.piggieback :as piggieback])
+              (piggieback/cljs-repl (node/repl-env))")
+    (cider-repl-return)))
+
 #+end_src
 
 
@@ -296,6 +322,7 @@ evil-normal-state-map.
   "cJ" 'cider-display-current-connection-info
   "cj" 'cider-connect
   "cF" 'bmaas/cider-figwheel-repl
+  "cN" 'bmaas/cider-node-repl
   "cqq" 'cider-quit
   "cqr" 'cider-restart
   "cef" 'cider-load-file
