@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Om next snippet
+# key: defui
+# binding: direct-keybinding
+# --
+(defui ${1:name}
+  Object
+  (render [this]
+          (html [:div#$0])))

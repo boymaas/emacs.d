@@ -1,0 +1,31 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: defui
+# key: defui
+# binding: direct-keybinding
+# --
+(defui $1
+  static om/IQueryParams
+  (params
+  [this]
+  {})
+  static om/IQuery
+  (query
+  [this]
+  [])
+  Object
+  (initLocalState
+   [this]
+   {})
+  (componentWillReceiveProps
+  [this next-props])
+  (componentWillUpdate
+  [this next-props next-state])
+  (componentDidUpdate
+  [this prev-props prev-state])
+  (componentWillMount
+  [this])
+  (componentWillUnmount
+  [this])
+  (render [this]
+          (html
+           [:pre (pr-str (om/props this))])))

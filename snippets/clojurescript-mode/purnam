@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: purnam
+# key: purnam
+# binding: direct-keybinding
+# --
+[purnam.core :only [? ?> ! !> f.n def.n do.n obj arr def* do*n def*n f*n]]

@@ -1,6 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: async
-# key: async
+# name: aprn
+# key: aprn
 # binding: direct-keybinding
 # --
-[cljs.core.async :refer [<! >! timeout ]]
+(<!prn $1)

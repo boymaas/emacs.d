@@ -1,6 +1,8 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: async
-# key: async
+# name: iquery
+# key: iquery
 # binding: direct-keybinding
 # --
-[cljs.core.async :refer [<! >! timeout ]]
+static om/IQuery
+(query [this]
+        [$1])

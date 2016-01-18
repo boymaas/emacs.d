@@ -5,10 +5,16 @@
  ;; If there is more than one, they won't work right.
  '(cider-macroexpansion-display-namespaces nil)
  '(cider-macroexpansion-suppress-namespaces nil)
+ '(cljr-auto-clean-ns nil)
+ '(cljr-auto-sort-ns nil)
+ '(cljr-favor-prefix-notation nil)
+ '(cljr-thread-all-but-last t)
+ '(cljr-use-multiple-cursors nil)
  '(custom-safe-themes
    (quote
     ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
  '(evil-highlight-closing-paren-at-point-states (quote (not emacs insert replace normal)))
+ '(evil-symbol-word-search t)
  '(helm-input-idle-delay 0.2)
  '(helm-locate-command "mdfind -name %s %s")
  '(helm-match-plugin-mode t nil (helm-match-plugin))
@@ -44,7 +50,7 @@
  '(magit-merge-arguments (quote ("--no-ff")))
  '(org-agenda-files
    (quote
-    ("~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org")))
+    ("~/Sites/planning/fortuna.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/mobytron.org")))
  '(rspec-use-spring-when-possible nil)
  '(safe-local-variable-values
    (quote

@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: require-om-next
+# key: reqom
+# binding: direct-keybinding
+# --
+(:require
+   [om.dom :as dom]
+   [om.next :as om :refer-macros [defui]]
+   [sablono.core :as html :refer-macros [html]])

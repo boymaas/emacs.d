@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: noderepl
+# key: noderepl
+# binding: direct-keybinding
+# --
+(require '[cljs.repl.node :as node]
+         '[cemerick.piggieback :as piggieback])
+
+(piggieback/cljs-repl (node/repl-env))

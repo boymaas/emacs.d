@@ -185,11 +185,7 @@ A collection of simple clojure refactoring functions.
     "rar" 'cljr-add-require-to-ns
     "rai" 'cljr-add-import-to-ns
     "rsn" 'cljr-sort-ns
-    "rrr" 'cljr-remove-unused-requires
     "rsr" 'cljr-stop-referring
-    "rth" 'cljr-thread
-    "ruw" 'cljr-unwind
-    "rua" 'cljr-unwind-all
     "ril" 'cljr-introduce-let
     "rel" 'cljr-expand-let
     "red" 'cljr-extract-def
@@ -197,16 +193,30 @@ A collection of simple clojure refactoring functions.
     "ref" 'cljr-extract-function
     "rml" 'cljr-move-to-let
     "rmf" 'cljr-move-form
+
+    ;; threading
+    "rth" 'cljr-thread
     "rtf" 'cljr-thread-first-all
     "rtl" 'cljr-thread-last-all
+    "ruw" 'cljr-unwind
+    "rua" 'cljr-unwind-all
+
+    ;; cycling
     "rcp" 'cljr-cycle-privacy
     "rcc" 'cljr-cycle-coll
     "rcs" 'cljr-cycle-stringlike
     "rci" 'cljr-cycle-if
+
     "rad" 'cljr-add-declaration
     "rdk" 'cljr-destructure-keys
-    "rpc" 'cljr-project-clean)
-  )
+    "rpc" 'cljr-project-clean
+
+    ;; added
+    "rap" 'cljr-add-project-dependency
+    "rcn" 'cljr-clean-ns
+    "rpf" 'cljr-promote-function
+    "rrl" 'cljr-remove-let
+    ))
 
 (bmaas/install 'clj-refactor 'bmaas/clj-refactor-setup)
 

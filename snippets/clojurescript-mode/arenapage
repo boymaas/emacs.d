@@ -1,0 +1,25 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: arenapage
+# key: arenapage
+# binding: direct-keybinding
+# --
+(ns arena.page.$1
+  (:require
+   [om.dom :as dom]
+   [om.next :as om :refer-macros [defui]]
+   [sablono.core :as html :refer-macros [html]]
+   [arena.page.header :refer [header]]))
+
+;; The Root application component
+;; responisble for building a subquery out of everything.
+(defui $1Page
+  static om/IQuery
+   (query [this]
+          [:identity :current-page])
+  Object
+  (render [this]
+          (let [{:keys [identity tourneys current-page]} (om/props this)]
+            (html
+             [:div
+              (header {:current-page current-page :identity identity})
+              [:h1 "$1 Page"]]))))

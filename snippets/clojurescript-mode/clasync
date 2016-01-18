@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: clasync
+# key: clasync
+
+# binding: direct-keybinding
+# --
+[claws.tools.async :refer [<!prn] :refer-macros [go-catching <?]]
