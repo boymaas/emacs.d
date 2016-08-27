@@ -244,6 +244,14 @@ A collection of simple clojure refactoring functions.
               (piggieback/cljs-repl (node/repl-env))")
     (cider-repl-return)))
 
+(defun bmaas/cider-decompile-dso-coords ()
+  (interactive)
+  (save-some-buffers)
+  (cider--pprint-eval-form
+   "(argos.decompiler/decompile-with-dso-coords
+        @(argos.node-cursor/select-first
+           @(:machine drive.page.fruit.goldwing/machine)
+        :.drag))"))
 #+end_src
 
 
@@ -319,6 +327,8 @@ evil-normal-state-map.
 
 (add-hook 'cider-mode-hook 'bmaas/cider-local-keys)
 (add-hook 'clojure-mode-hook 'bmaas/cider-local-keys)
+(add-hook 'clojurec-mode-hook 'bmaas/cider-local-keys)
+
 
 #+end_src
 
@@ -333,6 +343,7 @@ evil-normal-state-map.
   "cj" 'cider-connect
   "cF" 'bmaas/cider-figwheel-repl
   "cN" 'bmaas/cider-node-repl
+  "cC" 'bmaas/cider-decompile-dso-coords
   "cqq" 'cider-quit
   "cqr" 'cider-restart
   "cef" 'cider-load-file
@@ -366,6 +377,7 @@ evil-normal-state-map.
 ;; Use the same evil leaders inside the derived major mode for
 ;; clojuerscript
 (let ((mode-map (cdr (assoc 'clojure-mode evil-leader--mode-maps))))
-  (push (cons 'clojurescript-mode mode-map) evil-leader--mode-maps))
+  (push (cons 'clojurescript-mode mode-map) evil-leader--mode-maps)
+  (push (cons 'clojurec-mode mode-map) evil-leader--mode-maps))
 
 #+end_src

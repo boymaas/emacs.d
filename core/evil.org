@@ -283,6 +283,9 @@ keycodes for your system.
 
   (evil-leader/set-key
     "'" 'comment-or-uncomment-region
+    "w" 'save-buffer
+    "W" 'save-buffer
+
     "k" 'kill-buffer
     "s" 'save-buffer
     "[" 'abort-recursive-edit
