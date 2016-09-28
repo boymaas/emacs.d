@@ -250,7 +250,7 @@ A collection of simple clojure refactoring functions.
   (cider--pprint-eval-form
    "(argos.decompiler/decompile-with-dso-coords
         @(argos.node-cursor/select-first
-           @(:machine drive.page.fruit.goldwing/machine)
+           @(:machine drive.page.fruit.wild-devil/machine)
         :.drag))"))
 #+end_src
 
@@ -369,7 +369,7 @@ evil-normal-state-map.
   "ctv" 'cider-toggle-trace-ns
   "c:" 'cider-read-and-eval
   "." 'projectile-toggle-between-implementation-and-test
-  "t" 'cider-test-run-tests
+  "t" 'cider-test-run-ns-tests
   "T" 'cider-test-run-test
   "CR" 'cider-find-and-clear-repl-buffer
   )
