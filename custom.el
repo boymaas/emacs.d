@@ -15,6 +15,7 @@
     ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
  '(evil-highlight-closing-paren-at-point-states (quote (not emacs insert replace normal)))
  '(evil-symbol-word-search t)
+ '(global-wakatime-mode t)
  '(helm-input-idle-delay 0.2)
  '(helm-locate-command "mdfind -name %s %s")
  '(helm-match-plugin-mode t nil (helm-match-plugin))
@@ -68,7 +69,10 @@
            (whitespace-mode 1))
      (whitespace-line-column . 80)
      (whitespace-style face tabs trailing lines-tail)
-     (require-final-newline . t)))))
+     (require-final-newline . t))))
+ '(wakatime-api-key "81c85849-84ca-40d8-bc4c-abff80972244")
+ '(wakatime-cli-path "/usr/local/bin/wakatime")
+ '(wakatime-python-bin "/usr/local/bin/python"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

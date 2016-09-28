@@ -1,4 +1,4 @@
-#+TITLE: Miscs
+* #+TITLE: Miscs
 #+OPTIONS: toc:nil num:nil ^:nil
 
 * Enable some dangerous commands
@@ -35,7 +35,7 @@ delimiters, orient yourself in the code, and tell which statements are at a
 given depth."
 
 #+NAME: rainbow-delimiters
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no 
 (defun bmaas/rainbow-delimiters-setup ()
   (global-rainbow-delimiters-mode))
 
@@ -355,4 +355,14 @@ Needed gist mode to experiment with strokes
     "Copy entire buffer to clipboard"
     (interactive)
     (clipboard-kill-ring-save (point-min) (point-max)))
+#+end_src
+* Wakatimer
+Needed gist mode to experiment with strokes
+
+#+begin_src emacs-lisp :tangle yes
+(defun bmaas/wakatime-setup ()
+  (global-wakatime-mode))
+
+(bmaas/install 'wakatime-mode 'bmaas/wakatime-setup)
+
 #+end_src
