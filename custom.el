@@ -70,7 +70,7 @@
      (whitespace-line-column . 80)
      (whitespace-style face tabs trailing lines-tail)
      (require-final-newline . t))))
- '(wakatime-api-key "81c85849-84ca-40d8-bc4c-abff80972244")
+ '(wakatime-api-key "")
  '(wakatime-cli-path "/usr/local/bin/wakatime")
  '(wakatime-python-bin "/usr/local/bin/python"))
 

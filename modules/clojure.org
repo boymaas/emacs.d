@@ -94,7 +94,6 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
 ;; (bmaas/bind-dec-and-inc-save)
 
 (defun bmaas/cider-setup ()
-  ;;(eldoc-mode)
   ;;(setq cider-repl-tab-command 'indent-for-tab-command)
   (setq cider-repl-pop-to-buffer-on-connect nil)
   (setq cider-popup-stacktraces t)
@@ -104,7 +103,16 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
   (setq nrepl-buffer-name-separator "-")
   (setq nrepl-buffer-name-show-port t)
 
-  (add-hook 'clojure-mode-hook 'bmaas/bind-dec-and-inc-save)
+  (add-hook 'clojure-mode-hook bmaas/bind-dec-and-inc-save)
+
+
+  (add-hook 'clojure-mode-hook (lambda ()
+    (eldoc-mode)))
+
+  (add-hook 'clojurescript-mode-hook (lambda ()
+    (eldoc-mode)))
+
+
 
   ;;(add-hook 'cider-repl-mode-hook #'company-mode)
   ;;(add-hook 'cider-mode-hook #'company-mode)
@@ -244,6 +252,14 @@ A collection of simple clojure refactoring functions.
               (piggieback/cljs-repl (node/repl-env))")
     (cider-repl-return)))
 
+
+(defun bmaas/cider-arena-app-state ()
+  (interactive)
+  (save-some-buffers)
+  (cider--pprint-eval-form
+   "@arena.app-state/app-state"))
+
+
 (defun bmaas/cider-decompile-dso-coords ()
   (interactive)
   (save-some-buffers)
@@ -372,6 +388,7 @@ evil-normal-state-map.
   "t" 'cider-test-run-ns-tests
   "T" 'cider-test-run-test
   "CR" 'cider-find-and-clear-repl-buffer
+  "A" 'bmaas/cider-arena-app-state
   )
 
 ;; Use the same evil leaders inside the derived major mode for
