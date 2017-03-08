@@ -103,7 +103,7 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
   (setq nrepl-buffer-name-separator "-")
   (setq nrepl-buffer-name-show-port t)
 
-  (add-hook 'clojure-mode-hook bmaas/bind-dec-and-inc-save)
+  (add-hook 'clojure-mode-hook 'bmaas/bind-dec-and-inc-save)
 
 
   (add-hook 'clojure-mode-hook (lambda ()
@@ -257,7 +257,7 @@ A collection of simple clojure refactoring functions.
   (interactive)
   (save-some-buffers)
   (cider--pprint-eval-form
-   "@arena.app-state/app-state"))
+   "(arena.app.state/build-state)"))
 
 
 (defun bmaas/cider-decompile-dso-coords ()
