@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: devcards
+# key: devcards
+# --
+[devcards.core :as dc :refer-macros [defcard-om defcard-om-next]]

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pprops
+# key: pprops
+# --
+[:pre (with-out-str (pprint props))]

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: require pprint
+# key: rpp
+# --
+[cljs.pprint :refer [pprint]]
