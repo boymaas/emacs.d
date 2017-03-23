@@ -33,5 +33,6 @@ Switched to [[https://github.com/Bad-ptr/persp-mode.el][perp-mode]] see github
   (setq persp-auto-resume-time 0.0)
   (persp-mode))
 
-(bmaas/install 'persp-mode 'bmaas/persp-mode-setup)
+;;(el-get-bundle Bad-ptr/persp-mode.el)
+;;(bmaas/persp-mode-setup)
 #+end_src

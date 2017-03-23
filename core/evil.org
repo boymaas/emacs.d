@@ -27,7 +27,7 @@ off evil-mode globally, which means, evil-mode will be turned off for the whole
 Emacs session.
 
 #+NAME: evil
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/evil-setup ()
   (setq evil-auto-indent t)
   (setq evil-regexp-search t)
@@ -41,6 +41,7 @@ Emacs session.
   (add-hook 'Info-mode-hook 'turn-off-evil-mode))
 
 (bmaas/install 'evil 'bmaas/evil-setup)
+(bmaas/install 'evil-leader 'bmaas/evil-setup)
 #+END_SRC
 
 * Evil state based modeline color
@@ -477,7 +478,7 @@ state!
   :END:
 
 #+NAME: evil-surround
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (bmaas/install 'evil-surround 'bmaas/noop)
 #+END_SRC
 
@@ -491,7 +492,7 @@ in current view. "You can move your cursor to ANY position (across window and
 frame) in emacs by using only 3 times key press."
 
 #+NAME: ace-jump-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/ace-jump-mode-setup ()
   (when (and (featurep 'evil) (featurep 'evil-leader))
     (evil-leader/set-key
@@ -510,7 +511,7 @@ frame) in emacs by using only 3 times key press."
 Easy searching, and skipping binary files and ohers
 
 #+NAME: ack-and-a-half
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (when (or (executable-find "ack") (executable-find "ack-grep"))
   (bmaas/install 'ack-and-a-half 'bmaas/noop))
 #+END_SRC
@@ -525,7 +526,7 @@ faster. It searches code abot 3-5x faster than ack, and "The command name is
 33% shorter than ack, and all keys are on the home row!".
 
 #+NAME: ag
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (when (executable-find "ag")
   (bmaas/install 'ag 'bmaas/noop))
 #+END_SRC

@@ -12,7 +12,7 @@ The builtin =ruby-mode= in Emacs is quite simple, it just provides some simple
 functions for font-locking, indentation and code navigation.
 
 #+NAME: ruby-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/ruby-mode-setup ()
   ;; Ah, this huge auto-mode-alist list comes from emacs prelude
   (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
@@ -70,7 +70,7 @@ Basic features of robe:
 - Method and constant name completion
 
 #+NAME: robe-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/robe-mode-setup ())
 
 (bmaas/install 'robe-mode 'bmaas/robe-mode-setup)
@@ -87,7 +87,7 @@ amazing that one single [[https://github.com/Fuco1/smartparens/blob/master/smart
 amazing, elegant package.
 
 #+NAME: smartparens-ruby
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (when (require 'smartparens nil 'noerror)
   (require 'smartparens-ruby))
 #+END_SRC
@@ -103,7 +103,7 @@ the user has installed and configured rbenv successfully, then we can install
 emacs rbenv support. By default, oh-my-emacs enables =global-rbenv-mode=.
 
 #+NAME: rbenv
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/rbenv-setup ()
   (global-rbenv-mode t))
 
@@ -120,7 +120,7 @@ emacs rbenv support. By default, oh-my-emacs enables =global-rbenv-mode=.
 tags and directives in ruby comments.
 
 #+NAME: yard-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/yard-mode-setup ()
   (add-hook 'ruby-mode-hook 'yard-mode)
   (add-hook 'ruby-mode-hook 'eldoc-mode))

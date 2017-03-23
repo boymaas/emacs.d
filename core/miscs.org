@@ -6,7 +6,7 @@
 By default, the narrowing commands are considered to be dangerous, we just
 remove the dangerous tag here.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -18,7 +18,7 @@ remove the dangerous tag here.
   :END:
 
 #+NAME: random-number
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; Seed the random-number generator
 (random t)
 #+END_SRC
@@ -51,7 +51,7 @@ given depth."
 are automatically uncompressed for reading, and compressed when writing."
 
 #+NAME: auto-compression-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (auto-compression-mode t)
 #+END_SRC
 
@@ -63,7 +63,7 @@ are automatically uncompressed for reading, and compressed when writing."
 "Toggle visiting of image files as images (Auto Image File mode)."
 
 #+NAME: auto-image-file-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (auto-image-file-mode t)
 #+END_SRC
 
@@ -79,7 +79,7 @@ overall structure with =outline-minor-mode=, so enabled
 to =prog-mode-hook=.
 
 #+NAME: outline
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (add-hook 'prog-mode-hook
           (lambda ()
             (outline-minor-mode t)))
@@ -107,14 +107,16 @@ interest in creating a traditional SCM system.
 #+END_QUOTE
 
 #+NAME: magit
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/magit-setup ()
   ;; magit-status is the entry point
   (add-hook 'git-rebase-mode-hook
             (lambda ()
               (evil-local-mode -1))))
 
-(if (executable-find "git")
+(when (executable-find "git")
+    (setq with-editor-file-name-history-exclude nil)
+    (bmaas/install 'with-editor 'bmaas/noop)
     (bmaas/install 'magit 'bmaas/magit-setup))
 #+END_SRC
 
@@ -128,7 +130,7 @@ visual lines. It turns on word-wrapping in the current buffer, and rebinds C-a,
 C-e, and C-k to commands that operate by visual lines instead of logical lines.
 
 #+NAME: visual-line-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (global-visual-line-mode t)
 #+END_SRC
 
@@ -161,7 +163,7 @@ Projectile's features:
 - run make in a project with a single key chord
 
 #+NAME: projectile
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/projectile-setup ()
   (projectile-global-mode)
   (setq projectile-enable-caching nil)
@@ -192,7 +194,7 @@ For the complete picture of what is it about, visit the [[https://github.com/Fuc
 #+END_QUOTE
 
 #+NAME: smartparens
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/create-newline-and-enter-sexp (&rest _ignored)
   "Open a new brace or bracket expression, with relevant newlines and indent. "
   (previous-line)
@@ -266,7 +268,7 @@ Just as its name, quickrun let you run your program in a really quick
 way. Just run it, without thinking about too much other chores.
 
 #+NAME: quickrun
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (bmaas/install 'quickrun 'bmaas/noop)
 #+END_SRC
 
@@ -291,7 +293,7 @@ Check the variable =minor-mode-alist= and diminish minor modes as you
 like.
 
 #+NAME: diminish
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/diminish-setup ()
   ;; diminish some builtin mode
   (eval-after-load "abbrev"

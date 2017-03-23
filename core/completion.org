@@ -6,7 +6,7 @@
 expansions. The following code segment comes from [[https://github.com/bbatsov/prelude][Emacs Prelude]].
 
 #+name: hippie-expand
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; hippie expand is dabbrev expand on steroids
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev
                                          try-expand-dabbrev-all-buffers
@@ -85,7 +85,7 @@ bindings. When helm starts, remember:
 - Mark candidate with =M-<SPACE>=, thus you can do batch processing through helm.
 
 #+NAME: helm
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 
 ;; projectile source
 (defun bmaas/helm-setup ()
@@ -130,6 +130,7 @@ bindings. When helm starts, remember:
           ))
   )
 
+(bmaas/install 'helm-projectile 'bmaas/helm-setup)
 (bmaas/install 'helm 'bmaas/helm-setup)
 #+END_SRC
 
@@ -146,7 +147,7 @@ TODO:
 - Check out, and integrate from: [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
 
 #+NAME: yasnippet
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (eval-after-load 'popup
   '(progn
      (define-key popup-menu-keymap (kbd "M-n") 'popup-next)

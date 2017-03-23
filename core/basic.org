@@ -7,7 +7,7 @@
   :END:
 
 #+NAME: basic
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tange yes
 ;; fix the mac PATH variable
 (defun bmaas/set-exec-path-from-shell-PATH ()
   (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo $PATH' 2>/dev/null")))
@@ -88,7 +88,7 @@ One problem with compiling init files is this: if you edit a file, you need to
 remember to compile it again, else emacs will just load the compiled version
 that doesn't have your changes.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/byte-compile-current-buffer ()
   "`byte-compile' current buffer if it's emacs-lisp-mode and compiled file exists."
   (interactive)
@@ -111,7 +111,7 @@ native [[http://batsov.com/articles/2012/12/09/emacs-24-dot-3-introduces-native-
 Notice the interprogram-{cut,paste}-function's, enabled by pbpaste and pbcopy.
 Very handy when doing interop from terminal to mac-osx.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (when (eq system-type 'darwin)
   ;(setq mac-command-modifier 'meta)
   ;(setq mac-option-modifier 'control)
@@ -189,7 +189,7 @@ When you visit a file, point goes to the last place where it was when you
 previously visited the same file. The following code comes from [[http://emacs-fu.blogspot.com/2009/05/remembering-your-position-in-file.html][emacs-fu]].
 
 #+NAME: saveplace
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (setq-default save-place t)
 (setq save-place-file (concat user-emacs-directory ".saved-places"))
 (require 'saveplace)
@@ -209,7 +209,7 @@ The following code comes from [[http://www.masteringemacs.org/articles/2011/01/2
 =recentf=.
 
 #+NAME: recentf
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (require 'recentf)
 
 ;; get rid of `find-file-read-only' and replace it with something
@@ -249,7 +249,7 @@ You can type =C-h i m emacs RET s uniquify RET= to get the manual about
 uniquify package. Or you can refer to [[http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html][1]] and [[http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html][2]].
 
 #+NAME: uniquify
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (require 'uniquify)
 #+END_SRC
@@ -268,7 +268,7 @@ In order to use =flyspell=, you must install an external spell checker, such as
 [[http://aspell.net/][Aspell]] or [[http://www.gnu.org/software/ispell/][Ispell]], but GNU recommends [[http://aspell.net/man-html/Using-Aspell-as-a-Replacement-for-Ispell.html][Using Aspell as a Replacement for Ispell]]. The following code snippets comes from [[https://github.com/bbatsov/prelude/blob/master/core/prelude-editor.el][emacs prelude]].
 
 #+NAME: flyspell
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; use aspell instead of ispell
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra"))

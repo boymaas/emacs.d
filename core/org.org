@@ -42,7 +42,7 @@ sequence =C-c C-v h= (bound to `=org-babel-describe-bindings=') will
 display a list of the code blocks commands and their related keys.
 
 #+NAME: speed-keys
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (setq org-use-speed-commands t)
 #+END_SRC
 
@@ -56,7 +56,7 @@ major-mode edit buffer containing the body of the code block.
 
 Some customizations to integrate with evil mode.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (setq org-edit-src-auto-save-idle-delay 5)
 (setq org-edit-src-content-indentation 0)
 
@@ -88,7 +88,7 @@ that reading and editing code form inside of your Org-mode files is
 much more like reading and editing of code using its major mode.
 
 #+NAME: code-block-fontification
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 #+END_SRC
@@ -160,7 +160,7 @@ Note that the following code snippet works with org-mode 8.x branch. So if you
 still use org-mode 7.x, you may need to [[http://orgmode.org/worg/org-tutorials/org-latex-export.html#sec-12-3][setup manually]].
 
 #+NAME: org-latex
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; code snippet comes from
 ;; http://joat-programmer.blogspot.com/2013/07/org-mode-version-8-and-pdf-export-with.html
 ;; Include the latex-exporter
@@ -195,7 +195,7 @@ If [[http://staff.science.uva.nl/~dominik/Tools/cdlatex/][CDLaTeX]] is available
 math]]" for details.
 
 #+NAME: org-cdlatex
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (when (el-get-package-is-installed 'cdlatex-mode)
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
 #+END_SRC

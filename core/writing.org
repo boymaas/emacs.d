@@ -18,7 +18,7 @@ markdown-mode's auto-mode-alist.
 =markdown-export=.
 
 #+NAME: markdown
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/markdown-mode-setup ()
   (add-to-list 'auto-mode-alist
                '("\\.mdpp" . markdown-mode)))

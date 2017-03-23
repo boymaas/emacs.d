@@ -7,7 +7,7 @@
   :END:
 
 #+NAME: js3-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/js3-mode-setup ()
   (add-hook 'js3-mode-hook
             (lambda ()
@@ -101,7 +101,7 @@ generate a file-name which you can change at the prompt. The contents will be
 
 * Haxe mode
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 
 (defun bmaas/haxe-mode-setup ()
   (require 'haxe-mode)

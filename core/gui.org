@@ -3,7 +3,7 @@
 
 * Basic GUI Settings
 #+NAME: gui-basics
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; show column number and line number
 (dolist (mode '(column-number-mode line-number-mode))
   (when (fboundp mode) (funcall mode t)))
@@ -14,7 +14,7 @@
               (linum-mode 1))))
 
 ;; make the fringe thinner (default is 8 in pixels)
-(fringe-mode 4)
+;;(fringe-mode 4)
 
 ;; show parenthesis match
 (show-paren-mode 1)
@@ -32,7 +32,7 @@
 See https://github.com/cstrap/monaco-font.
 
 #+NAME: font
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; frame font
 ;; Setting English Font
 (if (member "Monaco" (font-family-list))
@@ -45,7 +45,7 @@ See https://github.com/cstrap/monaco-font.
   :CUSTOM_ID: fullscreen
   :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; http://www.emacswiki.org/emacs/FullScreen
 (defun bmaas/toggle-fullscreen ()
   "Toggle full screen"
@@ -89,7 +89,7 @@ inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There'
 #+END_QUOTE
 
 #+NAME: color-theme
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
 (defun bmaas/set-unspecified-background ()
   (unless (display-graphic-p (selected-frame))
@@ -102,7 +102,7 @@ inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There'
   (load-theme 'solarized-dark t)
   )
 
-(bmaas/install 'solarized-theme 'bmaas/solarized-theme-setup)
+;; (bmaas/install 'solarized-theme 'bmaas/solarized-theme-setup)
 #+END_SRC
 
 * Yascroll
@@ -113,7 +113,7 @@ inspired by [[https://github.com/Lokaltog/vim-powerline][vim-powerline]]. There'
 [[https://github.com/m2ym/yascroll-el][yascroll.el]] is Yet Another Scroll Bar Mode for GNU Emacs.
 
 #+NAME: yascroll
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/yascroll-setup ()
   (global-yascroll-bar-mode 1))
 
@@ -129,7 +129,7 @@ Nice relative linenumbers, after using it a while I prefer normal
 line numbering.
 
 #+NAME: linum-relative
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/linum-relative-setup ()
   (require 'linum-relative)
   (linum-relative-toggle))

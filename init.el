@@ -11,6 +11,8 @@
 ;; will not; however, if there's an error in other files loaded by init.el,
 ;; both "emacs" and "emacs --debug-init" will entering the debugger. I don't
 ;; know why.
+
+
 (setq debug-on-error t)
 
 ;; believe me, you don't need menubar, toolbar nor scrollbar
@@ -40,11 +42,13 @@
       (eval-print-last-sexp)))
   ;; build melpa packages for el-get
   (el-get-install 'package)
-  
+
   (el-get-elpa-build-local-recipes))
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+(setq package-archives '(("marmalade" . "https://marmalade-repo.org/packages/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/"))
+)
 
 ;; enable git shallow clone to save time and bandwidth
 (setq el-get-git-shallow-clone t)
@@ -79,6 +83,11 @@ FILENAME defaults to `buffer-file-name'."
 ;; load up the core-config
 (org-babel-load-file (expand-file-name "core.org" bmaas/home-dir))
 
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
 
 ;; set and load our custom file make sure custom file is compiled and thus
 ;; reflect latest if changed settings compiled files have preference inside

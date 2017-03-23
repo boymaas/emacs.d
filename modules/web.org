@@ -13,7 +13,7 @@ The builtin =css-mode= is derived from =fundamental-mode=, so we need an extra
 hook to enable =linum-mode= in =css-mode=.
 
 #+NAME: basic-css
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (setq css-indent-offset 2)
 
 (add-hook 'css-mode-hook
@@ -37,7 +37,7 @@ Mustache, Blade, ErlyDTL, Go Template, Dust.js, Google Closure (soy), JSX, etc.
 #+END_QUOTE
 
 #+NAME: web-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/web-mode-setup ()
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -83,7 +83,7 @@ programming languages which extend CSS with programming language features, and
 "compiles" to css when it is necessary. [[http://www.lesscss.org/][LESS]] is one of them.
 
 #+NAME: less-css-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/less-css-mode-setup ()
   (setq less-css-compile-at-save t))
 
@@ -99,7 +99,7 @@ Colors is one of the main actors in CSS game. [[http://julien.danjou.info/projec
 little [[http://blog.gabrielsaldana.org/easy-css-editing-with-emacs/][easier]] by making css colors more visible.
 
 #+NAME: rainbow-mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/rainbow-mode-setup ()
   (add-hook 'css-mode-hook 'rainbow-mode))
 

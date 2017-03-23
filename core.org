@@ -17,7 +17,7 @@ code has been tested on Emacs 24.2.1 and Emacs 24.3.50. Any bug report will be
 appreciated.
 
 #+NAME: cl-lib
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (when (version< emacs-version "24.3")
   (el-get 'sync '(cl-lib))
   (add-to-list 'load-path "~/.emacs.d/el-get/cl-lib"))
@@ -59,7 +59,7 @@ configuration. The elements I find important are the following:
    module files will consist out of installing packaes and configuring them
 
 #+NAME: bmaas/install
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/install (package-name package-init-func)
   "Add EL-GET-PACKAGE to `el-get-sources'. And configures el-get to run the package-init-funcation after successfull initiation"
    (add-to-list 'el-get-sources
@@ -67,8 +67,7 @@ configuration. The elements I find important are the following:
                    :after (progn (,package-init-func)))))
 #+END_SRC
 
-#+NAME: bmaas/load-module
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/load-module (module-path &rest header-or-tags)
   "Loads a literal module file, a module file groups different components together"
 
@@ -81,12 +80,13 @@ configuration. The elements I find important are the following:
    (org-babel-load-file (bmaas/path module-path))
 
    (el-get 'sync (mapcar 'el-get-source-name el-get-sources)))
+
 #+END_SRC
 
 - some general functions I use throughout my config
 
-#+NAME: bmaas/load-module
-#+BEGIN_SRC emacs-lisp
+#+NAME: bmaas/noop
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun bmaas/noop ())
 
 (defun bmaas/path (path)
@@ -98,7 +98,7 @@ configuration. The elements I find important are the following:
 
 We only load the core module. All other modules are loaded when needed, this keeps startup time as fast as possible.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (bmaas/load-module "core/basic.org")
 (bmaas/load-module "core/keybindings.org")
 (bmaas/load-module "core/gui.org")
@@ -110,7 +110,7 @@ We only load the core module. All other modules are loaded when needed, this kee
 (bmaas/load-module "core/org-custom.org")
 
 
-#+END_SRC
+#+end_src
 
 ** Modules
 
