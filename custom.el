@@ -15,10 +15,10 @@
  '(cljr-thread-all-but-last t)
  '(cljr-use-multiple-cursors nil)
  '(clojure-thread-all-but-last t)
- '(custom-enabled-themes (quote (tango-dark)))
+ '(custom-enabled-themes (quote (zenburn)))
  '(custom-safe-themes
    (quote
-    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
+    ("1373e3623ed5d758ef06dd19f2c8a736a69a15496c745a113d42230ab71d6b58" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
  '(evil-highlight-closing-paren-at-point-states (quote (not emacs insert replace normal)))
  '(evil-symbol-word-search t)
  '(fci-rule-color "#073642")
@@ -54,13 +54,14 @@
 	(mode . java-mode)
 	(mode . idl-mode)
 	(mode . lisp-mode)))))))
+ '(linum-format "%3d ")
  '(magit-merge-arguments (quote ("--no-ff")))
  '(org-agenda-files
    (quote
     ("~/Sites/planning/fortuna.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/mobytron.org")))
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-solarized sayid rainbow-mode queue persp-mode inflections)))
+    (zenburn color-theme-sanityinc-solarized sayid rainbow-mode queue persp-mode inflections)))
  '(rspec-use-spring-when-possible nil)
  '(safe-local-variable-values
    (quote
@@ -114,6 +115,7 @@
  '(diff-removed ((t (:inherit diff-changed :background "#553333"))))
  '(helm-selection ((t (:background "alternateSelectedControlColor" :foreground "alternateSelectedControlTextColor"))))
  '(helm-source-header ((t (:background "#22083397778B" :foreground "white"))))
+ '(linum ((t (:background "#2F2F2F" :foreground "#4f4f4f"))))
  '(magit-diff-add ((t (:inherit diff-added :background "green" :foreground "brightblack"))))
  '(magit-diff-del ((t (:inherit diff-removed :background "red" :foreground "black"))))
  '(org-todo ((t (:background "black" :foreground "red" :weight bold)))))

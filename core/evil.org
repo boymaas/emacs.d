@@ -87,7 +87,7 @@ http://manytricks.com/keycodes/ has an app to find
 keycodes for your system.
 
 #+NAME: evil-leader
-#+BEGIN_SRC emacs-lisp tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun recursive-edit-preserving-window-config ()
   (interactive)
   (save-window-excursion
@@ -110,7 +110,7 @@ keycodes for your system.
   (eval-after-load "helm"
     (evil-leader/set-key
       "f" 'projectile-find-file
-      "F" 'helm-projectile-find-file
+      "F" 'helm-recentf
 
       "g" 'projectile-vc
 
@@ -136,7 +136,7 @@ keycodes for your system.
              (if (fboundp 'bmaas/persp-ibuffer)
                           (bmaas/persp-ibuffer)
                         (ibuffer)))
-      "B" 'helm-buffers-list
+      "B" 'projectile-switch-to-buffer
 
       ;; custom
       ";" 'evil-buffer

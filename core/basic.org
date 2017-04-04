@@ -7,7 +7,7 @@
   :END:
 
 #+NAME: basic
-#+BEGIN_SRC emacs-lisp :tange yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;; fix the mac PATH variable
 (defun bmaas/set-exec-path-from-shell-PATH ()
   (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo $PATH' 2>/dev/null")))

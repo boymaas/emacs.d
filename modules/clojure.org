@@ -105,9 +105,6 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
 
   (add-hook 'clojure-mode-hook 'bmaas/bind-dec-and-inc-save)
 
-  (eval-after-load 'clojure-mode
-   '(sayid-setup-package))
-
   (add-hook 'clojure-mode-hook (lambda ()
     (eldoc-mode)))
 

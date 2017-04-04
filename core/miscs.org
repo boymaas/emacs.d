@@ -167,7 +167,7 @@ Projectile's features:
 (defun bmaas/projectile-setup ()
   (projectile-global-mode)
   (setq projectile-enable-caching nil)
-  (setq projectile-completion-system 'grizzl)
+  (setq projectile-completion-system 'ido)
 
   (global-set-key (kbd "C-x c h") 'helm-projectile))
 
