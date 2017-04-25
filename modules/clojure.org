@@ -187,6 +187,8 @@ A collection of simple clojure refactoring functions.
 
   (evil-leader/set-key-for-mode 'clojure-mode
     "rrf" 'cljr-rename-file
+    "rrs" 'cljr-rename-symbol
+
     "rru" 'cljr-replace-use
     "rau" 'cljr-add-use-to-ns
     "rar" 'cljr-add-require-to-ns
@@ -238,6 +240,7 @@ A collection of simple clojure refactoring functions.
   (with-current-buffer (cider-current-repl-buffer)
     (goto-char (point-max))
     (insert "(require 'figwheel-sidecar.repl-api)
+             (figwheel-sidecar.repl-api/start-figwheel!)
              (figwheel-sidecar.repl-api/cljs-repl)")
     (cider-repl-return)))
 
