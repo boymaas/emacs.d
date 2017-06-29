@@ -43,8 +43,6 @@ https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
     ;; promote / demote in a single press
     (kbd ">") 'org-shiftmetaright
     (kbd "<") 'org-shiftmetaleft
-    "t" 'org-todo
-    "T" '(lambda () (interactive) (org-insert-todo-heading nil) (evil-append 1))
     "-" 'org-cycle-list-bullet
     (kbd "TAB") 'org-cycle))
 
