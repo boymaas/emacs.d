@@ -54,11 +54,12 @@
         (mode . java-mode)
         (mode . idl-mode)
         (mode . lisp-mode)))))))
+ '(json-reformat:indent-width 2)
  '(linum-format "%3d ")
  '(magit-merge-arguments (quote ("--no-ff")))
  '(org-agenda-files
    (quote
-    ("~/Sites/planning/fortuna.org" "~/Sites/planning/gtd.org" "~/Sites/planning/nationale_beeldbank.org" "~/Sites/planning/mobytron.org")))
+    ("~/Sites/planning/mobytronics.org"  "~/Sites/planning/gtd.org" "~/Sites/planning/mobytron.org")))
  '(package-selected-packages
    (quote
     (zenburn color-theme-sanityinc-solarized sayid rainbow-mode queue persp-mode inflections)))

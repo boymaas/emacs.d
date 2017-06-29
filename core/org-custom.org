@@ -44,7 +44,8 @@ Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][
     "<" 'org-shiftmetaleft
     ">" 'org-shiftmetaright
     "ci" 'org-clock-in
-    "co" 'org-clock-out))
+    "co" 'org-clock-out
+    "$" 'org-archive))
 
 (add-hook 'org-mode-hook 'evil-org-mode/set-leader-keys)
 #+end_src
