@@ -4,53 +4,6 @@
 Org mode customizations, there are primaraly usefull settings
 making my org-mode experience more pleasurable.
 
-* Evil-Org: custom keymap
-
-Evil with org mode gives some behaviour that is confusing, I want to be able to
-TAB in normal mode, and have it working as expected.
-
-Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][evil-org-mode]]
-
-#+begin_src emacs-lisp :tangle no
-(define-minor-mode evil-org-mode
-  "Buffer local minor mode for evil-org"
-  :init-value nil
-  :lighter " EvilOrg"
-  :keymap (make-sparse-keymap)
-  :group 'evil-org)
-
-;; diminish modeline
-(diminish 'evil-org-mode)
-
-(add-hook 'org-mode-hook 'evil-org-mode)
-
-;; handled by evil-org-mode
-;; (evil-define-key 'normal evil-org-mode-map
-;;   "gh" 'outline-up-heading
-;;   "gj" 'org-forward-heading-same-level
-;;   "gk" 'org-backward-heading-same-level
-;;   "gl" 'outline-next-visible-heading
-;;   "t" 'org-todo
-;;   "T" '(lambda () (interactive) (org-insert-todo-heading nil) (evil-append 1))
-;;   "H" 'org-beginning-of-line
-;;   "L" 'org-end-of-line
-;;   "$" 'org-end-of-line
-;;   "^" 'org-beginning-of-line
-;;   "-" 'org-cycle-list-bullet
-;;   (kbd "TAB") 'org-cycle)
-
-(defun evil-org-mode/set-leader-keys ()
-  (evil-leader/set-key-for-mode 'org-mode
-    "t" 'org-show-todo-tree
-    "<" 'org-shiftmetaleft
-    ">" 'org-shiftmetaright
-    "ci" 'org-clock-in
-    "co" 'org-clock-out
-    "$" 'org-archive))
-
-(add-hook 'org-mode-hook 'evil-org-mode/set-leader-keys)
-#+end_src
-
 
 * Install evil-org-mode
 
@@ -59,18 +12,61 @@ files in evil-mode
 
 [[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
 
+https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
+
 #+begin_src emacs-lisp :tangle yes
 
-(defun bmaas/evil-org-mode-setup ()
-  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))
+(defun evil-org-mode/set-leader-keys ()
+    (evil-leader/set-key-for-mode 'org-mode
+      "t" 'org-show-todo-tree
+      "a" 'org-agenda
+      "oa" 'org-agenda
+      "<" 'org-shiftmetaleft
+      ">" 'org-shiftmetaright
+      "ci" 'org-clock-in
+      "co" 'org-clock-out
+      "$" 'org-archive-subtree))
 
-  ;; promote / demote in a single press
+(defun bmaas/evil-org-mode-setup ()
+  (require 'evil-org)
+
+  (evil-org-set-key-theme '(insert navigation additional todo heading))
+
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'org-mode-hook 'evil-org-mode/set-leader-keys)
+
+  ;; diminish modeline
+  (diminish 'evil-org-mode)
+
+  ;; handled by evil-org-mode
   (evil-define-key 'normal evil-org-mode-map
-    (kbd ">") 'org-meta-right
-    (kbd "<") 'org-meta-left))
+    ;; promote / demote in a single press
+    (kbd ">") 'org-shiftmetaright
+    (kbd "<") 'org-shiftmetaleft
+    "t" 'org-todo
+    "T" '(lambda () (interactive) (org-insert-todo-heading nil) (evil-append 1))
+    "-" 'org-cycle-list-bullet
+    (kbd "TAB") 'org-cycle))
 
 (bmaas/install 'evil-org-mode 'bmaas/evil-org-mode-setup)
 #+end_src
+
+* Org-journal
+
+#+begin_src emacs-lisp :tangle yes
+
+(defun bmaas/org-journal-setup ()
+  (require 'org-journal)
+
+  (setq org-journal-dir "~/Sites/planning/journal/")
+
+  (evil-leader/set-key
+    "oj" 'org-journal-new-entry))
+
+(bmaas/install 'org-journal 'bmaas/org-journal-setup)
+#+end_src
+
+
 
 * Windmove compatibility
 

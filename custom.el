@@ -59,10 +59,10 @@
  '(magit-merge-arguments (quote ("--no-ff")))
  '(org-agenda-files
    (quote
-    ("~/Sites/planning/mobytronics.org"  "~/Sites/planning/gtd.org" "~/Sites/planning/mobytron.org")))
+    ("~/Sites/planning/mobytronics.org" "~/Sites/planning/gtd.org" "~/Sites/planning/mobytron.org")))
  '(package-selected-packages
    (quote
-    (zenburn color-theme-sanityinc-solarized sayid rainbow-mode queue persp-mode inflections)))
+    (org-journal zenburn color-theme-sanityinc-solarized sayid rainbow-mode queue persp-mode inflections)))
  '(rspec-use-spring-when-possible nil)
  '(safe-local-variable-values
    (quote
