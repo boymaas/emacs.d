@@ -11,7 +11,7 @@ TAB in normal mode, and have it working as expected.
 
 Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][evil-org-mode]]
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 (define-minor-mode evil-org-mode
   "Buffer local minor mode for evil-org"
   :init-value nil
@@ -24,19 +24,20 @@ Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][
 
 (add-hook 'org-mode-hook 'evil-org-mode)
 
-(evil-define-key 'normal evil-org-mode-map
-  "gh" 'outline-up-heading
-  "gj" 'org-forward-heading-same-level
-  "gk" 'org-backward-heading-same-level
-  "gl" 'outline-next-visible-heading
-  "t" 'org-todo
-  "T" '(lambda () (interactive) (org-insert-todo-heading nil) (evil-append 1))
-  "H" 'org-beginning-of-line
-  "L" 'org-end-of-line
-  "$" 'org-end-of-line
-  "^" 'org-beginning-of-line
-  "-" 'org-cycle-list-bullet
-  (kbd "TAB") 'org-cycle)
+;; handled by evil-org-mode
+;; (evil-define-key 'normal evil-org-mode-map
+;;   "gh" 'outline-up-heading
+;;   "gj" 'org-forward-heading-same-level
+;;   "gk" 'org-backward-heading-same-level
+;;   "gl" 'outline-next-visible-heading
+;;   "t" 'org-todo
+;;   "T" '(lambda () (interactive) (org-insert-todo-heading nil) (evil-append 1))
+;;   "H" 'org-beginning-of-line
+;;   "L" 'org-end-of-line
+;;   "$" 'org-end-of-line
+;;   "^" 'org-beginning-of-line
+;;   "-" 'org-cycle-list-bullet
+;;   (kbd "TAB") 'org-cycle)
 
 (defun evil-org-mode/set-leader-keys ()
   (evil-leader/set-key-for-mode 'org-mode
@@ -48,6 +49,27 @@ Inspired by: [[https://github.com/edwtjo/evil-org-mode/blob/master/evil-org.el][
     "$" 'org-archive))
 
 (add-hook 'org-mode-hook 'evil-org-mode/set-leader-keys)
+#+end_src
+
+
+* Install evil-org-mode
+
+Some nice navigational tools for handling org
+files in evil-mode
+
+[[https://github.com/Somelauw/evil-org-mode][evil-org-mode]]
+
+#+begin_src emacs-lisp :tangle yes
+
+(defun bmaas/evil-org-mode-setup ()
+  (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))
+
+  ;; promote / demote in a single press
+  (evil-define-key 'normal evil-org-mode-map
+    (kbd ">") 'org-meta-right
+    (kbd "<") 'org-meta-left))
+
+(bmaas/install 'evil-org-mode 'bmaas/evil-org-mode-setup)
 #+end_src
 
 * Windmove compatibility
