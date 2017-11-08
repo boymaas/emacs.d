@@ -341,7 +341,11 @@ evil-normal-state-map.
 (defun bmaas/cider-local-keys ()
   (define-key evil-normal-state-map (kbd "M-.") nil))
 
+(defun bmaas/cider-repl-local-keys ()
+  (local-set-key (kbd "C-l") 'cider-repl-clear-buffer))
 
+
+(add-hook 'cider-repl-mode-hook 'bmaas/cider-repl-local-keys)
 
 (add-hook 'cider-mode-hook 'bmaas/cider-local-keys)
 (add-hook 'clojure-mode-hook 'bmaas/cider-local-keys)
